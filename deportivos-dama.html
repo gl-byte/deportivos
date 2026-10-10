@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="es">
+  <!-- CABECERA DEL DOCUMENTO: aqui van datos que el navegador lee antes de mostrar la pagina. -->
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Catalogo de Deportivos Dama de ZQ SPORT">
+  <title>Deportivos Dama | ZQ SPORT</title>
+    <!-- ESTILOS DE ESTA PAGINA: cambia aqui colores, tamanos y espacios. -->
+    <style>
+      /* Aqui se guardan los colores principales para cambiarlos facilmente. */
+      :root {
+        --primary: #F15A38;
+        --secondary: #48B7BD;
+        --brand-deep: #0C2D3A;
+        --bg-main: #F4F7F6;
+        --surface: #FFFFFF;
+        --text-title: #091E26;
+        --text-body: #3A4D54;
+        --border: #E2EAE9;
+        --white: #FFFFFF;
+      }
+
+      /* Evita que los espacios y bordes agranden los elementos. */
+      /* Aplica una forma mas facil de calcular tamanos en todos los elementos. */
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      /* Cambia el aspecto general de toda la pagina. */
+      body {
+        margin: 0;
+        background: var(--bg-main);
+        color: var(--text-body);
+        font-family: "Segoe UI", Arial, sans-serif;
+      }
+
+      /* Evita que las imagenes se salgan de su caja. */
+      img {
+        display: block;
+        max-width: 100%;
+      }
+
+      /* HEADER COMPACTO: junta logo y menu en la misma franja para evitar espacios vacios. */
+      header {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        background: var(--brand-deep);
+      }
+
+      /* Esta franja oscura sostiene el logo en la esquina izquierda. */
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        background: transparent;
+        padding: .35rem 0 .35rem max(1rem, 4vw);
+        flex: 0 0 auto;
+      }
+
+      .logo {
+        width: clamp(86px, 9vw, 118px);
+        height: auto;
+        max-height: 58px;
+        object-fit: contain;
+      }
+
+      /* Este menu grande se ve en computadora y tablet amplia. */
+      .page-nav {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex: 1 1 auto;
+        flex-wrap: wrap;
+        gap: .3rem;
+        background: transparent;
+        padding: .35rem max(1rem, 4vw) .35rem 1rem;
+      }
+
+      .page-nav a {
+        color: var(--white);
+        padding: .45rem .6rem;
+        border-bottom: 2px solid transparent;
+        text-decoration: none;
+        font-size: .84rem;
+        font-weight: 700;
+        transition: all .2s ease-in-out;
+      }
+
+      /* El enlace activo muestra en que pagina se encuentra el visitante. */
+      .page-nav a:hover,
+      .page-nav a:focus-visible,
+      .page-nav a.active {
+        color: var(--secondary);
+        border-color: var(--secondary);
+        outline: none;
+      }
+
+      /* Este menu aparece solo en celular y se abre tocando "Menu". */
+      .mobile-menu {
+        display: none;
+        flex: 1 1 auto;
+        background: transparent;
+        padding: .35rem max(1rem, 4vw) .35rem 1rem;
+      }
+
+      /* Este boton es la hamburguesa del celular. */
+      .mobile-menu summary {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: .65rem;
+        color: var(--white);
+        background: var(--primary);
+        border: 1px solid rgba(255, 255, 255, .18);
+        border-radius: 6px;
+        padding: .8rem 1rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        cursor: pointer;
+        list-style: none;
+      }
+
+      /* Quita el triangulo automatico para que solo se vea la hamburguesa. */
+      .mobile-menu summary::-webkit-details-marker {
+        display: none;
+      }
+
+      /* Dibuja las tres rayas del boton sin usar imagenes ni iconos externos. */
+      .hamburger-icon,
+      .hamburger-icon::before,
+      .hamburger-icon::after {
+        display: block;
+        width: 22px;
+        height: 3px;
+        background: var(--white);
+        border-radius: 2px;
+        content: "";
+      }
+
+      /* Mueve la raya superior hacia arriba. */
+      .hamburger-icon::before {
+        transform: translateY(-7px);
+      }
+
+      /* Mueve la raya inferior hacia abajo. */
+      .hamburger-icon::after {
+        transform: translateY(4px);
+      }
+
+      /* Ordena las opciones que se muestran al abrir el menu movil. */
+      .mobile-links {
+        display: grid;
+        gap: .45rem;
+        padding-top: .75rem;
+      }
+
+      /* Hace que cada opcion sea grande y facil de tocar con el dedo. */
+      .mobile-links a {
+        color: var(--white);
+        background: rgba(12, 45, 58, .95);
+        border: 1px solid rgba(255, 255, 255, .16);
+        border-radius: 4px;
+        padding: .75rem;
+        text-align: center;
+        text-decoration: none;
+        font-weight: 800;
+      }
+
+      /* Marca la pagina actual y tambien da respuesta al pasar el cursor. */
+      .mobile-links a.active,
+      .mobile-links a:hover,
+      .mobile-links a:focus-visible {
+        color: var(--brand-deep);
+        background: var(--secondary);
+        outline: none;
+      }
+
+
+      /* Centra el titulo y el texto de presentacion. */
+      .page-header {
+        flex-basis: 100%;
+        position: relative;
+        overflow: hidden;
+        background: var(--surface);
+        border-bottom: 1px solid var(--border);
+        padding: 3.5rem max(1.25rem, 6vw) 3rem;
+        text-align: center;
+      }
+
+      .page-header::after {
+        content: "";
+        position: absolute;
+        left: 35%;
+        bottom: 0;
+        width: 30%;
+        height: 7px;
+        background: var(--primary);
+        transform: skewX(-35deg);
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-family: "Arial Narrow", "Impact", "Segoe UI", sans-serif;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .page-header h1 {
+        margin: 0;
+        color: var(--text-title);
+        font-size: clamp(2.4rem, 6vw, 5rem);
+        line-height: .95;
+      }
+
+      .page-header p {
+        margin: 1rem auto 0;
+        max-width: 760px;
+        font-size: 1.08rem;
+      }
+
+      /* Deja un espacio comodo alrededor del catalogo. */
+      .catalog {
+        max-width: 1200px;
+        margin: auto;
+        padding: 2.5rem 1.25rem 4rem;
+      }
+
+      /* Ordena los productos en cuatro columnas. */
+      /* Rejilla de productos: aqui se decide cuantas columnas se ven. */
+      .products-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 1rem;
+      }
+
+      /* Cambia el aspecto de cada producto del catalogo. */
+      /* Tarjeta de producto: agrupa imagen, nombre, precio y boton. */
+      .product-card {
+        display: flex;
+        flex-direction: column;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        overflow: hidden;
+        box-shadow: 0 8px 25px rgba(9, 30, 38, .06);
+        transition: transform .2s ease-in-out, box-shadow .2s ease-in-out;
+      }
+
+      .product-card:hover {
+        transform: scale(1.02);
+        box-shadow: 0 14px 32px rgba(9, 30, 38, .12);
+      }
+
+      .product-card > img {
+        width: 100%;
+        aspect-ratio: 4 / 3;
+        object-fit: cover;
+      }
+
+      .card-body {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        padding: 1rem;
+      }
+
+      .card-body h2 {
+        margin: 0 0 .5rem;
+        color: var(--text-title);
+        font-size: 1.2rem;
+      }
+
+      .card-body p {
+        line-height: 1.55;
+      }
+
+      .price {
+        color: var(--primary);
+        font-size: 1.35rem;
+        font-weight: 900;
+      }
+
+      /* Este boton abre la vista grande del producto. */
+      .btn-detail {
+        display: block;
+        margin-top: auto;
+        background: var(--brand-deep);
+        color: var(--white);
+        padding: .8rem 1rem;
+        border-radius: 6px;
+        text-align: center;
+        text-decoration: none;
+        font-weight: 800;
+        transition: all .2s ease-in-out;
+      }
+
+      .btn-detail:hover,
+      .btn-detail:focus-visible {
+        background: var(--secondary);
+        outline: none;
+      }
+
+      /* La vista grande permanece oculta hasta que se toca Ver detalles. */
+      .product-modal {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        overflow-y: auto;
+        padding: 1rem;
+        background: rgba(9, 30, 38, .94);
+      }
+
+      /* La ruta con el nombre del detalle muestra la vista completa. */
+      .product-modal:target {
+        display: grid;
+        place-items: center;
+      }
+
+      /* Caja grande del detalle del producto. */
+      .modal-card {
+        width: min(1100px, 100%);
+        min-height: calc(100vh - 2rem);
+        background: var(--surface);
+        border: 2px solid var(--secondary);
+        border-radius: 6px;
+        padding: clamp(1rem, 3vw, 2.25rem);
+      }
+
+      /* Este enlace cierra el producto y regresa a su tarjeta. */
+      .modal-close {
+        display: block;
+        width: max-content;
+        margin-left: auto;
+        color: var(--brand-deep);
+        text-decoration: none;
+        font-weight: 900;
+      }
+
+      .modal-content {
+        display: grid;
+        grid-template-columns: 1.15fr 1fr;
+        align-items: center;
+        gap: clamp(1.25rem, 4vw, 3rem);
+        margin-top: 1rem;
+      }
+
+      .modal-content img {
+        width: 100%;
+        max-height: 62vh;
+        object-fit: cover;
+        border-radius: 6px;
+      }
+
+      .modal-info h2 {
+        margin-top: 0;
+        color: var(--text-title);
+        font-size: clamp(2rem, 4vw, 3.6rem);
+      }
+
+      .modal-info p {
+        line-height: 1.65;
+      }
+
+      /* Da color al boton de reserva por WhatsApp. */
+      .btn-whatsapp {
+        display: inline-block;
+        margin-top: .75rem;
+        background: var(--primary);
+        color: var(--white);
+        padding: .9rem 1.1rem;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 800;
+        transition: all .2s ease-in-out;
+      }
+
+      .btn-whatsapp:hover,
+      .btn-whatsapp:focus-visible {
+        background: var(--secondary);
+        transform: scale(1.02);
+        outline: none;
+      }
+
+      /* Acomoda los botones anterior y siguiente debajo del detalle. */
+      .modal-navigation {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-top: 1.5rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--border);
+      }
+
+      .modal-navigation a {
+        display: grid;
+        place-items: center;
+        width: 52px;
+        height: 46px;
+        background: var(--brand-deep);
+        color: var(--white);
+        border-radius: 6px;
+        text-decoration: none;
+        font-size: 1.6rem;
+        font-weight: 900;
+        transition: background .2s ease-in-out;
+      }
+
+      .modal-navigation a:hover,
+      .modal-navigation a:focus-visible {
+        background: var(--secondary);
+        outline: none;
+      }
+
+      /* Cambia el pie que aparece al final de la pagina. */
+      .site-footer {
+        background: var(--brand-deep);
+        color: var(--white);
+        padding: 3rem max(1.25rem, 5vw) 1.25rem;
+        border-top: 4px solid var(--primary);
+      }
+
+      /* Ordena el footer en columnas cuando hay espacio suficiente. */
+      .footer-grid {
+        display: grid;
+        grid-template-columns: 1.5fr 1fr 1fr;
+        gap: 2rem;
+        max-width: 1200px;
+        margin: auto;
+      }
+
+      .site-footer h2 {
+        margin-top: 0;
+      }
+
+      .site-footer p {
+        color: #DCE7E8;
+        line-height: 1.65;
+      }
+
+      .social {
+        display: flex;
+        gap: .55rem;
+      }
+
+      .social img {
+        width: 36px;
+        height: 36px;
+      }
+
+      .copy {
+        max-width: 1200px;
+        margin: 2rem auto 0;
+        padding-top: 1rem;
+        border-top: 1px solid rgba(255, 255, 255, .16);
+        text-align: center;
+        font-size: .9rem;
+      }
+
+      /* En tablet se muestran dos productos por fila. */
+      @media (max-width: 1000px) {
+        .products-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      /* En celular todo se acomoda en una sola columna. */
+      @media (max-width: 700px) {
+        /* En celular se oculta el menu largo para usar el boton hamburguesa. */
+        .page-nav {
+          display: none;
+        }
+
+        /* En celular se muestra el menu hamburguesa. */
+        .mobile-menu {
+          display: block;
+        }
+
+        .products-grid,
+        .footer-grid,
+        .modal-content {
+          grid-template-columns: 1fr;
+        }
+
+        .modal-card {
+          min-height: calc(100vh - 1rem);
+        }
+
+        .modal-content img {
+          max-height: 36vh;
+        }
+      }
+
+      /* Quita movimientos si el visitante los desactiva en su equipo. */
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+
+        *,
+        *::before,
+        *::after {
+          transition: none !important;
+        }
+      }
+    </style></head>
+<!-- CUERPO DE LA PAGINA: desde aqui empieza lo que el visitante ve en pantalla. -->
+<body>
+  <!-- ENCABEZADO GENERAL: muestra el logo, menu y titulo. -->
+  <header>
+    <div class="topbar">
+      <a href="index.html"><img class="logo" src="assets/img/logo-tienda.png" alt="ZQ SPORT"></a>
+    </div>
+    <!-- MENU PRINCIPAL: active marca la pagina abierta. -->
+    <nav class="page-nav" aria-label="Navegacion principal">
+      <a href="index.html">Inicio</a>
+      <a href="deportivos-varon.html">Deportivos Var&oacute;n</a>
+      <a class="active" aria-current="page" href="deportivos-dama.html">Deportivos Dama</a>
+      <a href="poleras-varon.html">Poleras Var&oacute;n</a>
+      <a href="poleras-dama.html">Poleras Dama</a>
+      <a href="mochilas-varon.html">Mochilas Var&oacute;n</a>
+      <a href="mochilas-dama.html">Mochilas Dama</a>
+      <a href="galeria.html">Galer&iacute;a</a>
+      <a href="ofertas.html">Ofertas</a>
+      <a href="nosotros.html">Acerca de Nosotros</a>
+    </nav>
+      <!-- MENU HAMBURGUESA: en celular se toca este boton para abrir las opciones. -->
+      <details class="mobile-menu">
+        <summary>
+          <span class="hamburger-icon" aria-hidden="true"></span>
+          Menu
+        </summary>
+        <!-- Estas son las mismas rutas del menu grande, preparadas para pantalla pequena. -->
+        <div class="mobile-links">
+        <a href="index.html">Inicio</a>
+        <a href="deportivos-varon.html">Deportivos Var&oacute;n</a>
+        <a class="active" aria-current="page" href="deportivos-dama.html">Deportivos Dama</a>
+        <a href="poleras-varon.html">Poleras Var&oacute;n</a>
+        <a href="poleras-dama.html">Poleras Dama</a>
+        <a href="mochilas-varon.html">Mochilas Var&oacute;n</a>
+        <a href="mochilas-dama.html">Mochilas Dama</a>
+        <a href="galeria.html">Galer&iacute;a</a>
+        <a href="ofertas.html">Ofertas</a>
+        <a href="nosotros.html">Acerca de Nosotros</a>
+        </div>
+      </details>
+
+    <div class="page-header">
+      <h1>Cat&aacute;logo de Deportivos Dama</h1>
+      <p>Comodidad, identidad y rendimiento para cada competencia.</p>
+    </div>
+  </header>
+
+  <!-- CATALOGO DE PRODUCTOS: aqui se muestran las cuatro opciones. -->
+  <!-- ZONA DEL CATALOGO: aqui se muestran las tarjetas de productos. -->
+  <main class="catalog">
+    <!-- LISTA DE PRODUCTOS: cada articulo es una tarjeta independiente. -->
+    <section class="products-grid" aria-label="Productos de Deportivos Dama">
+        <!-- CARD DE PRODUCTO 1: cambia la imagen, nombre, texto o precio. -->
+        <!-- PRODUCTO 1: cambia aqui datos, precio o imagen si lo necesitas. -->
+        <article id="producto-1" class="product-card">
+          <!-- REEMPLAZAR POR LA IMAGEN REAL DE ESTE PRODUCTO. -->
+          <img src="assets/img/producto-placeholder-1.jpg" alt="Uniforme Aurora">
+          <div class="card-body">
+            <h2>Uniforme Aurora</h2>
+            <p>Dise&ntilde;o deportivo personalizable, resistente y c&oacute;modo para uso intensivo.</p>
+            <p class="price">Bs. 120</p>
+            <!-- Este enlace abre el producto ocupando toda la pantalla. -->
+            <a class="btn-detail" href="#detalle-1">Ver detalles</a>
+          </div>
+        </article>        <!-- CARD DE PRODUCTO 2: cambia la imagen, nombre, texto o precio. -->
+        <!-- PRODUCTO 2: usa la misma estructura para mantener orden visual. -->
+        <article id="producto-2" class="product-card">
+          <!-- REEMPLAZAR POR LA IMAGEN REAL DE ESTE PRODUCTO. -->
+          <img src="assets/img/producto-placeholder-2.jpg" alt="Conjunto V&eacute;rtice">
+          <div class="card-body">
+            <h2>Conjunto V&eacute;rtice</h2>
+            <p>Dise&ntilde;o deportivo personalizable, resistente y c&oacute;modo para uso intensivo.</p>
+            <p class="price">Bs. 145</p>
+            <!-- Este enlace abre el producto ocupando toda la pantalla. -->
+            <a class="btn-detail" href="#detalle-2">Ver detalles</a>
+          </div>
+        </article>        <!-- CARD DE PRODUCTO 3: cambia la imagen, nombre, texto o precio. -->
+        <!-- PRODUCTO 3: modifica solo el contenido, no la estructura. -->
+        <article id="producto-3" class="product-card">
+          <!-- REEMPLAZAR POR LA IMAGEN REAL DE ESTE PRODUCTO. -->
+          <img src="assets/img/producto-placeholder-3.jpg" alt="Uniforme Impulso">
+          <div class="card-body">
+            <h2>Uniforme Impulso</h2>
+            <p>Dise&ntilde;o deportivo personalizable, resistente y c&oacute;modo para uso intensivo.</p>
+            <p class="price">Bs. 170</p>
+            <!-- Este enlace abre el producto ocupando toda la pantalla. -->
+            <a class="btn-detail" href="#detalle-3">Ver detalles</a>
+          </div>
+        </article>        <!-- CARD DE PRODUCTO 4: cambia la imagen, nombre, texto o precio. -->
+        <!-- PRODUCTO 4: ultima tarjeta de esta categoria. -->
+        <article id="producto-4" class="product-card">
+          <!-- REEMPLAZAR POR LA IMAGEN REAL DE ESTE PRODUCTO. -->
+          <img src="assets/img/producto-placeholder-4.jpg" alt="Conjunto Victoria">
+          <div class="card-body">
+            <h2>Conjunto Victoria</h2>
+            <p>Dise&ntilde;o deportivo personalizable, resistente y c&oacute;modo para uso intensivo.</p>
+            <p class="price">Bs. 195</p>
+            <!-- Este enlace abre el producto ocupando toda la pantalla. -->
+            <a class="btn-detail" href="#detalle-4">Ver detalles</a>
+          </div>
+        </article>    </section>
+
+    <!-- VISTAS GRANDES: se abren sin JavaScript usando las rutas con numeral. -->
+      <!-- DETALLE 1: aparece al abrir la ruta detalle-1. -->
+      <section id="detalle-1" class="product-modal" aria-labelledby="titulo-detalle-1">
+        <article class="modal-card">
+          <!-- Este enlace cierra la vista y regresa a la tarjeta original. -->
+          <a class="modal-close" href="#producto-1" aria-label="Cerrar detalle">&times; Cerrar</a>
+          <div class="modal-content">
+            <!-- REEMPLAZAR POR LA IMAGEN REAL EN TAMANO GRANDE. -->
+            <img src="assets/img/producto-placeholder-1.jpg" alt="Uniforme Aurora en vista grande">
+            <div class="modal-info">
+              <h2 id="titulo-detalle-1">Uniforme Aurora</h2>
+              <p>Confecci&oacute;n deportiva c&oacute;moda, costuras reforzadas y personalizaci&oacute;n de nombre, n&uacute;mero y colores.</p>
+              <p><strong>Tallas:</strong> S, M, L y XL</p>
+              <p><strong>Colores:</strong> coral, azul, negro y blanco</p>
+              <p class="price">Bs. 120</p>
+              <!-- REEMPLAZAR 591XXXXXXXX POR EL NUMERO REAL. -->
+              <a class="btn-whatsapp" href="https://wa.me/591XXXXXXXX?text=Hola%2C%20quiero%20reservar%20el%20producto%3A%20Uniforme%20Aurora.%20Talla%3A%20__.%20Color%3A%20__.%20Cantidad%3A%20__.">Comprar / Reservar por WhatsApp</a>
+            </div>
+          </div>
+          <!-- Las flechas recorren los productos y vuelven al primero al terminar. -->
+          <nav class="modal-navigation" aria-label="Cambiar de producto">
+            <a href="#detalle-4" aria-label="Producto anterior">&lt;</a>
+            <a href="#detalle-2" aria-label="Producto siguiente">&gt;</a>
+          </nav>
+        </article>
+      </section>      <!-- DETALLE 2: aparece al abrir la ruta detalle-2. -->
+      <section id="detalle-2" class="product-modal" aria-labelledby="titulo-detalle-2">
+        <article class="modal-card">
+          <!-- Este enlace cierra la vista y regresa a la tarjeta original. -->
+          <a class="modal-close" href="#producto-2" aria-label="Cerrar detalle">&times; Cerrar</a>
+          <div class="modal-content">
+            <!-- REEMPLAZAR POR LA IMAGEN REAL EN TAMANO GRANDE. -->
+            <img src="assets/img/producto-placeholder-2.jpg" alt="Conjunto V&eacute;rtice en vista grande">
+            <div class="modal-info">
+              <h2 id="titulo-detalle-2">Conjunto V&eacute;rtice</h2>
+              <p>Confecci&oacute;n deportiva c&oacute;moda, costuras reforzadas y personalizaci&oacute;n de nombre, n&uacute;mero y colores.</p>
+              <p><strong>Tallas:</strong> S, M, L y XL</p>
+              <p><strong>Colores:</strong> coral, azul, negro y blanco</p>
+              <p class="price">Bs. 145</p>
+              <!-- REEMPLAZAR 591XXXXXXXX POR EL NUMERO REAL. -->
+              <a class="btn-whatsapp" href="https://wa.me/591XXXXXXXX?text=Hola%2C%20quiero%20reservar%20el%20producto%3A%20Conjunto%20V%C3%A9rtice.%20Talla%3A%20__.%20Color%3A%20__.%20Cantidad%3A%20__.">Comprar / Reservar por WhatsApp</a>
+            </div>
+          </div>
+          <!-- Las flechas recorren los productos y vuelven al primero al terminar. -->
+          <nav class="modal-navigation" aria-label="Cambiar de producto">
+            <a href="#detalle-1" aria-label="Producto anterior">&lt;</a>
+            <a href="#detalle-3" aria-label="Producto siguiente">&gt;</a>
+          </nav>
+        </article>
+      </section>      <!-- DETALLE 3: aparece al abrir la ruta detalle-3. -->
+      <section id="detalle-3" class="product-modal" aria-labelledby="titulo-detalle-3">
+        <article class="modal-card">
+          <!-- Este enlace cierra la vista y regresa a la tarjeta original. -->
+          <a class="modal-close" href="#producto-3" aria-label="Cerrar detalle">&times; Cerrar</a>
+          <div class="modal-content">
+            <!-- REEMPLAZAR POR LA IMAGEN REAL EN TAMANO GRANDE. -->
+            <img src="assets/img/producto-placeholder-3.jpg" alt="Uniforme Impulso en vista grande">
+            <div class="modal-info">
+              <h2 id="titulo-detalle-3">Uniforme Impulso</h2>
+              <p>Confecci&oacute;n deportiva c&oacute;moda, costuras reforzadas y personalizaci&oacute;n de nombre, n&uacute;mero y colores.</p>
+              <p><strong>Tallas:</strong> S, M, L y XL</p>
+              <p><strong>Colores:</strong> coral, azul, negro y blanco</p>
+              <p class="price">Bs. 170</p>
+              <!-- REEMPLAZAR 591XXXXXXXX POR EL NUMERO REAL. -->
+              <a class="btn-whatsapp" href="https://wa.me/591XXXXXXXX?text=Hola%2C%20quiero%20reservar%20el%20producto%3A%20Uniforme%20Impulso.%20Talla%3A%20__.%20Color%3A%20__.%20Cantidad%3A%20__.">Comprar / Reservar por WhatsApp</a>
+            </div>
+          </div>
+          <!-- Las flechas recorren los productos y vuelven al primero al terminar. -->
+          <nav class="modal-navigation" aria-label="Cambiar de producto">
+            <a href="#detalle-2" aria-label="Producto anterior">&lt;</a>
+            <a href="#detalle-4" aria-label="Producto siguiente">&gt;</a>
+          </nav>
+        </article>
+      </section>      <!-- DETALLE 4: aparece al abrir la ruta detalle-4. -->
+      <section id="detalle-4" class="product-modal" aria-labelledby="titulo-detalle-4">
+        <article class="modal-card">
+          <!-- Este enlace cierra la vista y regresa a la tarjeta original. -->
+          <a class="modal-close" href="#producto-4" aria-label="Cerrar detalle">&times; Cerrar</a>
+          <div class="modal-content">
+            <!-- REEMPLAZAR POR LA IMAGEN REAL EN TAMANO GRANDE. -->
+            <img src="assets/img/producto-placeholder-4.jpg" alt="Conjunto Victoria en vista grande">
+            <div class="modal-info">
+              <h2 id="titulo-detalle-4">Conjunto Victoria</h2>
+              <p>Confecci&oacute;n deportiva c&oacute;moda, costuras reforzadas y personalizaci&oacute;n de nombre, n&uacute;mero y colores.</p>
+              <p><strong>Tallas:</strong> S, M, L y XL</p>
+              <p><strong>Colores:</strong> coral, azul, negro y blanco</p>
+              <p class="price">Bs. 195</p>
+              <!-- REEMPLAZAR 591XXXXXXXX POR EL NUMERO REAL. -->
+              <a class="btn-whatsapp" href="https://wa.me/591XXXXXXXX?text=Hola%2C%20quiero%20reservar%20el%20producto%3A%20Conjunto%20Victoria.%20Talla%3A%20__.%20Color%3A%20__.%20Cantidad%3A%20__.">Comprar / Reservar por WhatsApp</a>
+            </div>
+          </div>
+          <!-- Las flechas recorren los productos y vuelven al primero al terminar. -->
+          <nav class="modal-navigation" aria-label="Cambiar de producto">
+            <a href="#detalle-3" aria-label="Producto anterior">&lt;</a>
+            <a href="#detalle-1" aria-label="Producto siguiente">&gt;</a>
+          </nav>
+        </article>
+      </section>  </main>
+
+    <!-- FOOTER GENERAL: repite la informacion basica al final. -->
+    <!-- PIE DE PAGINA: muestra datos de la tienda, redes y derechos reservados. -->
+    <footer    <footer class="site-footer">
+      <div class="footer-grid">
+        <section>
+          <h2>ZQ SPORT</h2>
+          <p>Dise&ntilde;os personalizados para equipos, clubes y competencias deportivas.</p>
+        </section>
+        <section>
+          <h2>Atenci&oacute;n</h2>
+          <!-- REEMPLAZAR POR DATOS REALES DE LA TIENDA. -->
+          <p>Direcci&oacute;n: [Reemplazar por direcci&oacute;n real]</p>
+          <p>Tel&eacute;fono: [Reemplazar por tel&eacute;fono real]</p>
+          <p>WhatsApp: [Reemplazar por WhatsApp real]</p>
+        </section>
+        <section>
+          <h2>Horario y redes</h2>
+          <p>Lunes a S&aacute;bado - 08:00 a 20:00</p>
+          <div class="social">
+            <a href="#" aria-label="Facebook"><img src="assets/icons/facebook.svg" alt=""></a>
+            <a href="#" aria-label="Instagram"><img src="assets/icons/instagram.svg" alt=""></a>
+            <a href="#" aria-label="WhatsApp"><img src="assets/icons/whatsapp.svg" alt=""></a>
+            <a href="#" aria-label="TikTok"><img src="assets/icons/tiktok.svg" alt=""></a>
+          </div>
+        </section>
+      </div>
+      <p class="copy">&copy; 2026 ZQ SPORT. Todos los derechos reservados.</p>
+    </footer></body>
+</html>

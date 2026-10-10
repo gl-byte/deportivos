@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="es">
+  <!-- CABECERA DEL DOCUMENTO: aqui van datos que el navegador lee antes de mostrar la pagina. -->
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Conoce al equipo y la ubicación de ZQ SPORT">
+  <title>Acerca de Nosotros | ZQ SPORT</title>
+
+  <!-- ESTILOS DE ESTA PAGINA: cambia aqui colores, tamanos y espacios. -->
+  <style>
+    /* Aqui se guardan los colores principales para cambiarlos facilmente. */
+    :root {
+      --primary: #F15A38;
+      --secondary: #48B7BD;
+      --brand-deep: #0C2D3A;
+      --bg-main: #F4F7F6;
+      --surface: #FFFFFF;
+      --text-title: #091E26;
+      --text-body: #3A4D54;
+      --border: #E2EAE9;
+      --white: #FFFFFF;
+    }
+
+    /* Evita que los bordes y espacios agranden los elementos. */
+    * {
+      box-sizing: border-box;
+    }
+
+    /* Cambia el aspecto general de toda la pagina. */
+    body {
+      margin: 0;
+      background: var(--bg-main);
+      color: var(--text-body);
+      font-family: "Segoe UI", Arial, sans-serif;
+    }
+
+    /* Evita que las imagenes se salgan de su caja. */
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    /* HEADER COMPACTO: junta logo y menu en la misma franja para evitar espacios vacios. */
+    header {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      background: var(--brand-deep);
+    }
+
+    /* Esta franja oscura sostiene el logo en la esquina izquierda. */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      background: transparent;
+      padding: .35rem 0 .35rem 4vw;
+      flex: 0 0 auto;
+    }
+
+    .logo {
+        width: clamp(86px, 9vw, 118px);
+        height: auto;
+        max-height: 58px;
+        object-fit: contain;
+      }
+
+    /* Acomoda los enlaces del menu principal. */
+    .page-nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex: 1 1 auto;
+      flex-wrap: wrap;
+      gap: .3rem;
+      background: transparent;
+      padding: .35rem 4vw .35rem 1rem;
+    }
+
+    .page-nav a {
+        color: var(--white);
+        padding: .45rem .6rem;
+      border-bottom: 2px solid transparent;
+      text-decoration: none;
+      font-size: .84rem;
+      font-weight: 700;
+      transition: all .2s ease-in-out;
+    }
+
+    /* El color celeste marca la pagina que esta abierta. */
+    .page-nav a:hover,
+    .page-nav a:focus-visible,
+    .page-nav a.active {
+      color: var(--secondary);
+      border-color: var(--secondary);
+      outline: none;
+    }
+
+      /* Este menu aparece solo en celular y se abre tocando "Menu". */
+      .mobile-menu {
+        display: none;
+        flex: 1 1 auto;
+        background: transparent;
+        padding: .35rem max(1rem, 4vw) .35rem 1rem;
+      }
+
+      /* Este boton es la hamburguesa del celular. */
+      .mobile-menu summary {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: .65rem;
+        color: var(--white);
+        background: var(--primary);
+        border: 1px solid rgba(255, 255, 255, .18);
+        border-radius: 6px;
+        padding: .8rem 1rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        cursor: pointer;
+        list-style: none;
+      }
+
+      /* Quita el triangulo automatico para que solo se vea la hamburguesa. */
+      .mobile-menu summary::-webkit-details-marker {
+        display: none;
+      }
+
+      /* Dibuja las tres rayas del boton sin usar imagenes ni iconos externos. */
+      .hamburger-icon,
+      .hamburger-icon::before,
+      .hamburger-icon::after {
+        display: block;
+        width: 22px;
+        height: 3px;
+        background: var(--white);
+        border-radius: 2px;
+        content: "";
+      }
+
+      /* Mueve la raya superior hacia arriba. */
+      .hamburger-icon::before {
+        transform: translateY(-7px);
+      }
+
+      /* Mueve la raya inferior hacia abajo. */
+      .hamburger-icon::after {
+        transform: translateY(4px);
+      }
+
+      /* Ordena las opciones que se muestran al abrir el menu movil. */
+      .mobile-links {
+        display: grid;
+        gap: .45rem;
+        padding-top: .75rem;
+      }
+
+      /* Hace que cada opcion sea grande y facil de tocar con el dedo. */
+      .mobile-links a {
+        color: var(--white);
+        background: rgba(12, 45, 58, .95);
+        border: 1px solid rgba(255, 255, 255, .16);
+        border-radius: 4px;
+        padding: .75rem;
+        text-align: center;
+        text-decoration: none;
+        font-weight: 800;
+      }
+
+      /* Marca la pagina actual y tambien da respuesta al pasar el cursor. */
+      .mobile-links a.active,
+      .mobile-links a:hover,
+      .mobile-links a:focus-visible {
+        color: var(--brand-deep);
+        background: var(--secondary);
+        outline: none;
+      }
+
+
+    /* Centra el titulo y el subtitulo de la pagina. */
+    .page-header {
+      position: relative;
+      overflow: hidden;
+      background: var(--surface);
+      padding: 3.5rem 6vw;
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .page-header::after {
+      content: "";
+      position: absolute;
+      left: 35%;
+      bottom: 0;
+      width: 30%;
+      height: 7px;
+      background: var(--primary);
+      transform: skewX(-30deg);
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: "Arial Narrow", "Impact", "Segoe UI", sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .page-header h1 {
+      margin: 0;
+      color: var(--text-title);
+      font-size: clamp(2.7rem, 6vw, 5rem);
+    }
+
+    .page-header p {
+      max-width: 700px;
+      margin: 1rem auto 0;
+      font-size: 1.08rem;
+    }
+
+    /* Da el mismo ancho y espacio a las secciones principales. */
+    .section-container {
+      max-width: 1150px;
+      margin: auto;
+      padding: 3rem 1.25rem;
+    }
+
+    .section-title {
+      margin: 0 0 .75rem;
+      color: var(--text-title);
+      text-align: center;
+      font-size: clamp(2rem, 4vw, 3rem);
+    }
+
+    .section-intro {
+      max-width: 700px;
+      margin: 0 auto 2rem;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    /* Ordena las tarjetas del personal en columnas. */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    /* Cambia el aspecto de cada tarjeta del personal. */
+    /* Tarjeta del personal: foto, nombre y cargo. */
+    .team-card {
+      overflow: hidden;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      box-shadow: 0 10px 28px rgba(9, 30, 38, .08);
+      text-align: center;
+      transition: transform .2s ease-in-out, box-shadow .2s ease-in-out;
+    }
+
+    .team-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 34px rgba(9, 30, 38, .14);
+    }
+
+    .team-card img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+    }
+
+    .team-info {
+      padding: 1.25rem;
+    }
+
+    .team-info h3 {
+      margin: 0;
+      color: var(--text-title);
+      font-size: 1.4rem;
+    }
+
+    .team-info p {
+      margin: .55rem 0 0;
+      color: var(--primary);
+      font-weight: 800;
+    }
+
+    /* La franja blanca separa la ubicacion del equipo. */
+    .location-section {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* Coloca los datos y el mapa uno al lado del otro. */
+    /* Seccion de ubicacion: datos de contacto y espacio para mapa. */
+    .location-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.25fr;
+      gap: 1.25rem;
+    }
+
+    .info-panel,
+    .map-panel,
+    .video-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.5rem;
+    }
+
+    .info-panel h3,
+    .map-panel h3 {
+      margin-top: 0;
+      color: var(--text-title);
+    }
+
+    .store-data {
+      display: grid;
+      gap: .65rem;
+    }
+
+    .store-data p {
+      margin: 0;
+      padding: .8rem;
+      background: var(--bg-main);
+      border-left: 4px solid var(--secondary);
+      line-height: 1.5;
+    }
+
+    /* Este cuadro se cambia por el mapa real cuando este disponible. */
+    .map-placeholder {
+      display: grid;
+      place-items: center;
+      min-height: 300px;
+      padding: 2rem;
+      background: repeating-linear-gradient(135deg, #E2EAE9 0, #E2EAE9 2px, #F4F7F6 2px, #F4F7F6 16px);
+      border: 2px dashed var(--secondary);
+      border-radius: 6px;
+      color: var(--brand-deep);
+      text-align: center;
+      font-weight: 800;
+    }
+
+    /* Da color y espacio a los botones de contacto y mapa. */
+    .btn {
+      display: inline-block;
+      margin-top: 1rem;
+      background: var(--primary);
+      color: var(--white);
+      padding: .85rem 1rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 800;
+      transition: all .2s ease-in-out;
+    }
+
+    .btn:hover,
+    .btn:focus-visible {
+      background: var(--secondary);
+      transform: scale(1.02);
+      outline: none;
+    }
+
+    .btn-map {
+      background: var(--secondary);
+    }
+
+    /* Este cuadro se reemplaza por el video real de YouTube. */
+    /* Espacio reservado para colocar despues un video de YouTube. */
+    .video-placeholder {
+      display: grid;
+      place-items: center;
+      min-height: 360px;
+      padding: 2rem;
+      background: var(--brand-deep);
+      border: 2px dashed var(--secondary);
+      border-radius: 6px;
+      color: var(--white);
+      text-align: center;
+      font-size: 1.15rem;
+      font-weight: 800;
+    }
+
+    /* Cambia el pie que aparece al final de la pagina. */
+    .site-footer {
+      background: var(--brand-deep);
+      color: var(--white);
+      padding: 3rem 5vw 1rem;
+      border-top: 4px solid var(--primary);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 2rem;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .site-footer p {
+      color: #DCE7E8;
+      line-height: 1.6;
+    }
+
+    .social {
+      display: flex;
+      gap: .5rem;
+    }
+
+    .social img {
+      width: 36px;
+      height: 36px;
+    }
+
+    .copy {
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255, 255, 255, .17);
+      text-align: center;
+    }
+
+    /* En tablet las personas se muestran en dos columnas. */
+    @media (max-width: 900px) {
+      .team-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .location-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* En celular todo se acomoda en una sola columna. */
+    @media (max-width: 650px) {
+      /* En celular se oculta el menu largo para usar el boton hamburguesa. */
+      .page-nav {
+        display: none;
+      }
+
+      /* En celular se muestra el menu hamburguesa. */
+      .mobile-menu {
+        display: block;
+      }
+
+      .team-grid,
+      /* Ordena el footer en columnas cuando hay espacio suficiente. */
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      /* Boton reutilizable: cambia aqui el tamano general de los botones. */
+      .btn {
+        display: block;
+        text-align: center;
+      }
+
+      .video-placeholder {
+        min-height: 230px;
+      }
+    }
+  </style>
+</head>
+<!-- CUERPO DE LA PAGINA: desde aqui empieza lo que el visitante ve en pantalla. -->
+<body>
+  <!-- ENCABEZADO GENERAL: muestra el logo, menu y titulo. -->
+  <header>
+    <div class="topbar">
+      <a href="index.html">
+        <img class="logo" src="assets/img/logo-tienda.png" alt="ZQ SPORT">
+      </a>
+    </div>
+
+    <!-- MENU PRINCIPAL: active marca Acerca de Nosotros. -->
+    <nav class="page-nav" aria-label="Navegación principal">
+      <a href="index.html">Inicio</a>
+      <a href="deportivos-varon.html">Deportivos Varón</a>
+      <a href="deportivos-dama.html">Deportivos Dama</a>
+      <a href="poleras-varon.html">Poleras Varón</a>
+      <a href="poleras-dama.html">Poleras Dama</a>
+      <a href="mochilas-varon.html">Mochilas Varón</a>
+      <a href="mochilas-dama.html">Mochilas Dama</a>
+      <a href="galeria.html">Galería</a>
+      <a href="ofertas.html">Ofertas</a>
+      <a class="active" href="nosotros.html" aria-current="page">Acerca de Nosotros</a>
+    </nav>
+      <!-- MENU HAMBURGUESA: en celular se toca este boton para abrir las opciones. -->
+      <details class="mobile-menu">
+        <summary>
+          <span class="hamburger-icon" aria-hidden="true"></span>
+          Menu
+        </summary>
+        <!-- Estas son las mismas rutas del menu grande, preparadas para pantalla pequena. -->
+        <div class="mobile-links">
+        <a href="index.html">Inicio</a>
+        <a href="deportivos-varon.html">Deportivos Var&oacute;n</a>
+        <a href="deportivos-dama.html">Deportivos Dama</a>
+        <a href="poleras-varon.html">Poleras Var&oacute;n</a>
+        <a href="poleras-dama.html">Poleras Dama</a>
+        <a href="mochilas-varon.html">Mochilas Var&oacute;n</a>
+        <a href="mochilas-dama.html">Mochilas Dama</a>
+        <a href="galeria.html">Galer&iacute;a</a>
+        <a href="ofertas.html">Ofertas</a>
+        <a class="active" aria-current="page" href="nosotros.html">Acerca de Nosotros</a>
+        </div>
+      </details>
+
+      <div class="page-header">
+      <h1>Acerca de Nosotros</h1>
+      <p>Conoce al personal que prepara tus diseños y acompaña cada pedido.</p>
+    </div>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL: aqui va la informacion de la tienda y su ubicacion. -->
+  <main>
+    <!-- PERSONAL DE LA TIENDA: cambia cada imagen cuando tengas las fotos reales. -->
+    <section class="section-container" aria-labelledby="titulo-equipo">
+      <h2 id="titulo-equipo" class="section-title">Nuestro Personal</h2>
+      <p class="section-intro">Cada persona cumple una función importante para atender, diseñar y preparar tus productos deportivos.</p>
+
+      <!-- PERSONAL: cada tarjeta representa a una persona del equipo. -->
+      <div class="team-grid">
+        <!-- CARD DE MARIA: reemplaza la imagen por su foto de perfil. -->
+        <article class="team-card">
+          <!-- REEMPLAZAR POR FOTO REAL DE MARIA LOPEZ. -->
+          <img src="assets/img/producto-placeholder-1.jpg" alt="Foto de perfil pendiente de Maria Lopez">
+          <div class="team-info">
+            <h3>Maria Lopez</h3>
+            <p>Diseñadora Deportiva</p>
+          </div>
+        </article>
+
+        <!-- CARD DE CARLOS: reemplaza la imagen por su foto de perfil. -->
+        <article class="team-card">
+          <!-- REEMPLAZAR POR FOTO REAL DE CARLOS PEREZ. -->
+          <img src="assets/img/producto-placeholder-2.jpg" alt="Foto de perfil pendiente de Carlos Perez">
+          <div class="team-info">
+            <h3>Carlos Perez</h3>
+            <p>Atención al Cliente</p>
+          </div>
+        </article>
+
+        <!-- CARD DE ANA: reemplaza la imagen por su foto de perfil. -->
+        <article class="team-card">
+          <!-- REEMPLAZAR POR FOTO REAL DE ANA LOPEZ. -->
+          <img src="assets/img/producto-placeholder-3.jpg" alt="Foto de perfil pendiente de Ana Lopez">
+          <div class="team-info">
+            <h3>Ana Lopez</h3>
+            <p>Diseñadora Deportiva</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- UBICACION: conserva los datos que antes estaban en Contacto. -->
+    <section class="location-section" aria-labelledby="titulo-ubicacion">
+      <div class="section-container">
+        <h2 id="titulo-ubicacion" class="section-title">Ubicación</h2>
+        <p class="section-intro">Consulta nuestros horarios y utiliza el mapa cuando agregues la dirección real.</p>
+
+        <!-- UBICACION: muestra direccion, horarios, contacto y mapa preparado. -->
+      <div class="location-grid">
+          <article class="info-panel">
+            <h3>ZQ SPORT</h3>
+            <div class="store-data">
+              <!-- REEMPLAZAR POR DIRECCION REAL. -->
+              <p><strong>Dirección:</strong><br>[Reemplazar por dirección real]</p>
+              <p><strong>Horario:</strong><br>Lunes a Sábado - 08:00 a 20:00</p>
+              <p><strong>Teléfono:</strong><br>[Reemplazar por teléfono real]</p>
+              <p><strong>WhatsApp:</strong><br>[Reemplazar por WhatsApp real]</p>
+            </div>
+            <!-- REEMPLAZAR 591XXXXXXXX POR EL NUMERO REAL. -->
+            <a class="btn" href="https://wa.me/591XXXXXXXX?text=Hola,%20quiero%20información%20sobre%20sus%20productos%20deportivos.">Escribir por WhatsApp</a>
+          </article>
+
+          <article class="map-panel">
+            <h3>Mapa de la tienda</h3>
+            <!-- REEMPLAZAR ESTE CUADRO POR EL MAPA REAL DE GOOGLE MAPS. -->
+            <div class="map-placeholder">Aquí irá el mapa de ubicación de la tienda.</div>
+            <!-- REEMPLAZAR # POR EL ENLACE REAL DE GOOGLE MAPS. -->
+            <a class="btn btn-map" href="#">Ver ubicación en Google Maps</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIDEO DE RUTA: se encuentra debajo de la ubicacion. -->
+    <section class="section-container" aria-labelledby="titulo-video">
+      <h2 id="titulo-video" class="section-title">¿Cómo Llegar?</h2>
+      <p class="section-intro">Aquí podrás mostrar un video corto con el recorrido hasta la tienda.</p>
+      <div class="video-panel">
+        <!-- REEMPLAZAR ESTE CUADRO POR EL IFRAME O ENLACE REAL DE YOUTUBE. -->
+        <!-- VIDEO: reemplaza este cuadro por el enlace real cuando lo tengas. -->
+      <div class="video-placeholder">Aquí irá el video de YouTube que explica cómo llegar.</div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER GENERAL: repite la informacion basica al final. -->
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <section>
+        <h2>ZQ SPORT</h2>
+        <p>Diseños personalizados para equipos, clubes y competencias deportivas.</p>
+      </section>
+      <section>
+        <h2>Atención</h2>
+        <p>Dirección: [Reemplazar por dirección real]<br>Teléfono: [Reemplazar por teléfono real]<br>WhatsApp: [Reemplazar por WhatsApp real]</p>
+      </section>
+      <section>
+        <h2>Horario y redes</h2>
+        <p>Lunes a Sábado - 08:00 a 20:00</p>
+        <div class="social">
+          <a href="#" aria-label="Facebook"><img src="assets/icons/facebook.svg" alt=""></a>
+          <a href="#" aria-label="Instagram"><img src="assets/icons/instagram.svg" alt=""></a>
+          <a href="#" aria-label="WhatsApp"><img src="assets/icons/whatsapp.svg" alt=""></a>
+          <a href="#" aria-label="TikTok"><img src="assets/icons/tiktok.svg" alt=""></a>
+        </div>
+      </section>
+    </div>
+    <p class="copy">© 2026 ZQ SPORT. Todos los derechos reservados.</p>
+  </footer>
+</body>
+</html>

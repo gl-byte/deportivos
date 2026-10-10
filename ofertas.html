@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="es">
+    <!-- CABECERA DEL DOCUMENTO: aqui van datos que el navegador lee antes de mostrar la pagina. -->
+<head>
+    <!-- Permite mostrar letras con tilde y caracteres en espanol correctamente. -->
+    <meta charset="UTF-8">
+    <!-- Hace que la pagina se adapte al ancho del celular, tablet o computadora. -->
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="description" content="Ofertas especiales en productos deportivos">
+    <title>Ofertas Especiales</title>
+
+<!-- ESTILOS DE ESTA PAGINA: cambia aqui colores, tamanos y espacios. -->
+    <style>
+      /* DESIGN TOKENS OBLIGATORIOS */
+      /* Aqui se guardan los colores principales para cambiarlos facilmente. */
+      :root {
+        --primary: #F15A38;
+        --secondary: #48B7BD;
+        --brand-deep: #0C2D3A;
+        --bg-main: #F4F7F6;
+        --surface: #FFFFFF;
+        --text-title: #091E26;
+        --text-body: #3A4D54;
+        --border: #E2EAE9;
+        --white: #FFFFFF
+      }
+      /* Aplica una forma mas facil de calcular tamanos en todos los elementos. */
+      * {
+        box-sizing: border-box
+      }
+      /* Cambia el aspecto general de toda la pagina. */
+      body {
+        margin: 0;
+        background: var(--bg-main);
+        color: var(--text-body);
+        font-family: "Segoe UI", Arial, sans-serif
+      }
+      /* Evita que las imagenes se salgan de su caja. */
+      img {
+        display: block;
+        max-width: 100%
+      }
+
+      /* HEADER COMPACTO: junta logo y menu en la misma franja para evitar espacios vacios. */
+      header {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        background: var(--brand-deep)
+      }
+      /* Esta franja oscura sostiene el logo en la esquina izquierda. */
+      .top {
+        background: transparent;
+        padding: .35rem 0 .35rem 4vw;
+        text-align: left;
+        flex: 0 0 auto
+      }
+      .logo {
+        width: clamp(86px, 9vw, 118px);
+        height: auto;
+        max-height: 58px;
+        object-fit: contain
+      }
+      /* Acomoda los enlaces del menu principal. */
+      .nav {
+        display: flex;
+        flex: 1 1 auto;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        background: transparent;
+        padding: .35rem 4vw .35rem 1rem
+      }
+      .nav a {
+        color: var(--white);
+        padding: .45rem .6rem;
+        text-decoration: none;
+        font-size: .84rem;
+        font-weight: 700;
+        border-bottom: 2px solid transparent
+      }
+      .nav a:hover,.nav a.active {
+        color: var(--secondary);
+        border-color: var(--secondary)
+      }
+
+      /* Este menu aparece solo en celular y se abre tocando "Menu". */
+      .mobile-menu {
+        display: none;
+        flex: 1 1 auto;
+        background: transparent;
+        padding: .35rem 4vw .35rem 1rem;
+      }
+
+      /* Este boton es la hamburguesa del celular. */
+      .mobile-menu summary {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: .65rem;
+        color: var(--white);
+        background: var(--primary);
+        border: 1px solid rgba(255, 255, 255, .18);
+        border-radius: 6px;
+        padding: .8rem 1rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        cursor: pointer;
+        list-style: none;
+      }
+
+      /* Quita el triangulo automatico para que solo se vea la hamburguesa. */
+      .mobile-menu summary::-webkit-details-marker {
+        display: none;
+      }
+
+      /* Dibuja las tres rayas del boton sin usar imagenes ni iconos externos. */
+      .hamburger-icon,
+      .hamburger-icon::before,
+      .hamburger-icon::after {
+        display: block;
+        width: 22px;
+        height: 3px;
+        background: var(--white);
+        border-radius: 2px;
+        content: "";
+      }
+
+      /* Mueve la raya superior hacia arriba. */
+      .hamburger-icon::before {
+        transform: translateY(-7px);
+      }
+
+      /* Mueve la raya inferior hacia abajo. */
+      .hamburger-icon::after {
+        transform: translateY(4px);
+      }
+
+      /* Ordena las opciones que se muestran al abrir el menu movil. */
+      .mobile-links {
+        display: grid;
+        gap: .45rem;
+        padding-top: .75rem;
+      }
+
+      /* Hace que cada opcion sea grande y facil de tocar con el dedo. */
+      .mobile-links a {
+        color: var(--white);
+        background: rgba(12, 45, 58, .95);
+        border: 1px solid rgba(255, 255, 255, .16);
+        border-radius: 4px;
+        padding: .75rem;
+        text-align: center;
+        text-decoration: none;
+        font-weight: 800;
+      }
+
+      /* Marca la pagina actual y tambien da respuesta al pasar el cursor. */
+      .mobile-links a.active,
+      .mobile-links a:hover,
+      .mobile-links a:focus-visible {
+        color: var(--brand-deep);
+        background: var(--secondary);
+        outline: none;
+      }
+
+      /* Da espacio y estilo al titulo principal de esta pagina. */
+      .heading {
+        flex-basis: 100%;
+        background: var(--surface);
+        padding: 3.5rem 6vw;
+        border-bottom: 1px solid var(--border);
+        /* Centra el titulo y el subtitulo de esta pagina. */
+        text-align: center
+      }
+      h1,h2 {
+        font-family: "Arial Narrow", "Impact", "Segoe UI", sans-serif;
+        text-transform: uppercase;
+        letter-spacing: 1px
+      }
+      .heading h1 {
+        margin: 0;
+        color: var(--text-title);
+        font-size: clamp(2.7rem, 6vw, 5rem)
+      }
+      /* Ordena el contenido principal de esta seccion. */
+      /* Rejilla de ofertas: organiza las promociones en tarjetas. */
+      .offers {
+        max-width: 1200px;
+        margin: auto;
+        padding: 2.5rem 1.25rem 4rem;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem
+      }
+      /* Cambia el aspecto de cada tarjeta o bloque de informacion. */
+      /* Tarjeta de oferta: contiene descuento, imagen, precio y boton. */
+      .card {
+        position: relative;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        overflow: hidden;
+        transition: all .2s ease-in-out
+      }
+      .card:hover {
+        transform: scale(1.02);
+        box-shadow: 0 14px 30px #091e261f
+      }
+      .card>img {
+        width: 100%;
+        aspect-ratio: 4/3;
+        object-fit: cover
+      }
+      /* Etiqueta de descuento: muestra cuanto se rebaja el producto. */
+      .badge {
+        position: absolute;
+        top: .75rem;
+        left: .75rem;
+        background: var(--primary);
+        color: var(--white);
+        padding: .45rem .65rem;
+        border-radius: 4px;
+        font-weight: 900
+      }
+      .body {
+        padding: 1rem
+      }
+      .body h2 {
+        color: var(--text-title);
+        font-size: 1.2rem
+      }
+      /* Precio anterior: se muestra tachado para comparar. */
+      .old {
+        text-decoration: line-through;
+        color: #718087
+      }
+      /* Precio actual: se resalta para que el cliente lo vea rapido. */
+      .new {
+        color: var(--primary);
+        font-size: 1.55rem;
+        font-weight: 900
+      }
+      /* Da color y tamano a los botones principales. */
+      /* Boton reutilizable: cambia aqui el tamano general de los botones. */
+      .btn {
+        display: block;
+        background: var(--primary);
+        color: var(--white);
+        padding: .85rem;
+        border-radius: 6px;
+        text-align: center;
+        text-decoration: none;
+        font-weight: 800;
+        transition: all .2s ease-in-out
+      }
+      .btn:hover {
+        background: var(--secondary);
+        transform: scale(1.02)
+      }
+      /* Cambia el pie que aparece al final de la pagina. */
+      .footer {
+        background: var(--brand-deep);
+        color: var(--white);
+        padding: 3rem 5vw 1rem;
+        border-top: 4px solid var(--primary)
+      }
+      /* Ordena el footer en columnas cuando hay espacio suficiente. */
+      .footer-grid {
+        max-width: 1200px;
+        margin: auto;
+        display: grid;
+        grid-template-columns: 1.5fr 1fr 1fr;
+        gap: 2rem
+      }
+      .footer p {
+        color: #dce7e8;
+        line-height: 1.6
+      }
+      .social {
+        display: flex;
+        gap: .5rem
+      }
+      .social img {
+        width: 36px
+      }
+      .copy {
+        text-align: center;
+        border-top: 1px solid #ffffff2b;
+        padding-top: 1rem
+      }
+      /* Desde aqui se acomoda la pagina para pantallas pequenas. */
+      @media(max-width:950px) {
+        /* Ordena el contenido principal de esta seccion. */
+        .offers {
+          grid-template-columns: repeat(2, 1fr)
+        }
+      }
+      /* Desde aqui se acomoda la pagina para pantallas pequenas. */
+      @media(max-width:650px) {
+        /* En celular se oculta el menu largo para usar el boton hamburguesa. */
+        .nav {
+          display: none
+        }
+
+        /* En celular se muestra el menu hamburguesa. */
+        .mobile-menu {
+          display: block
+        }
+
+        .offers,.footer-grid {
+          grid-template-columns: 1fr
+        }
+      }
+    </style>
+  </head>
+  <!-- CUERPO DE LA PAGINA: desde aqui empieza lo que el visitante ve en pantalla. -->
+  <body>
+    <!-- ENCABEZADO: contiene el logo y las opciones principales de navegacion. -->
+    <header>
+      <div class="top">
+        <a href="index.html">
+          <img class="logo" src="assets/img/logo-tienda.png" alt="ZQ SPORT">
+        </a>
+      </div>
+      <!-- MENÚ PRINCIPAL -->
+      <nav class="nav">
+        <a href="index.html">Inicio</a>
+        <a href="deportivos-varon.html">Deportivos Varón</a>
+        <a href="deportivos-dama.html">Deportivos Dama</a>
+        <a href="poleras-varon.html">Poleras Varón</a>
+        <a href="poleras-dama.html">Poleras Dama</a>
+        <a href="mochilas-varon.html">Mochilas Varón</a>
+        <a href="mochilas-dama.html">Mochilas Dama</a>
+        <a href="galeria.html">Galería</a>
+        <a class="active" href="ofertas.html" aria-current="page">Ofertas</a>
+        <a href="nosotros.html">Acerca de Nosotros</a>
+      </nav>
+      <!-- MENU HAMBURGUESA: en celular se toca este boton para abrir las opciones. -->
+      <details class="mobile-menu">
+        <summary>
+          <span class="hamburger-icon" aria-hidden="true"></span>
+          Menu
+        </summary>
+        <!-- Estas son las mismas rutas del menu grande, preparadas para pantalla pequena. -->
+        <div class="mobile-links">
+        <a href="index.html">Inicio</a>
+        <a href="deportivos-varon.html">Deportivos Var&oacute;n</a>
+        <a href="deportivos-dama.html">Deportivos Dama</a>
+        <a href="poleras-varon.html">Poleras Var&oacute;n</a>
+        <a href="poleras-dama.html">Poleras Dama</a>
+        <a href="mochilas-varon.html">Mochilas Var&oacute;n</a>
+        <a href="mochilas-dama.html">Mochilas Dama</a>
+        <a href="galeria.html">Galer&iacute;a</a>
+        <a class="active" aria-current="page" href="ofertas.html">Ofertas</a>
+        <a href="nosotros.html">Acerca de Nosotros</a>
+        </div>
+      </details>
+
+      <div class="heading">
+        <h1>Ofertas Especiales</h1>
+        <p>Promociones preparadas para equipar a tu grupo.</p>
+      </div>
+    </header>
+    <!-- CARDS DE OFERTAS -->
+    <!-- OFERTAS: aqui se muestran las promociones disponibles. -->
+    <main class="offers">
+      <!-- TARJETA DE OFERTA: repite esta estructura para nuevas promociones. -->
+      <article class="card">
+        <span class="badge">-20%</span>
+        <img src="assets/img/producto-placeholder-1.jpg" alt="Oferta uniforme Titán">
+        <div class="body">
+          <h2>Combo Uniforme Titán</h2>
+          <p class="old">Antes: Bs. 180</p>
+          <p class="new">Ahora: Bs. 144</p>
+          <!-- BOTÓN DE WHATSAPP - REEMPLAZAR POR NÚMERO REAL -->
+          <a class="btn" href="https://wa.me/591XXXXXXXX?text=Hola,%20quiero%20reservar%20la%20oferta:%20Combo%20Uniforme%20Titán.%20Cantidad:%20__.%20Talla:%20__.%20Color:%20__.">Reservar por WhatsApp</a>
+        </div>
+      </article>
+      <article class="card">
+        <span class="badge">-15%</span>
+        <img src="assets/img/producto-placeholder-2.jpg" alt="Oferta conjunto Aurora">
+        <div class="body">
+          <h2>Conjunto Aurora</h2>
+          <p class="old">Antes: Bs. 200</p>
+          <p class="new">Ahora: Bs. 170</p>
+          <a class="btn" href="https://wa.me/591XXXXXXXX?text=Hola,%20quiero%20reservar%20la%20oferta:%20Conjunto%20Aurora.%20Cantidad:%20__.%20Talla:%20__.%20Color:%20__.">Reservar por WhatsApp</a>
+        </div>
+      </article>
+      <article class="card">
+        <span class="badge">-25%</span>
+        <img src="assets/img/producto-placeholder-3.jpg" alt="Oferta polera Fénix">
+        <div class="body">
+          <h2>Pack Polera Fénix</h2>
+          <p class="old">Antes: Bs. 160</p>
+          <p class="new">Ahora: Bs. 120</p>
+          <a class="btn" href="https://wa.me/591XXXXXXXX?text=Hola,%20quiero%20reservar%20la%20oferta:%20Pack%20Polera%20Fénix.%20Cantidad:%20__.%20Talla:%20__.%20Color:%20__.">Reservar por WhatsApp</a>
+        </div>
+      </article>
+      <article class="card">
+        <span class="badge">-18%</span>
+        <img src="assets/img/producto-placeholder-4.jpg" alt="Oferta mochila Team Pro">
+        <div class="body">
+          <h2>Mochila Team Pro</h2>
+          <p class="old">Antes: Bs. 150</p>
+          <p class="new">Ahora: Bs. 123</p>
+          <a class="btn" href="https://wa.me/591XXXXXXXX?text=Hola,%20quiero%20reservar%20la%20oferta:%20Mochila%20Team%20Pro.%20Cantidad:%20__.%20Talla:%20__.%20Color:%20__.">Reservar por WhatsApp</a>
+        </div>
+      </article>
+    </main>
+    <!-- FOOTER GENERAL -->
+    <!-- PIE DE PAGINA: muestra datos de la tienda, redes y derechos reservados. -->
+    <footer    <footer class="footer">
+      <div class="footer-grid">
+        <section>
+          <h2>ZQ SPORT</h2>
+          <p>Diseños personalizados para equipos, clubes y competencias deportivas.</p>
+        </section>
+        <section>
+          <h2>Atención</h2>
+          <p>Dirección: [Reemplazar por dirección real]<br>Teléfono: [Reemplazar por teléfono real]<br>WhatsApp: [Reemplazar por WhatsApp real]</p>
+        </section>
+        <section>
+          <h2>Horario y redes</h2>
+          <p>Lunes a Sábado - 08:00 a 20:00</p>
+          <div class="social">
+            <a href="#">
+              <img src="assets/icons/facebook.svg" alt="Facebook">
+            </a>
+            <a href="#">
+              <img src="assets/icons/instagram.svg" alt="Instagram">
+            </a>
+            <a href="#">
+              <img src="assets/icons/whatsapp.svg" alt="WhatsApp">
+            </a>
+            <a href="#">
+              <img src="assets/icons/tiktok.svg" alt="TikTok">
+            </a>
+          </div>
+        </section>
+      </div>
+      <p class="copy">© 2026 ZQ SPORT. Todos los derechos reservados.</p>
+    </footer>
+  </body>
+</html>

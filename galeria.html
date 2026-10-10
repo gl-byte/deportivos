@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="es">
+    <!-- CABECERA DEL DOCUMENTO: aqui van datos que el navegador lee antes de mostrar la pagina. -->
+<head>
+    <!-- Permite mostrar letras con tilde y caracteres en espanol correctamente. -->
+    <meta charset="UTF-8">
+    <!-- Hace que la pagina se adapte al ancho del celular, tablet o computadora. -->
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="description" content="Galería de productos deportivos">
+    <title>Galería de Productos</title>
+
+<!-- ESTILOS DE ESTA PAGINA: cambia aqui colores, tamanos y espacios. -->
+    <style>
+      /* DESIGN TOKENS OBLIGATORIOS */
+      /* Aqui se guardan los colores principales para cambiarlos facilmente. */
+      :root {
+        --primary: #F15A38;
+        --secondary: #48B7BD;
+        --brand-deep: #0C2D3A;
+        --bg-main: #F4F7F6;
+        --surface: #FFFFFF;
+        --text-title: #091E26;
+        --text-body: #3A4D54;
+        --border: #E2EAE9;
+        --white: #FFFFFF
+      }
+      /* Aplica una forma mas facil de calcular tamanos en todos los elementos. */
+      * {
+        box-sizing: border-box
+      }
+      /* Cambia el aspecto general de toda la pagina. */
+      body {
+        margin: 0;
+        background: var(--bg-main);
+        color: var(--text-body);
+        font-family: "Segoe UI", Arial, sans-serif
+      }
+      /* Evita que las imagenes se salgan de su caja. */
+      img {
+        display: block;
+        max-width: 100%
+      }
+
+      /* HEADER COMPACTO: junta logo y menu en la misma franja para evitar espacios vacios. */
+      header {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        background: var(--brand-deep)
+      }
+      /* Los enlaces toman el color del lugar donde estan colocados. */
+      a {
+        color: inherit
+      }
+      /* Esta franja oscura sostiene el logo en la esquina izquierda. */
+      .top {
+        background: transparent;
+        padding: .35rem 0 .35rem 4vw;
+        text-align: left;
+        flex: 0 0 auto
+      }
+      .logo {
+        width: clamp(86px, 9vw, 118px);
+        height: auto;
+        max-height: 58px;
+        object-fit: contain
+      }
+      /* Acomoda los enlaces del menu principal. */
+      .page-nav {
+        display: flex;
+        flex: 1 1 auto;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: .25rem;
+        background: transparent;
+        padding: .35rem 4vw .35rem 1rem
+      }
+      .page-nav a {
+        color: var(--white);
+        padding: .45rem .6rem;
+        text-decoration: none;
+        font-size: .84rem;
+        font-weight: 700;
+        border-bottom: 2px solid transparent;
+        transition: all .2s ease-in-out
+      }
+      .page-nav a:hover,.page-nav a:focus-visible,.page-nav a.active {
+        color: var(--secondary);
+        border-color: var(--secondary);
+        outline: none
+      }
+
+      /* Este menu aparece solo en celular y se abre tocando "Menu". */
+      .mobile-menu {
+        display: none;
+        flex: 1 1 auto;
+        background: transparent;
+        padding: .35rem 4vw .35rem 1rem;
+      }
+
+      /* Este boton es la hamburguesa del celular. */
+      .mobile-menu summary {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: .65rem;
+        color: var(--white);
+        background: var(--primary);
+        border: 1px solid rgba(255, 255, 255, .18);
+        border-radius: 6px;
+        padding: .8rem 1rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        cursor: pointer;
+        list-style: none;
+      }
+
+      /* Quita el triangulo automatico para que solo se vea la hamburguesa. */
+      .mobile-menu summary::-webkit-details-marker {
+        display: none;
+      }
+
+      /* Dibuja las tres rayas del boton sin usar imagenes ni iconos externos. */
+      .hamburger-icon,
+      .hamburger-icon::before,
+      .hamburger-icon::after {
+        display: block;
+        width: 22px;
+        height: 3px;
+        background: var(--white);
+        border-radius: 2px;
+        content: "";
+      }
+
+      /* Mueve la raya superior hacia arriba. */
+      .hamburger-icon::before {
+        transform: translateY(-7px);
+      }
+
+      /* Mueve la raya inferior hacia abajo. */
+      .hamburger-icon::after {
+        transform: translateY(4px);
+      }
+
+      /* Ordena las opciones que se muestran al abrir el menu movil. */
+      .mobile-links {
+        display: grid;
+        gap: .45rem;
+        padding-top: .75rem;
+      }
+
+      /* Hace que cada opcion sea grande y facil de tocar con el dedo. */
+      .mobile-links a {
+        color: var(--white);
+        background: rgba(12, 45, 58, .95);
+        border: 1px solid rgba(255, 255, 255, .16);
+        border-radius: 4px;
+        padding: .75rem;
+        text-align: center;
+        text-decoration: none;
+        font-weight: 800;
+      }
+
+      /* Marca la pagina actual y tambien da respuesta al pasar el cursor. */
+      .mobile-links a.active,
+      .mobile-links a:hover,
+      .mobile-links a:focus-visible {
+        color: var(--brand-deep);
+        background: var(--secondary);
+        outline: none;
+      }
+
+      /* Da espacio y estilo al titulo principal de esta pagina. */
+      /* Presentacion de la pagina: titulo y descripcion corta. */
+      .heading {
+        flex-basis: 100%;
+        background: var(--surface);
+        border-bottom: 1px solid var(--border);
+        padding: 3.5rem 6vw;
+        position: relative;
+        /* Centra el titulo y el subtitulo de esta pagina. */
+        text-align: center
+      }
+      .heading:after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 28%;
+        height: 7px;
+        background: var(--primary);
+        transform: skewX(-30deg)
+      }
+      h1,h2 {
+        font-family: "Arial Narrow", "Impact", "Segoe UI", sans-serif;
+        text-transform: uppercase;
+        letter-spacing: 1px
+      }
+      .heading h1 {
+        margin: 0;
+        color: var(--text-title);
+        font-size: clamp(2.7rem, 6vw, 5rem);
+        line-height: .95
+      }
+      .heading p {
+        font-size: 1.1rem
+      }
+      /* Ordena el contenido principal de esta seccion. */
+      /* Rejilla de galeria: acomoda las imagenes por filas y columnas. */
+      .gallery {
+        max-width: 1200px;
+        margin: auto;
+        padding: 2.5rem 1.25rem 4rem;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem
+      }
+      /* Cambia el aspecto de cada tarjeta o bloque de informacion. */
+      /* Tarjeta de galeria: muestra imagen, nombre y enlace de categoria. */
+      .gallery-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        overflow: hidden;
+        transition: transform .2s ease-in-out, box-shadow .2s ease-in-out
+      }
+      .gallery-card:hover {
+        transform: scale(1.02);
+        box-shadow: 0 14px 30px rgba(9, 30, 38, .12)
+      }
+      .gallery-card img {
+        width: 100%;
+        aspect-ratio: 4/3;
+        object-fit: cover
+      }
+      .gallery-card div {
+        padding: 1rem
+      }
+      .gallery-card h2 {
+        margin: 0 0 .7rem;
+        color: var(--text-title);
+        font-size: 1.15rem
+      }
+      .gallery-card a {
+        color: var(--primary);
+        font-weight: 800;
+        text-decoration: none
+      }
+      .gallery-card a:hover {
+        color: var(--secondary)
+      }
+      /* Cambia el pie que aparece al final de la pagina. */
+      .footer {
+        background: var(--brand-deep);
+        color: var(--white);
+        padding: 3rem 5vw 1rem;
+        border-top: 4px solid var(--primary)
+      }
+      /* Ordena el footer en columnas cuando hay espacio suficiente. */
+      .footer-grid {
+        max-width: 1200px;
+        margin: auto;
+        display: grid;
+        grid-template-columns: 1.5fr 1fr 1fr;
+        gap: 2rem
+      }
+      .footer h2 {
+        margin-top: 0
+      }
+      .footer p {
+        color: #dce7e8;
+        line-height: 1.6
+      }
+      .social {
+        display: flex;
+        gap: .5rem
+      }
+      .social img {
+        width: 36px
+      }
+      .copy {
+        text-align: center;
+        border-top: 1px solid #ffffff2b;
+        padding-top: 1rem;
+        margin-top: 2rem
+      }
+      /* Desde aqui se acomoda la pagina para pantallas pequenas. */
+      @media(max-width:900px) {
+        /* Ordena el contenido principal de esta seccion. */
+        .gallery {
+          grid-template-columns: repeat(2, 1fr)
+        }
+      }
+      /* Desde aqui se acomoda la pagina para pantallas pequenas. */
+      @media(max-width:650px) {
+        /* En celular se oculta el menu largo para usar el boton hamburguesa. */
+        .page-nav {
+          display: none
+        }
+
+        /* En celular se muestra el menu hamburguesa. */
+        .mobile-menu {
+          display: block
+        }
+
+        .gallery,.footer-grid {
+          grid-template-columns: 1fr
+        }
+      }
+    </style>
+  </head>
+  <!-- CUERPO DE LA PAGINA: desde aqui empieza lo que el visitante ve en pantalla. -->
+  <body>
+    <!-- MENÚ PRINCIPAL -->
+    <!-- ENCABEZADO: contiene el logo y las opciones principales de navegacion. -->
+    <header>
+      <div class="top">
+        <a href="index.html">
+          <img class="logo" src="assets/img/logo-tienda.png" alt="ZQ SPORT">
+        </a>
+      </div>
+      <nav class="page-nav" aria-label="Navegación principal">
+        <a href="index.html">Inicio</a>
+        <a href="deportivos-varon.html">Deportivos Varón</a>
+        <a href="deportivos-dama.html">Deportivos Dama</a>
+        <a href="poleras-varon.html">Poleras Varón</a>
+        <a href="poleras-dama.html">Poleras Dama</a>
+        <a href="mochilas-varon.html">Mochilas Varón</a>
+        <a href="mochilas-dama.html">Mochilas Dama</a>
+        <a class="active" href="galeria.html" aria-current="page">Galería</a>
+        <a href="ofertas.html">Ofertas</a>
+        <a href="nosotros.html">Acerca de Nosotros</a>
+      </nav>
+      <!-- MENU HAMBURGUESA: en celular se toca este boton para abrir las opciones. -->
+      <details class="mobile-menu">
+        <summary>
+          <span class="hamburger-icon" aria-hidden="true"></span>
+          Menu
+        </summary>
+        <!-- Estas son las mismas rutas del menu grande, preparadas para pantalla pequena. -->
+        <div class="mobile-links">
+        <a href="index.html">Inicio</a>
+        <a href="deportivos-varon.html">Deportivos Var&oacute;n</a>
+        <a href="deportivos-dama.html">Deportivos Dama</a>
+        <a href="poleras-varon.html">Poleras Var&oacute;n</a>
+        <a href="poleras-dama.html">Poleras Dama</a>
+        <a href="mochilas-varon.html">Mochilas Var&oacute;n</a>
+        <a href="mochilas-dama.html">Mochilas Dama</a>
+        <a class="active" aria-current="page" href="galeria.html">Galer&iacute;a</a>
+        <a href="ofertas.html">Ofertas</a>
+        <a href="nosotros.html">Acerca de Nosotros</a>
+        </div>
+      </details>
+
+      <div class="heading">
+        <h1>Galería de Productos</h1>
+        <p>Explora diseños preparados para personalizar con la identidad de tu equipo.</p>
+      </div>
+    </header>
+    <!-- GALERÍA GENERAL: REEMPLAZAR POR IMÁGENES REALES -->
+    <!-- GALERIA: muestra imagenes generales de productos. -->
+    <main class="gallery">
+      <!-- IMAGEN DE GALERIA: cambia la foto y el texto segun tu producto. -->
+      <article class="gallery-card">
+        <img src="assets/img/producto-placeholder-1.jpg" alt="Uniforme deportivo masculino">
+        <div>
+          <h2>Uniforme Titán</h2>
+          <a href="deportivos-varon.html">Ver Deportivos Varón</a>
+        </div>
+      </article>
+      <article class="gallery-card">
+        <img src="assets/img/producto-placeholder-2.jpg" alt="Uniforme deportivo femenino">
+        <div>
+          <h2>Uniforme Aurora</h2>
+          <a href="deportivos-dama.html">Ver Deportivos Dama</a>
+        </div>
+      </article>
+      <article class="gallery-card">
+        <img src="assets/img/producto-placeholder-3.jpg" alt="Polera deportiva masculina">
+        <div>
+          <h2>Polera Fénix</h2>
+          <a href="poleras-varon.html">Ver Poleras Varón</a>
+        </div>
+      </article>
+      <article class="gallery-card">
+        <img src="assets/img/producto-placeholder-4.jpg" alt="Polera deportiva femenina">
+        <div>
+          <h2>Polera Nova</h2>
+          <a href="poleras-dama.html">Ver Poleras Dama</a>
+        </div>
+      </article>
+      <article class="gallery-card">
+        <img src="assets/img/producto-placeholder-2.jpg" alt="Mochila deportiva masculina">
+        <div>
+          <h2>Mochila Titán</h2>
+          <a href="mochilas-varon.html">Ver Mochilas Varón</a>
+        </div>
+      </article>
+      <article class="gallery-card">
+        <img src="assets/img/producto-placeholder-1.jpg" alt="Mochila deportiva femenina">
+        <div>
+          <h2>Mochila Aura</h2>
+          <a href="mochilas-dama.html">Ver Mochilas Dama</a>
+        </div>
+      </article>
+      <article class="gallery-card">
+        <img src="assets/img/producto-placeholder-4.jpg" alt="Conjunto deportivo personalizado">
+        <div>
+          <h2>Conjunto Élite</h2>
+          <a href="deportivos-varon.html">Ver categoría</a>
+        </div>
+      </article>
+      <article class="gallery-card">
+        <img src="assets/img/producto-placeholder-3.jpg" alt="Polera moderna personalizada">
+        <div>
+          <h2>Polera Motion</h2>
+          <a href="poleras-dama.html">Ver categoría</a>
+        </div>
+      </article>
+    </main>
+    <!-- FOOTER GENERAL -->
+    <!-- PIE DE PAGINA: muestra datos de la tienda, redes y derechos reservados. -->
+    <footer    <footer class="footer">
+      <div class="footer-grid">
+        <section>
+          <h2>ZQ SPORT</h2>
+          <p>Diseños personalizados para equipos, clubes y competencias deportivas.</p>
+        </section>
+        <section>
+          <h2>Atención</h2>
+          <!-- REEMPLAZAR POR DIRECCIÓN REAL -->
+          <p>Dirección: [Reemplazar por dirección real]<br>Teléfono: [Reemplazar por teléfono real]<br>WhatsApp: [Reemplazar por WhatsApp real]</p>
+        </section>
+        <section>
+          <h2>Horario y redes</h2>
+          <p>Lunes a Sábado - 08:00 a 20:00</p>
+          <div class="social">
+            <a href="#" aria-label="Facebook">
+              <img src="assets/icons/facebook.svg" alt="">
+            </a>
+            <a href="#" aria-label="Instagram">
+              <img src="assets/icons/instagram.svg" alt="">
+            </a>
+            <a href="#" aria-label="WhatsApp">
+              <img src="assets/icons/whatsapp.svg" alt="">
+            </a>
+            <a href="#" aria-label="TikTok">
+              <img src="assets/icons/tiktok.svg" alt="">
+            </a>
+          </div>
+        </section>
+      </div>
+      <p class="copy">© 2026 ZQ SPORT. Todos los derechos reservados.</p>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="es">
+    <!-- CABECERA DEL DOCUMENTO: aqui van datos que el navegador lee antes de mostrar la pagina. -->
+<head>
+    <!-- Permite mostrar letras con tilde y caracteres en espanol correctamente. -->
+    <meta charset="UTF-8">
+    <!-- Hace que la pagina se adapte al ancho del celular, tablet o computadora. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Productos deportivos personalizados para equipos, clubes y competencias.">
+    <title>ZQ SPORT | Inicio</title>
+
+<!-- ESTILOS DE ESTA PAGINA: cambia aqui colores, tamanos y espacios. -->
+    <style>
+      /* DESIGN TOKENS: colores oficiales reutilizables de la tienda */
+      /* Aqui se guardan los colores principales para cambiarlos facilmente. */
+      :root {
+        --primary: #F15A38;
+        --secondary: #48B7BD;
+        --brand-deep: #0C2D3A;
+        --bg-main: #F4F7F6;
+        --surface: #FFFFFF;
+        --text-title: #091E26;
+        --text-body: #3A4D54;
+        --border: #E2EAE9;
+        --white: #FFFFFF;
+      }
+      /* Aplica una forma mas facil de calcular tamanos en todos los elementos. */
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      /* Cambia el aspecto general de toda la pagina. */
+      body {
+        margin: 0;
+        overflow-x: hidden;
+        background: var(--brand-deep);
+        color: var(--white);
+        font-family: "Segoe UI", Arial, sans-serif;
+      }
+      /* Los enlaces toman el color del lugar donde estan colocados. */
+      a {
+        color: inherit;
+      }
+      /* Evita que las imagenes se salgan de su caja. */
+      img {
+        max-width: 100%;
+        display: block;
+      }
+      .skip-link {
+        position: absolute;
+        left: -9999px;
+        top: 0;
+        background: var(--white);
+        color: var(--brand-deep);
+        padding: .75rem 1rem;
+        z-index: 20;
+      }
+      .skip-link:focus {
+        left: 1rem;
+        top: 1rem;
+      }
+      /* HERO CENTRAL: la capa oscura garantiza contraste sobre la fotografía */
+      /* Este bloque ocupa la pantalla principal con la imagen de fondo. */
+      .hero {
+        min-height: 100vh;
+        background-image: linear-gradient(rgba(12, 45, 58, .26), rgba(12, 45, 58, .34)), url("assets/img/fondo.jpg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 320px;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero::after {
+        content: "";
+        position: absolute;
+        left: -5%;
+        bottom: 0;
+        width: 62%;
+        height: 10px;
+        background: var(--primary);
+        transform: skewX(-34deg);
+        transform-origin: left;
+      }
+      /* Centra el titulo y los botones dentro de la imagen principal. */
+      .hero-content {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 3rem 2rem;
+      }
+      .hero-copy {
+        max-width: 900px;
+      }
+      /* Controla el tamano y fuerza visual del nombre de la tienda. */
+      .hero-title {
+        margin: 0;
+        font-family: "Arial Narrow", "Impact", "Segoe UI", sans-serif;
+        font-size: clamp(3rem, 7.5vw, 7rem);
+        line-height: .9;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        text-wrap: balance;
+        text-shadow: 0 4px 24px rgba(0, 0, 0, .35);
+      }
+      .hero-subtitle {
+        max-width: 720px;
+        margin: 1.5rem auto 0;
+        font-size: clamp(1rem, 2vw, 1.35rem);
+        line-height: 1.6;
+        font-weight: 600;
+      }
+      /* Acomoda los botones principales debajo del titulo. */
+      .hero-actions {
+        display: flex;
+        justify-content: center;
+        gap: .75rem;
+        flex-wrap: wrap;
+        margin-top: 2rem;
+      }
+      /* Da color y tamano a los botones principales. */
+      /* Boton reutilizable: cambia aqui el tamano general de los botones. */
+      .btn {
+        display: inline-block;
+        padding: .9rem 1.35rem;
+        border: 2px solid transparent;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: .4px;
+        transition: all .2s ease-in-out;
+      }
+      .btn-primary {
+        background: var(--primary);
+        color: var(--white);
+      }
+      .btn-secondary {
+        border-color: var(--secondary);
+        background: rgba(12, 45, 58, .65);
+        color: var(--white);
+      }
+      .btn:hover,.btn:focus-visible {
+        background: var(--secondary);
+        border-color: var(--secondary);
+        transform: translateY(-2px) scale(1.02);
+        outline: none;
+      }
+      /* MENÚ PRINCIPAL LATERAL DERECHO */
+      /* Caja del menu principal en escritorio; en movil baja debajo del hero. */
+      .main-menu {
+        min-height: 100vh;
+        background: rgba(8, 35, 46, .93);
+        border-left: 1px solid rgba(226, 234, 233, .22);
+        padding: 1.25rem 1.25rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+        z-index: 2;
+      }
+      /* Caja donde vive el logo dentro del menu principal. */
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: .75rem;
+        padding: 0 0 .45rem;
+        border-bottom: 1px solid rgba(226, 234, 233, .12);
+      }
+      .brand img {
+        width: clamp(92px, 10vw, 128px);
+        height: auto;
+        max-height: 62px;
+        object-fit: contain;
+      }
+      /* Lista de botones del menu grande para computadora. */
+      .menu-list {
+        display: grid;
+        gap: .55rem;
+        margin-top: .7rem;
+      }
+
+      /* Este menu aparece solo en celular para no llenar la pantalla con muchas opciones. */
+      .mobile-home-menu {
+        display: none;
+        margin-top: 1rem;
+      }
+
+      /* Este es el boton hamburguesa de la pagina principal. */
+      .mobile-home-menu summary {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: .65rem;
+        color: var(--white);
+        background: var(--primary);
+        border: 1px solid rgba(255, 255, 255, .18);
+        border-radius: 6px;
+        padding: .85rem 1rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        cursor: pointer;
+        list-style: none;
+      }
+
+      /* Quita el triangulo automatico del boton desplegable. */
+      .mobile-home-menu summary::-webkit-details-marker {
+        display: none;
+      }
+
+
+      /* Dibuja las tres rayas del boton hamburguesa sin usar imagenes. */
+      .hamburger-icon,
+      .hamburger-icon::before,
+      .hamburger-icon::after {
+        display: block;
+        width: 22px;
+        height: 3px;
+        background: var(--white);
+        border-radius: 2px;
+        content: "";
+      }
+
+      /* Mueve la raya superior hacia arriba. */
+      .hamburger-icon::before {
+        transform: translateY(-7px);
+      }
+
+      /* Mueve la raya inferior hacia abajo. */
+      .hamburger-icon::after {
+        transform: translateY(4px);
+      }
+
+      /* Ordena las opciones que aparecen al abrir el menu hamburguesa. */
+      .mobile-links {
+        display: grid;
+        gap: .45rem;
+        padding-top: .75rem;
+      }
+
+      /* Hace que las opciones sean grandes y faciles de tocar en celular. */
+      .mobile-links a {
+        color: var(--white);
+        background: rgba(12, 45, 58, .95);
+        border: 1px solid rgba(255, 255, 255, .16);
+        border-radius: 4px;
+        padding: .75rem;
+        text-align: center;
+        text-decoration: none;
+        font-weight: 800;
+      }
+
+      /* Marca la pagina abierta dentro del menu movil. */
+      .mobile-links a.active,
+      .mobile-links a:hover,
+      .mobile-links a:focus-visible {
+        color: var(--brand-deep);
+        background: var(--secondary);
+        outline: none;
+      }
+
+      .menu-link,.catalog-menu summary {
+        display: block;
+        width: 100%;
+        padding: .8rem .9rem;
+        background: rgba(12, 45, 58, .85);
+        color: var(--white);
+        border: 1px solid rgba(226, 234, 233, .25);
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 750;
+        cursor: pointer;
+        transition: all .2s ease-in-out;
+      }
+      .menu-link:hover,.menu-link:focus-visible,.catalog-menu summary:hover,.catalog-menu summary:focus-visible {
+        background: var(--primary);
+        transform: translateX(-4px);
+        outline: none;
+      }
+      .menu-link.active {
+        background: var(--primary);
+        border-color: var(--primary);
+      }
+      .catalog-menu summary {
+        list-style: none;
+      }
+      .catalog-menu summary::-webkit-details-marker {
+        display: none;
+      }
+      .catalog-menu summary::after {
+        content: "+";
+        float: right;
+        color: var(--secondary);
+        font-size: 1.2rem;
+        line-height: 1;
+      }
+      .catalog-menu[open] summary::after {
+        content: "−";
+        color: var(--white);
+      }
+      /* Opciones internas que aparecen dentro de Catalogo. */
+      .submenu {
+        display: grid;
+        gap: .3rem;
+        padding: .5rem 0 0 .75rem;
+      }
+      .submenu a {
+        padding: .6rem .75rem;
+        color: var(--white);
+        border-left: 2px solid var(--secondary);
+        text-decoration: none;
+        font-size: .9rem;
+        transition: all .2s ease-in-out;
+      }
+      .submenu a:hover,.submenu a:focus-visible {
+        color: var(--secondary);
+        padding-left: 1rem;
+        outline: none;
+      }
+      /* FOOTER GENERAL */
+      /* Cambia el pie que aparece al final de la pagina. */
+      .site-footer {
+        background: var(--brand-deep);
+        color: var(--white);
+        padding: 3rem max(1.25rem, 5vw) 1.25rem;
+        border-top: 4px solid var(--primary);
+      }
+      /* Ordena el footer en columnas cuando hay espacio suficiente. */
+      .footer-grid {
+        max-width: 1200px;
+        margin: auto;
+        display: grid;
+        grid-template-columns: 1.5fr 1fr 1fr;
+        gap: 2rem;
+      }
+      .footer-title {
+        margin: 0 0 .75rem;
+        font-family: "Arial Narrow", "Impact", "Segoe UI", sans-serif;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .footer-copy,.footer-data {
+        color: #dce7e8;
+        line-height: 1.7;
+        margin: .25rem 0;
+      }
+      .social-links {
+        display: flex;
+        gap: .65rem;
+        margin-top: 1rem;
+      }
+      .social-links a {
+        border: 1px solid rgba(255, 255, 255, .2);
+        border-radius: 6px;
+        transition: all .2s ease-in-out;
+      }
+      .social-links a:hover,.social-links a:focus-visible {
+        transform: translateY(-3px);
+        border-color: var(--secondary);
+        outline: none;
+      }
+      .social-links img {
+        width: 36px;
+        height: 36px;
+      }
+      .copyright {
+        max-width: 1200px;
+        margin: 2rem auto 0;
+        padding-top: 1rem;
+        border-top: 1px solid rgba(226, 234, 233, .18);
+        text-align: center;
+        color: #bcd0d3;
+        font-size: .9rem;
+      }
+      /* RESPONSIVIDAD: tablet y celular */
+      /* Desde aqui el inicio se acomoda para pantallas pequenas. */
+      @media (max-width: 900px) {
+        /* El hero deja de tener dos columnas para que nada se corte en celular. */
+        .hero {
+          display: flex;
+          flex-direction: column;
+          min-height: 100vh;
+          overflow: visible;
+        }
+
+        /* El texto principal ocupa todo el ancho disponible. */
+        .hero-content {
+          width: 100%;
+          min-height: 52vh;
+          padding: 4rem 1.25rem 2rem;
+        }
+
+        /* Limita el texto para que no se pegue a los bordes. */
+        .hero-copy {
+          width: min(100%, 640px);
+          margin: 0 auto;
+        }
+
+        /* El menu baja debajo del texto y ya no queda como columna lateral. */
+        .main-menu {
+          width: 100%;
+          min-height: auto;
+          padding: 1rem max(1rem, 5vw) 1.25rem;
+          border-left: 0;
+          border-top: 1px solid rgba(226, 234, 233, .22);
+          justify-content: flex-start;
+        }
+
+        /* El logo queda ordenado y centrado en la franja movil. */
+        .brand {
+          justify-content: center;
+          padding: 0 0 .75rem;
+        }
+
+        /* El logo no debe ocupar demasiado alto en celular. */
+        .brand img {
+          width: clamp(92px, 28vw, 120px);
+          max-height: 62px;
+        }
+
+        /* En celular se oculta el menu largo para usar el boton hamburguesa. */
+        .menu-list {
+          display: none;
+        }
+
+        /* En celular se muestra el boton hamburguesa del menu principal. */
+        .mobile-home-menu {
+          display: block;
+          width: 100%;
+          margin-top: 0;
+        }
+
+        /* El boton hamburguesa ocupa el ancho correcto sin salirse. */
+        .mobile-home-menu summary {
+          width: 100%;
+        }
+
+        /* Las opciones del menu movil bajan en una sola columna clara. */
+        .mobile-links {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* Ajustes especiales para celulares mas angostos. */
+      @media (max-width: 640px) {
+        /* Reduce el alto del bloque principal para que el menu aparezca pronto. */
+        .hero-content {
+          min-height: 48vh;
+          padding: 3.25rem 1rem 1.5rem;
+        }
+
+        /* El titulo baja de tamano para no cortarse. */
+        .hero-title {
+          font-size: clamp(2.6rem, 18vw, 4.2rem);
+          line-height: .92;
+          letter-spacing: 1px;
+        }
+
+        /* El subtitulo queda legible y no se pega a los bordes. */
+        .hero-subtitle {
+          font-size: .98rem;
+          line-height: 1.5;
+          margin-top: 1rem;
+        }
+
+        /* Los botones principales usan todo el ancho disponible. */
+        .btn {
+          width: 100%;
+        }
+
+        /* El pie de pagina queda en una sola columna. */
+        .footer-grid {
+          grid-template-columns: 1fr;
+        }
+
+        /* Reduce el espacio superior del footer en movil. */
+        .site-footer {
+          padding-top: 2.25rem;
+        }
+      }
+
+      /* Desde aqui se acomoda la pagina para pantallas pequenas. */
+      @media (prefers-reduced-motion:reduce) {
+        html {
+          scroll-behavior: auto
+        }
+        *,*::before,*::after {
+          transition: none!important
+        }
+      }
+    </style>
+  </head>
+  <!-- CUERPO DE LA PAGINA: desde aqui empieza lo que el visitante ve en pantalla. -->
+  <body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <!-- HERO CENTRAL -->
+    <!-- CONTENIDO PRINCIPAL: junta el hero y el menu de inicio. -->
+    <main id="contenido" class="hero">
+      <!-- TEXTO CENTRAL: muestra el nombre de la tienda y sus botones. -->
+      <section class="hero-content" aria-labelledby="titulo-principal">
+        <div class="hero-copy">
+          <!-- TITULO PRINCIPAL: cambia este texto si quieres otro nombre visible. -->
+          <h1 id="titulo-principal" class="hero-title">ZQ SPORT</h1>
+          <!-- SUBTITULO: explica rapidamente que ofrece la tienda. -->
+          <p class="hero-subtitle">Diseños personalizados para equipos, clubes y competencias deportivas</p>
+          <!-- BOTONES DE ACCION: llevan al catalogo y a ofertas. -->
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="deportivos-varon.html">Explorar catálogo</a>
+            <a class="btn btn-secondary" href="ofertas.html">Ver ofertas</a>
+          </div>
+        </div>
+      </section>
+      <!-- MENÚ PRINCIPAL: <details> permite desplegar sin JavaScript -->
+      <!-- MENU DE INICIO: contiene logo, categorias y enlaces importantes. -->
+      <nav class="main-menu" aria-label="Navegación principal">
+        <div class="brand">
+          <img src="assets/img/logo-tienda.png" alt="ZQ SPORT">
+        </div>
+          <!-- MENU HAMBURGUESA: se usa en celular para mostrar las opciones sin ocupar tanto espacio. -->
+          <!-- MENU MOVIL: se abre y se cierra sin usar JavaScript. -->
+          <details class="mobile-home-menu">
+            <summary>
+              <span class="hamburger-icon" aria-hidden="true"></span>
+              Menu
+            </summary>
+            <!-- Estas rutas llevan a las mismas paginas del menu grande. -->
+            <div class="mobile-links">
+              <a class="active" aria-current="page" href="index.html">Inicio</a>
+              <a href="deportivos-varon.html">Deportivos Var&oacute;n</a>
+              <a href="deportivos-dama.html">Deportivos Dama</a>
+              <a href="poleras-varon.html">Poleras Var&oacute;n</a>
+              <a href="poleras-dama.html">Poleras Dama</a>
+              <a href="mochilas-varon.html">Mochilas Var&oacute;n</a>
+              <a href="mochilas-dama.html">Mochilas Dama</a>
+              <a href="galeria.html">Galer&iacute;a</a>
+              <a href="ofertas.html">Ofertas</a>
+              <a href="nosotros.html">Acerca de Nosotros</a>
+            </div>
+          </details>
+        <div class="menu-list">
+          <a class="menu-link active" href="index.html" aria-current="page">Inicio</a>
+          <!-- CATALOGO DESPLEGABLE: muestra las categorias de productos. -->
+          <details class="catalog-menu" open>
+            <summary>Catálogo</summary>
+            <div class="submenu">
+              <a href="deportivos-varon.html">Deportivos Varón</a>
+              <a href="deportivos-dama.html">Deportivos Dama</a>
+              <a href="poleras-varon.html">Poleras Varón</a>
+              <a href="poleras-dama.html">Poleras Dama</a>
+              <a href="mochilas-varon.html">Mochilas Varón</a>
+              <a href="mochilas-dama.html">Mochilas Dama</a>
+            </div>
+          </details>
+          <a class="menu-link" href="galeria.html">Galería</a>
+          <a class="menu-link" href="ofertas.html">Ofertas</a>
+        <!-- Esta opcion abre la pagina del personal, ubicacion y video de ruta. -->
+        <a class="menu-link" href="nosotros.html">Acerca de Nosotros</a>
+        </div>
+      </nav>
+    </main>
+    <!-- FOOTER GENERAL -->
+    <!-- PIE DE PAGINA: muestra datos de la tienda, redes y derechos reservados. -->
+    <footer    <footer class="site-footer">
+      <div class="footer-grid">
+        <section>
+          <h2 class="footer-title">ZQ SPORT</h2>
+          <p class="footer-copy">Diseños personalizados para equipos, clubes y competencias deportivas.</p>
+        </section>
+        <section>
+          <h2 class="footer-title">Atención</h2>
+          <!-- REEMPLAZAR POR DIRECCIÓN REAL -->
+          <p class="footer-data">Dirección: [Reemplazar por dirección real]</p>
+          <p class="footer-data">Teléfono: [Reemplazar por teléfono real]</p>
+          <p class="footer-data">WhatsApp: [Reemplazar por WhatsApp real]</p>
+        </section>
+        <section>
+          <h2 class="footer-title">Horario y redes</h2>
+          <p class="footer-data">Lunes a Sábado - 08:00 a 20:00</p>
+          <div class="social-links">
+            <a href="#" aria-label="Facebook">
+              <img src="assets/icons/facebook.svg" alt="">
+            </a>
+            <a href="#" aria-label="Instagram">
+              <img src="assets/icons/instagram.svg" alt="">
+            </a>
+            <a href="#" aria-label="WhatsApp">
+              <img src="assets/icons/whatsapp.svg" alt="">
+            </a>
+            <a href="#" aria-label="TikTok">
+              <img src="assets/icons/tiktok.svg" alt="">
+            </a>
+          </div>
+        </section>
+      </div>
+      <p class="copyright">© 2026 ZQ SPORT. Todos los derechos reservados.</p>
+    </footer>
+  </body>
+</html>
