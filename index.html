@@ -350,6 +350,16 @@
         line-height: 1.7;
         margin: .25rem 0;
       }
+      /* Mapa pequeno del pie de pagina: ocupa el ancho de su columna. */
+      .footer-map {
+        display: block;
+        width: 100%;
+        height: 200px;
+        margin: .5rem 0 .75rem;
+        border: 2px solid rgba(72, 183, 189, .35);
+        border-radius: 14px;
+        background: rgba(255, 255, 255, .06);
+      }
       .social-links {
         display: flex;
         gap: .65rem;
@@ -750,8 +760,19 @@
         </section>
         <section>
           <h2 class="footer-title">Atención</h2>
-          <!-- El enlace abre la ubicacion. Puedes agregar la calle cuando tengas la direccion escrita. -->
-          <p class="footer-data">Dirección: <a href="https://www.google.com/maps/search/?api=1&amp;query=-17.970611%2C-67.069306" target="_blank" rel="noopener noreferrer">Ver ubicación en Google Maps</a></p>
+          <!-- MAPA DE LA TIENDA: es el mismo mapa de Acerca de Nosotros. Cambia el src si la tienda se muda. -->
+          <!-- loading="lazy" carga el mapa solo cuando el visitante llega al pie de pagina. -->
+          <p class="footer-data">Dirección:</p>
+          <iframe
+            class="footer-map"
+            src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3795.1749292313216!2d-67.07186892482153!3d-17.970596683019455!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTfCsDU4JzE0LjIiUyA2N8KwMDQnMDkuNSJX!5e0!3m2!1ses!2sbo!4v1791676384972!5m2!1ses!2sbo"
+            title="Ubicación de ZQ SPORT en Google Maps"
+            width="600"
+            height="200"
+            allowfullscreen
+            loading="lazy"
+            referrerpolicy="strict-origin-when-cross-origin">
+          </iframe>
           <p class="footer-data">Teléfono: <a href="tel:+59172478852">72478852</a></p>
           <p class="footer-data">WhatsApp: <a href="https://wa.me/59172478852?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20los%20productos%20de%20ZQ%20SPORT.">72478852</a></p>
         </section>
