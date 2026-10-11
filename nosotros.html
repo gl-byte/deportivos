@@ -305,8 +305,7 @@
     }
 
     .info-panel,
-    .map-panel,
-    .video-panel {
+    .map-panel {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 6px;
@@ -363,21 +362,6 @@
 
     .btn-map {
       background: var(--secondary);
-    }
-
-    /* Espacio reservado para colocar despues un video de YouTube. */
-    .video-placeholder {
-      display: grid;
-      place-items: center;
-      min-height: 360px;
-      padding: 2rem;
-      background: var(--brand-deep);
-      border: 2px dashed var(--secondary);
-      border-radius: 6px;
-      color: var(--white);
-      text-align: center;
-      font-size: 1.15rem;
-      font-weight: 800;
     }
 
     /* Cambia el pie que aparece al final de la pagina. */
@@ -447,10 +431,6 @@
       .btn {
         display: block;
         text-align: center;
-      }
-
-      .video-placeholder {
-        min-height: 230px;
       }
     }
 
@@ -801,20 +781,6 @@
             <!-- Abre Google Maps con la tienda como destino para elegir una ruta. -->
             <a class="btn btn-map" href="https://www.google.com/maps/dir/?api=1&amp;destination=-17.970611%2C-67.069306" target="_blank" rel="noopener noreferrer">Cómo llegar en Google Maps</a>
           </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- VIDEO DE RUTA: se encuentra debajo de la ubicacion. -->
-    <section class="section-container" aria-labelledby="titulo-video">
-      <h2 id="titulo-video" class="section-title">¿Cómo Llegar?</h2>
-      <p class="section-intro">Abre la ruta en Google Maps. Próximamente también podrás ver el recorrido en video.</p>
-      <div class="video-panel">
-        <!-- REEMPLAZAR ESTE CUADRO POR EL IFRAME O ENLACE REAL DE YOUTUBE. -->
-        <!-- VIDEO: reemplaza este cuadro por el enlace real cuando lo tengas. -->
-        <div class="video-placeholder">
-          <p>El video del recorrido estará disponible próximamente.</p>
-          <a class="btn btn-map" href="https://www.google.com/maps/dir/?api=1&amp;destination=-17.970611%2C-67.069306" target="_blank" rel="noopener noreferrer">Abrir ruta a la tienda</a>
         </div>
       </div>
     </section>

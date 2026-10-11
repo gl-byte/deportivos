@@ -238,7 +238,7 @@
 
   /* ---------- 4. Aparicion de elementos al hacer scroll ---------- */
   var REVEAL = '.product-card, .gallery-card, .offers > .card, .team-card, .info-panel, .map-panel, ' +
-    '.video-panel, .faq-list details, .section-title, .section-intro, .footer-grid > section';
+    '.faq-list details, .section-title, .section-intro, .footer-grid > section';
   if (!reduce && 'IntersectionObserver' in window) {
     var io = new IntersectionObserver(function (entries) {
       var i = 0;
