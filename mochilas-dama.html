@@ -585,7 +585,7 @@
 
       /* Mantiene el fondo fuera del recorrido con Tab mientras el detalle esta abierto. */
       body:has(.product-modal:target) > header,
-      body:has(.product-modal:target) .catalog,
+      body:has(.product-modal:target) .products-grid,
       body:has(.product-modal:target) > footer,
       body:has(.product-modal:target) > .quick-actions {
         visibility: hidden;
@@ -700,6 +700,16 @@
         }
       }
     </style>
+    <!-- ESTILO DINAMICO: fuentes, animaciones e interacciones compartidas por todas las paginas. -->
+    <meta name="theme-color" content="#0C2D3A">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap">
+    <link rel="stylesheet" href="assets/css/dinamico.css">
+    <!-- Marca que JavaScript esta activo; si no lo esta, la pagina sigue funcionando igual. -->
+    <script>document.documentElement.classList.add('zq-js');</script>
+    <script src="assets/js/dinamico.js" defer></script>
+
   </head>
 <!-- CUERPO DE LA PAGINA: desde aqui empieza lo que el visitante ve en pantalla. -->
 <body id="inicio">
@@ -742,11 +752,13 @@
         </div>
       </details>
 
-    <div class="page-header">
+  </header>
+
+  <!-- TITULO DE LA PAGINA: queda fuera del encabezado para que el menu se mantenga visible al bajar. -->
+  <div class="page-header">
       <h1>Cat&aacute;logo de Mochilas Dama</h1>
       <p>Mochilas funcionales con organizaci&oacute;n y dise&ntilde;o deportivo actual.</p>
     </div>
-  </header>
 
   <!-- CATALOGO DE PRODUCTOS: aqui se muestran las cuatro opciones. -->
   <!-- ZONA DEL CATALOGO: aqui se muestran las tarjetas de productos. -->
@@ -922,7 +934,7 @@
           <h2>Atenci&oacute;n</h2>
           <!-- REEMPLAZAR POR DATOS REALES DE LA TIENDA. -->
           <p>Direcci&oacute;n: <a href="https://www.google.com/maps/search/?api=1&amp;query=-17.970611%2C-67.069306" target="_blank" rel="noopener noreferrer">Ver ubicación en Google Maps</a></p>
-          <p>Tel&eacute;fono: 72478852</p>
+          <p>Tel&eacute;fono: <a href="tel:+59172478852">72478852</a></p>
           <p>WhatsApp: <a href="https://wa.me/59172478852?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20los%20productos%20de%20ZQ%20SPORT.">72478852</a></p>
         </section>
         <section>
