@@ -28,11 +28,10 @@
       * {
         box-sizing: border-box;
       }
-      html {
-        scroll-behavior: smooth;
-      }
       /* Cambia el aspecto general de toda la pagina. */
       body {
+        /* Deja espacio para que los botones flotantes no tapen el final de la pagina. */
+        padding-bottom: 5.5rem;
         margin: 0;
         overflow-x: hidden;
         background: var(--brand-deep);
@@ -149,7 +148,6 @@
         background: var(--secondary);
         border-color: var(--secondary);
         transform: translateY(-2px) scale(1.02);
-        outline: none;
       }
       /* MENÚ PRINCIPAL LATERAL DERECHO */
       /* Caja del menu principal en escritorio; en movil baja debajo del hero. */
@@ -213,7 +211,6 @@
         display: none;
       }
 
-
       /* Dibuja las tres rayas del boton hamburguesa sin usar imagenes. */
       .hamburger-icon,
       .hamburger-icon::before,
@@ -224,6 +221,13 @@
         background: var(--white);
         border-radius: 2px;
         content: "";
+      }
+
+      /* Suaviza el cambio de las rayas cuando abres o cierras el menu. */
+      .hamburger-icon,
+      .hamburger-icon::before,
+      .hamburger-icon::after {
+        transition: transform .2s ease-in-out, background-color .2s ease-in-out;
       }
 
       /* Mueve la raya superior hacia arriba. */
@@ -261,7 +265,6 @@
       .mobile-links a:focus-visible {
         color: var(--brand-deep);
         background: var(--secondary);
-        outline: none;
       }
 
       .menu-link,.catalog-menu summary {
@@ -280,7 +283,6 @@
       .menu-link:hover,.menu-link:focus-visible,.catalog-menu summary:hover,.catalog-menu summary:focus-visible {
         background: var(--primary);
         transform: translateX(-4px);
-        outline: none;
       }
       .menu-link.active {
         background: var(--primary);
@@ -320,7 +322,6 @@
       .submenu a:hover,.submenu a:focus-visible {
         color: var(--secondary);
         padding-left: 1rem;
-        outline: none;
       }
       /* FOOTER GENERAL */
       /* Cambia el pie que aparece al final de la pagina. */
@@ -362,7 +363,6 @@
       .social-links a:hover,.social-links a:focus-visible {
         transform: translateY(-3px);
         border-color: var(--secondary);
-        outline: none;
       }
       .social-links img {
         width: 36px;
@@ -493,10 +493,171 @@
           transition: none!important
         }
       }
+
+      /* MOVIMIENTO SUAVE: cambia la distancia en translateY si quieres mas o menos movimiento. */
+      @keyframes entrada-suave {
+        from {
+          opacity: 0;
+          transform: translateY(14px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Al entrar a la pagina, el titulo aparece suavemente una sola vez. */
+      .hero-copy {
+        animation: entrada-suave .45s ease-out both;
+      }
+
+      /* Los enlaces que apuntan a una seccion se desplazan suavemente. */
+      html {
+        scroll-behavior: smooth;
+      }
+
+      /* Muestra claramente donde estas al recorrer la pagina con la tecla Tab. */
+      a:focus-visible,
+      summary:focus-visible {
+        outline: 3px solid var(--secondary);
+        outline-offset: 4px;
+      }
+
+      /* Da respuesta inmediata al pasar por las opciones del menu. */
+      .mobile-links a,
+      .mobile-home-menu > summary,
+      .social-links a {
+        transition: background-color .2s ease-in-out, color .2s ease-in-out, transform .2s ease-in-out;
+      }
+
+      /* La cruz indica que puedes tocar de nuevo para cerrar el menu. */
+      .mobile-home-menu[open] > summary .hamburger-icon {
+        background: transparent;
+      }
+
+      .mobile-home-menu[open] > summary .hamburger-icon::before {
+        transform: rotate(45deg);
+      }
+
+      .mobile-home-menu[open] > summary .hamburger-icon::after {
+        transform: translateY(-3px) rotate(-45deg);
+      }
+
+      /* Las opciones aparecen suavemente al abrir el menu. */
+      .mobile-home-menu[open] .mobile-links {
+        animation: entrada-suave .2s ease-out;
+      }
+
+      /* Estos accesos permiten elegir un tipo de producto desde el inicio. */
+      .hero-categories {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: .6rem;
+        margin-top: 1.5rem;
+      }
+
+      .hero-categories a {
+        padding: .65rem .9rem;
+        color: var(--white);
+        background: rgba(12, 45, 58, .85);
+        border: 1px solid var(--secondary);
+        border-radius: 4px;
+        text-decoration: none;
+        font-weight: 700;
+        transition: background-color .2s ease-in-out, transform .2s ease-in-out;
+      }
+
+      .hero-categories a:hover,
+      .hero-categories a:focus-visible {
+        background: var(--brand-deep);
+        transform: translateY(-3px);
+      }
+
+      /* Estos dos botones siguen visibles al bajar por la pagina. */
+      .quick-actions {
+        position: fixed;
+        right: max(1rem, env(safe-area-inset-right));
+        bottom: max(1rem, env(safe-area-inset-bottom));
+        z-index: 30;
+        display: flex;
+        align-items: center;
+        gap: .5rem;
+      }
+
+      .quick-actions a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: .5rem;
+        min-height: 48px;
+        padding: .75rem 1rem;
+        color: var(--white);
+        background: var(--brand-deep);
+        border: 1px solid var(--secondary);
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 800;
+        box-shadow: 0 6px 20px rgba(9, 30, 38, .2);
+        transition: transform .2s ease-in-out, background-color .2s ease-in-out;
+      }
+
+      /* El boton de WhatsApp conserva el naranja principal de la tienda. */
+      .quick-actions .quick-whatsapp {
+        background: var(--primary);
+        border-color: var(--primary);
+      }
+
+      .quick-actions img {
+        width: 24px;
+        height: 24px;
+      }
+
+      .quick-actions a:hover {
+        background: var(--secondary);
+        transform: translateY(-3px);
+      }
+
+      /* Los botones responden con un pequeno movimiento al tocarlos. */
+      .btn:active,
+      .quick-actions a:active {
+        transform: scale(.98);
+      }
+
+      /* Las redes y los datos del pie se pueden seleccionar sin perder su color. */
+      footer a {
+        color: inherit;
+        text-underline-offset: 3px;
+      }
+
+      footer a:hover {
+        color: var(--secondary);
+      }
+
+      /* Reduce el ancho de los botones flotantes para dejar espacio en celular. */
+      @media (max-width: 700px) {
+        .quick-actions a {
+          padding: .7rem .85rem;
+        }
+      }
+
+      /* Si el visitante prefiere menos movimiento, la pagina respeta su eleccion. */
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+
+        *,
+        *::before,
+        *::after {
+          animation: none !important;
+          transition: none !important;
+        }
+      }
     </style>
   </head>
   <!-- CUERPO DE LA PAGINA: desde aqui empieza lo que el visitante ve en pantalla. -->
-  <body>
+  <body id="inicio">
     <a class="skip-link" href="#contenido">Saltar al contenido</a>
     <!-- HERO CENTRAL -->
     <!-- CONTENIDO PRINCIPAL: junta el hero y el menu de inicio. -->
@@ -508,6 +669,12 @@
           <h1 id="titulo-principal" class="hero-title">ZQ SPORT</h1>
           <!-- SUBTITULO: explica rapidamente que ofrece la tienda. -->
           <p class="hero-subtitle">Diseños personalizados para equipos, clubes y competencias deportivas</p>
+          <!-- Accesos cortos para conocer las tres familias de productos. -->
+          <div class="hero-categories" aria-label="Tipos de productos">
+            <a href="deportivos-varon.html">Uniformes</a>
+            <a href="poleras-dama.html">Poleras</a>
+            <a href="mochilas-varon.html">Mochilas</a>
+          </div>
           <!-- BOTONES DE ACCION: llevan al catalogo y a ofertas. -->
           <div class="hero-actions">
             <a class="btn btn-primary" href="deportivos-varon.html">Explorar catálogo</a>
@@ -565,7 +732,7 @@
     </main>
     <!-- FOOTER GENERAL -->
     <!-- PIE DE PAGINA: muestra datos de la tienda, redes y derechos reservados. -->
-    <footer    <footer class="site-footer">
+    <footer class="site-footer">
       <div class="footer-grid">
         <section>
           <h2 class="footer-title">ZQ SPORT</h2>
@@ -573,10 +740,10 @@
         </section>
         <section>
           <h2 class="footer-title">Atención</h2>
-          <!-- REEMPLAZAR POR DIRECCIÓN REAL -->
-          <p class="footer-data">Dirección: [Reemplazar por dirección real]</p>
-          <p class="footer-data">Teléfono: [Reemplazar por teléfono real]</p>
-          <p class="footer-data">WhatsApp: [Reemplazar por WhatsApp real]</p>
+          <!-- El enlace abre la ubicacion. Puedes agregar la calle cuando tengas la direccion escrita. -->
+          <p class="footer-data">Dirección: <a href="https://www.google.com/maps/search/?api=1&amp;query=-17.970611%2C-67.069306" target="_blank" rel="noopener noreferrer">Ver ubicación en Google Maps</a></p>
+          <p class="footer-data">Teléfono: 72478852</p>
+          <p class="footer-data">WhatsApp: <a href="https://wa.me/59172478852?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20los%20productos%20de%20ZQ%20SPORT.">72478852</a></p>
         </section>
         <section>
           <h2 class="footer-title">Horario y redes</h2>
@@ -588,7 +755,7 @@
             <a href="#" aria-label="Instagram">
               <img src="assets/icons/instagram.svg" alt="">
             </a>
-            <a href="#" aria-label="WhatsApp">
+            <a href="https://wa.me/59172478852?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20los%20productos%20de%20ZQ%20SPORT." aria-label="Escribir a ZQ SPORT por WhatsApp">
               <img src="assets/icons/whatsapp.svg" alt="">
             </a>
             <a href="#" aria-label="TikTok">
@@ -599,5 +766,14 @@
       </div>
       <p class="copyright">© 2026 ZQ SPORT. Todos los derechos reservados.</p>
     </footer>
+
+    <!-- ACCESOS RAPIDOS: cambia el numero del enlace si cambia el WhatsApp de la tienda. -->
+    <nav class="quick-actions" aria-label="Accesos rápidos">
+      <a href="#inicio" aria-label="Volver al inicio de la página" title="Volver arriba">&uarr;</a>
+      <a class="quick-whatsapp" href="https://wa.me/59172478852?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20los%20productos%20de%20ZQ%20SPORT." aria-label="Consultar con ZQ SPORT por WhatsApp">
+        <img src="assets/icons/whatsapp.svg" alt="">
+        WhatsApp
+      </a>
+    </nav>
   </body>
 </html>

@@ -7,7 +7,7 @@
     <!-- Hace que la pagina se adapte al ancho del celular, tablet o computadora. -->
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <meta name="description" content="Galería de productos deportivos">
-    <title>Galería de Productos</title>
+    <title>Galería de Productos | ZQ SPORT</title>
 
 <!-- ESTILOS DE ESTA PAGINA: cambia aqui colores, tamanos y espacios. -->
     <style>
@@ -30,6 +30,8 @@
       }
       /* Cambia el aspecto general de toda la pagina. */
       body {
+        /* Deja espacio para que los botones flotantes no tapen el final de la pagina. */
+        padding-bottom: 5.5rem;
         margin: 0;
         background: var(--bg-main);
         color: var(--text-body);
@@ -88,7 +90,6 @@
       .page-nav a:hover,.page-nav a:focus-visible,.page-nav a.active {
         color: var(--secondary);
         border-color: var(--secondary);
-        outline: none
       }
 
       /* Este menu aparece solo en celular y se abre tocando "Menu". */
@@ -133,6 +134,13 @@
         content: "";
       }
 
+      /* Suaviza el cambio de las rayas cuando abres o cierras el menu. */
+      .hamburger-icon,
+      .hamburger-icon::before,
+      .hamburger-icon::after {
+        transition: transform .2s ease-in-out, background-color .2s ease-in-out;
+      }
+
       /* Mueve la raya superior hacia arriba. */
       .hamburger-icon::before {
         transform: translateY(-7px);
@@ -168,7 +176,6 @@
       .mobile-links a:focus-visible {
         color: var(--brand-deep);
         background: var(--secondary);
-        outline: none;
       }
 
       /* Da espacio y estilo al titulo principal de esta pagina. */
@@ -223,12 +230,9 @@
         border: 1px solid var(--border);
         border-radius: 6px;
         overflow: hidden;
-        transition: transform .2s ease-in-out, box-shadow .2s ease-in-out
+        transition: transform .2s ease-in-out, box-shadow .2s ease-in-out, border-color .2s ease-in-out
       }
-      .gallery-card:hover {
-        transform: scale(1.02);
-        box-shadow: 0 14px 30px rgba(9, 30, 38, .12)
-      }
+
       .gallery-card img {
         width: 100%;
         aspect-ratio: 4/3;
@@ -308,10 +312,173 @@
           grid-template-columns: 1fr
         }
       }
+
+      /* MOVIMIENTO SUAVE: cambia la distancia en translateY si quieres mas o menos movimiento. */
+      @keyframes entrada-suave {
+        from {
+          opacity: 0;
+          transform: translateY(14px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Al entrar a la pagina, el titulo aparece suavemente una sola vez. */
+      .heading h1 {
+        animation: entrada-suave .45s ease-out both;
+      }
+
+      /* Los enlaces que apuntan a una seccion se desplazan suavemente. */
+      html {
+        scroll-behavior: smooth;
+      }
+
+      /* Muestra claramente donde estas al recorrer la pagina con la tecla Tab. */
+      a:focus-visible,
+      summary:focus-visible {
+        outline: 3px solid var(--secondary);
+        outline-offset: 4px;
+      }
+
+      /* Da respuesta inmediata al pasar por las opciones del menu. */
+      .mobile-links a,
+      .mobile-menu > summary,
+      .page-nav a,
+      .social a {
+        transition: background-color .2s ease-in-out, color .2s ease-in-out, transform .2s ease-in-out;
+      }
+
+      /* La cruz indica que puedes tocar de nuevo para cerrar el menu. */
+      .mobile-menu[open] > summary .hamburger-icon {
+        background: transparent;
+      }
+
+      .mobile-menu[open] > summary .hamburger-icon::before {
+        transform: rotate(45deg);
+      }
+
+      .mobile-menu[open] > summary .hamburger-icon::after {
+        transform: translateY(-3px) rotate(-45deg);
+      }
+
+      /* Las opciones aparecen suavemente al abrir el menu. */
+      .mobile-menu[open] .mobile-links {
+        animation: entrada-suave .2s ease-out;
+      }
+
+      /* Resalta la tarjeta al pasar el cursor o al seleccionar su boton con Tab. */
+      .gallery-card:hover,
+      .gallery-card:focus-within {
+        border-color: var(--secondary);
+        transform: translateY(-4px) scale(1.02);
+        box-shadow: 0 14px 32px rgba(9, 30, 38, .12);
+      }
+
+      /* Estos dos botones siguen visibles al bajar por la pagina. */
+      .quick-actions {
+        position: fixed;
+        right: max(1rem, env(safe-area-inset-right));
+        bottom: max(1rem, env(safe-area-inset-bottom));
+        z-index: 30;
+        display: flex;
+        align-items: center;
+        gap: .5rem;
+      }
+
+      .quick-actions a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: .5rem;
+        min-height: 48px;
+        padding: .75rem 1rem;
+        color: var(--white);
+        background: var(--brand-deep);
+        border: 1px solid var(--secondary);
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 800;
+        box-shadow: 0 6px 20px rgba(9, 30, 38, .2);
+        transition: transform .2s ease-in-out, background-color .2s ease-in-out;
+      }
+
+      /* El boton de WhatsApp conserva el naranja principal de la tienda. */
+      .quick-actions .quick-whatsapp {
+        background: var(--primary);
+        border-color: var(--primary);
+      }
+
+      .quick-actions img {
+        width: 24px;
+        height: 24px;
+      }
+
+      .quick-actions a:hover {
+        background: var(--secondary);
+        transform: translateY(-3px);
+      }
+
+      /* Los botones responden con un pequeno movimiento al tocarlos. */
+      .quick-actions a:active {
+        transform: scale(.98);
+      }
+
+      /* Las redes y los datos del pie se pueden seleccionar sin perder su color. */
+      footer a {
+        color: inherit;
+        text-underline-offset: 3px;
+      }
+
+      footer a:hover {
+        color: var(--secondary);
+      }
+
+      /* Evita que un titulo largo o una tarjeta empujen la pantalla del celular. */
+      .heading {
+        min-width: 0;
+        overflow-wrap: anywhere;
+      }
+
+      /* Acomoda el menu en una fila completa cuando se abre en celular. */
+      @media (max-width: 700px) {
+        .mobile-menu {
+          flex: 1 1 calc(100% - 120px);
+          min-width: 0;
+        }
+
+        .mobile-menu[open] {
+          flex-basis: 100%;
+        }
+
+        .heading h1 {
+          font-size: clamp(2rem, 9vw, 3.5rem);
+        }
+      }
+
+      /* Si el visitante prefiere menos movimiento, la pagina respeta su eleccion. */
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+
+        *,
+        *::before,
+        *::after {
+          animation: none !important;
+          transition: none !important;
+        }
+
+        .gallery-card:hover,
+        .gallery-card:focus-within {
+          transform: none;
+        }
+      }
     </style>
   </head>
   <!-- CUERPO DE LA PAGINA: desde aqui empieza lo que el visitante ve en pantalla. -->
-  <body>
+  <body id="inicio">
     <!-- MENÚ PRINCIPAL -->
     <!-- ENCABEZADO: contiene el logo y las opciones principales de navegacion. -->
     <header>
@@ -421,7 +588,7 @@
     </main>
     <!-- FOOTER GENERAL -->
     <!-- PIE DE PAGINA: muestra datos de la tienda, redes y derechos reservados. -->
-    <footer    <footer class="footer">
+    <footer class="footer">
       <div class="footer-grid">
         <section>
           <h2>ZQ SPORT</h2>
@@ -429,8 +596,8 @@
         </section>
         <section>
           <h2>Atención</h2>
-          <!-- REEMPLAZAR POR DIRECCIÓN REAL -->
-          <p>Dirección: [Reemplazar por dirección real]<br>Teléfono: [Reemplazar por teléfono real]<br>WhatsApp: [Reemplazar por WhatsApp real]</p>
+          <!-- El enlace abre la ubicacion. Puedes agregar la calle cuando tengas la direccion escrita. -->
+          <p>Dirección: <a href="https://www.google.com/maps/search/?api=1&amp;query=-17.970611%2C-67.069306" target="_blank" rel="noopener noreferrer">Ver ubicación en Google Maps</a><br>Teléfono: 72478852<br>WhatsApp: <a href="https://wa.me/59172478852?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20los%20productos%20de%20ZQ%20SPORT.">72478852</a></p>
         </section>
         <section>
           <h2>Horario y redes</h2>
@@ -442,7 +609,7 @@
             <a href="#" aria-label="Instagram">
               <img src="assets/icons/instagram.svg" alt="">
             </a>
-            <a href="#" aria-label="WhatsApp">
+            <a href="https://wa.me/59172478852?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20los%20productos%20de%20ZQ%20SPORT." aria-label="Escribir a ZQ SPORT por WhatsApp">
               <img src="assets/icons/whatsapp.svg" alt="">
             </a>
             <a href="#" aria-label="TikTok">
@@ -453,5 +620,14 @@
       </div>
       <p class="copy">© 2026 ZQ SPORT. Todos los derechos reservados.</p>
     </footer>
+
+    <!-- ACCESOS RAPIDOS: cambia el numero del enlace si cambia el WhatsApp de la tienda. -->
+    <nav class="quick-actions" aria-label="Accesos rápidos">
+      <a href="#inicio" aria-label="Volver al inicio de la página" title="Volver arriba">&uarr;</a>
+      <a class="quick-whatsapp" href="https://wa.me/59172478852?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20los%20productos%20de%20ZQ%20SPORT." aria-label="Consultar con ZQ SPORT por WhatsApp">
+        <img src="assets/icons/whatsapp.svg" alt="">
+        WhatsApp
+      </a>
+    </nav>
   </body>
 </html>

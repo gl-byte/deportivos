@@ -27,12 +27,10 @@
         box-sizing: border-box;
       }
 
-      html {
-        scroll-behavior: smooth;
-      }
-
       /* Cambia el aspecto general de toda la pagina. */
       body {
+        /* Deja espacio para que los botones flotantes no tapen el final de la pagina. */
+        padding-bottom: 5.5rem;
         margin: 0;
         background: var(--bg-main);
         color: var(--text-body);
@@ -98,7 +96,6 @@
       .page-nav a.active {
         color: var(--secondary);
         border-color: var(--secondary);
-        outline: none;
       }
 
       /* Este menu aparece solo en celular y se abre tocando "Menu". */
@@ -143,6 +140,13 @@
         content: "";
       }
 
+      /* Suaviza el cambio de las rayas cuando abres o cierras el menu. */
+      .hamburger-icon,
+      .hamburger-icon::before,
+      .hamburger-icon::after {
+        transition: transform .2s ease-in-out, background-color .2s ease-in-out;
+      }
+
       /* Mueve la raya superior hacia arriba. */
       .hamburger-icon::before {
         transform: translateY(-7px);
@@ -178,9 +182,7 @@
       .mobile-links a:focus-visible {
         color: var(--brand-deep);
         background: var(--secondary);
-        outline: none;
       }
-
 
       /* Centra el titulo y el texto de presentacion. */
       .page-header {
@@ -250,13 +252,9 @@
         border-radius: 6px;
         overflow: hidden;
         box-shadow: 0 8px 25px rgba(9, 30, 38, .06);
-        transition: transform .2s ease-in-out, box-shadow .2s ease-in-out;
+        transition: transform .2s ease-in-out, box-shadow .2s ease-in-out, border-color .2s ease-in-out;
       }
 
-      .product-card:hover {
-        transform: scale(1.02);
-        box-shadow: 0 14px 32px rgba(9, 30, 38, .12);
-      }
 
       .product-card > img {
         width: 100%;
@@ -304,7 +302,6 @@
       .btn-detail:hover,
       .btn-detail:focus-visible {
         background: var(--secondary);
-        outline: none;
       }
 
       /* La vista grande permanece oculta hasta que se toca Ver detalles. */
@@ -321,11 +318,13 @@
       /* La ruta con el nombre del detalle muestra la vista completa. */
       .product-modal:target {
         display: grid;
-        place-items: center;
+        justify-items: center;
+        align-items: start;
       }
 
       /* Caja grande del detalle del producto. */
       .modal-card {
+        min-width: 0;
         width: min(1100px, 100%);
         min-height: calc(100vh - 2rem);
         background: var(--surface);
@@ -336,6 +335,8 @@
 
       /* Este enlace cierra el producto y regresa a su tarjeta. */
       .modal-close {
+        padding: .75rem;
+        border-radius: 6px;
         display: block;
         width: max-content;
         margin-left: auto;
@@ -355,7 +356,7 @@
       .modal-content img {
         width: 100%;
         max-height: 62vh;
-        object-fit: cover;
+        object-fit: contain;
         border-radius: 6px;
       }
 
@@ -386,7 +387,6 @@
       .btn-whatsapp:focus-visible {
         background: var(--secondary);
         transform: scale(1.02);
-        outline: none;
       }
 
       /* Acomoda los botones anterior y siguiente debajo del detalle. */
@@ -416,7 +416,6 @@
       .modal-navigation a:hover,
       .modal-navigation a:focus-visible {
         background: var(--secondary);
-        outline: none;
       }
 
       /* Cambia el pie que aparece al final de la pagina. */
@@ -510,9 +509,200 @@
           transition: none !important;
         }
       }
-    </style></head>
+
+      /* MOVIMIENTO SUAVE: cambia la distancia en translateY si quieres mas o menos movimiento. */
+      @keyframes entrada-suave {
+        from {
+          opacity: 0;
+          transform: translateY(14px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Al entrar a la pagina, el titulo aparece suavemente una sola vez. */
+      .page-header h1 {
+        animation: entrada-suave .45s ease-out both;
+      }
+
+      /* Los enlaces que apuntan a una seccion se desplazan suavemente. */
+      html {
+        scroll-behavior: smooth;
+      }
+
+      /* Muestra claramente donde estas al recorrer la pagina con la tecla Tab. */
+      a:focus-visible,
+      summary:focus-visible {
+        outline: 3px solid var(--secondary);
+        outline-offset: 4px;
+      }
+
+      /* Da respuesta inmediata al pasar por las opciones del menu. */
+      .mobile-links a,
+      .mobile-menu > summary,
+      .page-nav a,
+      .social a {
+        transition: background-color .2s ease-in-out, color .2s ease-in-out, transform .2s ease-in-out;
+      }
+
+      /* La cruz indica que puedes tocar de nuevo para cerrar el menu. */
+      .mobile-menu[open] > summary .hamburger-icon {
+        background: transparent;
+      }
+
+      .mobile-menu[open] > summary .hamburger-icon::before {
+        transform: rotate(45deg);
+      }
+
+      .mobile-menu[open] > summary .hamburger-icon::after {
+        transform: translateY(-3px) rotate(-45deg);
+      }
+
+      /* Las opciones aparecen suavemente al abrir el menu. */
+      .mobile-menu[open] .mobile-links {
+        animation: entrada-suave .2s ease-out;
+      }
+
+      /* Resalta la tarjeta al pasar el cursor o al seleccionar su boton con Tab. */
+      .product-card:hover,
+      .product-card:focus-within {
+        border-color: var(--secondary);
+        transform: translateY(-4px) scale(1.02);
+        box-shadow: 0 14px 32px rgba(9, 30, 38, .12);
+      }
+
+      /* Al abrir el detalle, la tarjeta grande entra sin un salto brusco. */
+      .product-modal:target .modal-card {
+        animation: entrada-suave .25s ease-out;
+      }
+
+      /* Evita mover la pagina de fondo mientras estas viendo un producto. */
+      body:has(.product-modal:target) {
+        overflow: hidden;
+      }
+
+      /* Mantiene el fondo fuera del recorrido con Tab mientras el detalle esta abierto. */
+      body:has(.product-modal:target) > header,
+      body:has(.product-modal:target) .catalog,
+      body:has(.product-modal:target) > footer,
+      body:has(.product-modal:target) > .quick-actions {
+        visibility: hidden;
+      }
+
+      .modal-close:hover,
+      .modal-navigation a:focus-visible {
+        background: var(--secondary);
+      }
+
+      /* Estos dos botones siguen visibles al bajar por la pagina. */
+      .quick-actions {
+        position: fixed;
+        right: max(1rem, env(safe-area-inset-right));
+        bottom: max(1rem, env(safe-area-inset-bottom));
+        z-index: 30;
+        display: flex;
+        align-items: center;
+        gap: .5rem;
+      }
+
+      .quick-actions a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: .5rem;
+        min-height: 48px;
+        padding: .75rem 1rem;
+        color: var(--white);
+        background: var(--brand-deep);
+        border: 1px solid var(--secondary);
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 800;
+        box-shadow: 0 6px 20px rgba(9, 30, 38, .2);
+        transition: transform .2s ease-in-out, background-color .2s ease-in-out;
+      }
+
+      /* El boton de WhatsApp conserva el naranja principal de la tienda. */
+      .quick-actions .quick-whatsapp {
+        background: var(--primary);
+        border-color: var(--primary);
+      }
+
+      .quick-actions img {
+        width: 24px;
+        height: 24px;
+      }
+
+      .quick-actions a:hover {
+        background: var(--secondary);
+        transform: translateY(-3px);
+      }
+
+      /* Los botones responden con un pequeno movimiento al tocarlos. */
+      .btn-detail:active,
+      .btn-whatsapp:active,
+      .quick-actions a:active {
+        transform: scale(.98);
+      }
+
+      /* Las redes y los datos del pie se pueden seleccionar sin perder su color. */
+      footer a {
+        color: inherit;
+        text-underline-offset: 3px;
+      }
+
+      footer a:hover {
+        color: var(--secondary);
+      }
+
+      /* Evita que un titulo largo o una tarjeta empujen la pantalla del celular. */
+      .page-header,
+      .card-body,
+      .modal-info {
+        min-width: 0;
+        overflow-wrap: anywhere;
+      }
+
+      /* Acomoda el menu en una fila completa cuando se abre en celular. */
+      @media (max-width: 700px) {
+        .mobile-menu {
+          flex: 1 1 calc(100% - 120px);
+          min-width: 0;
+        }
+
+        .mobile-menu[open] {
+          flex-basis: 100%;
+        }
+
+        .page-header h1 {
+          font-size: clamp(2rem, 9vw, 3.5rem);
+        }
+      }
+
+      /* Si el visitante prefiere menos movimiento, la pagina respeta su eleccion. */
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+
+        *,
+        *::before,
+        *::after {
+          animation: none !important;
+          transition: none !important;
+        }
+
+        .product-card:hover,
+        .product-card:focus-within {
+          transform: none;
+        }
+      }
+    </style>
+  </head>
 <!-- CUERPO DE LA PAGINA: desde aqui empieza lo que el visitante ve en pantalla. -->
-<body>
+<body id="inicio">
   <!-- ENCABEZADO GENERAL: muestra el logo, menu y titulo. -->
   <header>
     <div class="topbar">
@@ -611,7 +801,8 @@
             <!-- Este enlace abre el producto ocupando toda la pantalla. -->
             <a class="btn-detail" href="#detalle-4">Ver detalles</a>
           </div>
-        </article>    </section>
+        </article>
+    </section>
 
     <!-- VISTAS GRANDES: se abren sin JavaScript usando las rutas con numeral. -->
       <!-- DETALLE 1: aparece al abrir la ruta detalle-1. -->
@@ -628,8 +819,8 @@
               <p><strong>Tallas:</strong> S, M, L y XL</p>
               <p><strong>Colores:</strong> coral, azul, negro y blanco</p>
               <p class="price">Bs. 120</p>
-              <!-- REEMPLAZAR 591XXXXXXXX POR EL NUMERO REAL. -->
-              <a class="btn-whatsapp" href="https://wa.me/591XXXXXXXX?text=Hola%2C%20quiero%20reservar%20el%20producto%3A%20Polera%20F%C3%A9nix.%20Talla%3A%20__.%20Color%3A%20__.%20Cantidad%3A%20__.">Comprar / Reservar por WhatsApp</a>
+              <!-- El numero lleva 591 por Bolivia. Cambia solo los digitos si cambia el WhatsApp. -->
+              <a class="btn-whatsapp" href="https://wa.me/59172478852?text=Hola%2C%20quiero%20reservar%20el%20producto%3A%20Polera%20F%C3%A9nix.%20Talla%3A%20__.%20Color%3A%20__.%20Cantidad%3A%20__.">Comprar / Reservar por WhatsApp</a>
             </div>
           </div>
           <!-- Las flechas recorren los productos y vuelven al primero al terminar. -->
@@ -638,7 +829,9 @@
             <a href="#detalle-2" aria-label="Producto siguiente">&gt;</a>
           </nav>
         </article>
-      </section>      <!-- DETALLE 2: aparece al abrir la ruta detalle-2. -->
+    </section>
+
+      <!-- DETALLE 2: aparece al abrir la ruta detalle-2. -->
       <section id="detalle-2" class="product-modal" aria-labelledby="titulo-detalle-2">
         <article class="modal-card">
           <!-- Este enlace cierra la vista y regresa a la tarjeta original. -->
@@ -652,8 +845,8 @@
               <p><strong>Tallas:</strong> S, M, L y XL</p>
               <p><strong>Colores:</strong> coral, azul, negro y blanco</p>
               <p class="price">Bs. 145</p>
-              <!-- REEMPLAZAR 591XXXXXXXX POR EL NUMERO REAL. -->
-              <a class="btn-whatsapp" href="https://wa.me/591XXXXXXXX?text=Hola%2C%20quiero%20reservar%20el%20producto%3A%20Polera%20Urban%20Fit.%20Talla%3A%20__.%20Color%3A%20__.%20Cantidad%3A%20__.">Comprar / Reservar por WhatsApp</a>
+              <!-- El numero lleva 591 por Bolivia. Cambia solo los digitos si cambia el WhatsApp. -->
+              <a class="btn-whatsapp" href="https://wa.me/59172478852?text=Hola%2C%20quiero%20reservar%20el%20producto%3A%20Polera%20Urban%20Fit.%20Talla%3A%20__.%20Color%3A%20__.%20Cantidad%3A%20__.">Comprar / Reservar por WhatsApp</a>
             </div>
           </div>
           <!-- Las flechas recorren los productos y vuelven al primero al terminar. -->
@@ -662,7 +855,9 @@
             <a href="#detalle-3" aria-label="Producto siguiente">&gt;</a>
           </nav>
         </article>
-      </section>      <!-- DETALLE 3: aparece al abrir la ruta detalle-3. -->
+    </section>
+
+      <!-- DETALLE 3: aparece al abrir la ruta detalle-3. -->
       <section id="detalle-3" class="product-modal" aria-labelledby="titulo-detalle-3">
         <article class="modal-card">
           <!-- Este enlace cierra la vista y regresa a la tarjeta original. -->
@@ -676,8 +871,8 @@
               <p><strong>Tallas:</strong> S, M, L y XL</p>
               <p><strong>Colores:</strong> coral, azul, negro y blanco</p>
               <p class="price">Bs. 170</p>
-              <!-- REEMPLAZAR 591XXXXXXXX POR EL NUMERO REAL. -->
-              <a class="btn-whatsapp" href="https://wa.me/591XXXXXXXX?text=Hola%2C%20quiero%20reservar%20el%20producto%3A%20Polera%20Capit%C3%A1n.%20Talla%3A%20__.%20Color%3A%20__.%20Cantidad%3A%20__.">Comprar / Reservar por WhatsApp</a>
+              <!-- El numero lleva 591 por Bolivia. Cambia solo los digitos si cambia el WhatsApp. -->
+              <a class="btn-whatsapp" href="https://wa.me/59172478852?text=Hola%2C%20quiero%20reservar%20el%20producto%3A%20Polera%20Capit%C3%A1n.%20Talla%3A%20__.%20Color%3A%20__.%20Cantidad%3A%20__.">Comprar / Reservar por WhatsApp</a>
             </div>
           </div>
           <!-- Las flechas recorren los productos y vuelven al primero al terminar. -->
@@ -686,7 +881,9 @@
             <a href="#detalle-4" aria-label="Producto siguiente">&gt;</a>
           </nav>
         </article>
-      </section>      <!-- DETALLE 4: aparece al abrir la ruta detalle-4. -->
+    </section>
+
+      <!-- DETALLE 4: aparece al abrir la ruta detalle-4. -->
       <section id="detalle-4" class="product-modal" aria-labelledby="titulo-detalle-4">
         <article class="modal-card">
           <!-- Este enlace cierra la vista y regresa a la tarjeta original. -->
@@ -700,8 +897,8 @@
               <p><strong>Tallas:</strong> S, M, L y XL</p>
               <p><strong>Colores:</strong> coral, azul, negro y blanco</p>
               <p class="price">Bs. 195</p>
-              <!-- REEMPLAZAR 591XXXXXXXX POR EL NUMERO REAL. -->
-              <a class="btn-whatsapp" href="https://wa.me/591XXXXXXXX?text=Hola%2C%20quiero%20reservar%20el%20producto%3A%20Polera%20Training%20Pro.%20Talla%3A%20__.%20Color%3A%20__.%20Cantidad%3A%20__.">Comprar / Reservar por WhatsApp</a>
+              <!-- El numero lleva 591 por Bolivia. Cambia solo los digitos si cambia el WhatsApp. -->
+              <a class="btn-whatsapp" href="https://wa.me/59172478852?text=Hola%2C%20quiero%20reservar%20el%20producto%3A%20Polera%20Training%20Pro.%20Talla%3A%20__.%20Color%3A%20__.%20Cantidad%3A%20__.">Comprar / Reservar por WhatsApp</a>
             </div>
           </div>
           <!-- Las flechas recorren los productos y vuelven al primero al terminar. -->
@@ -710,11 +907,12 @@
             <a href="#detalle-1" aria-label="Producto siguiente">&gt;</a>
           </nav>
         </article>
-      </section>  </main>
+    </section>
+    </main>
 
     <!-- FOOTER GENERAL: repite la informacion basica al final. -->
     <!-- PIE DE PAGINA: muestra datos de la tienda, redes y derechos reservados. -->
-    <footer    <footer class="site-footer">
+    <footer class="site-footer">
       <div class="footer-grid">
         <section>
           <h2>ZQ SPORT</h2>
@@ -723,9 +921,9 @@
         <section>
           <h2>Atenci&oacute;n</h2>
           <!-- REEMPLAZAR POR DATOS REALES DE LA TIENDA. -->
-          <p>Direcci&oacute;n: [Reemplazar por direcci&oacute;n real]</p>
-          <p>Tel&eacute;fono: [Reemplazar por tel&eacute;fono real]</p>
-          <p>WhatsApp: [Reemplazar por WhatsApp real]</p>
+          <p>Direcci&oacute;n: <a href="https://www.google.com/maps/search/?api=1&amp;query=-17.970611%2C-67.069306" target="_blank" rel="noopener noreferrer">Ver ubicación en Google Maps</a></p>
+          <p>Tel&eacute;fono: 72478852</p>
+          <p>WhatsApp: <a href="https://wa.me/59172478852?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20los%20productos%20de%20ZQ%20SPORT.">72478852</a></p>
         </section>
         <section>
           <h2>Horario y redes</h2>
@@ -733,11 +931,21 @@
           <div class="social">
             <a href="#" aria-label="Facebook"><img src="assets/icons/facebook.svg" alt=""></a>
             <a href="#" aria-label="Instagram"><img src="assets/icons/instagram.svg" alt=""></a>
-            <a href="#" aria-label="WhatsApp"><img src="assets/icons/whatsapp.svg" alt=""></a>
+            <a href="https://wa.me/59172478852?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20los%20productos%20de%20ZQ%20SPORT." aria-label="Escribir a ZQ SPORT por WhatsApp"><img src="assets/icons/whatsapp.svg" alt=""></a>
             <a href="#" aria-label="TikTok"><img src="assets/icons/tiktok.svg" alt=""></a>
           </div>
         </section>
       </div>
       <p class="copy">&copy; 2026 ZQ SPORT. Todos los derechos reservados.</p>
-    </footer></body>
+    </footer>
+
+    <!-- ACCESOS RAPIDOS: cambia el numero del enlace si cambia el WhatsApp de la tienda. -->
+    <nav class="quick-actions" aria-label="Accesos rápidos">
+      <a href="#inicio" aria-label="Volver al inicio de la página" title="Volver arriba">&uarr;</a>
+      <a class="quick-whatsapp" href="https://wa.me/59172478852?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20los%20productos%20de%20ZQ%20SPORT." aria-label="Consultar con ZQ SPORT por WhatsApp">
+        <img src="assets/icons/whatsapp.svg" alt="">
+        WhatsApp
+      </a>
+    </nav>
+  </body>
 </html>

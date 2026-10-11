@@ -29,6 +29,8 @@
 
     /* Cambia el aspecto general de toda la pagina. */
     body {
+      /* Deja espacio para que los botones flotantes no tapen el final de la pagina. */
+      padding-bottom: 5.5rem;
       margin: 0;
       background: var(--bg-main);
       color: var(--text-body);
@@ -94,7 +96,6 @@
     .page-nav a.active {
       color: var(--secondary);
       border-color: var(--secondary);
-      outline: none;
     }
 
       /* Este menu aparece solo en celular y se abre tocando "Menu". */
@@ -139,6 +140,13 @@
         content: "";
       }
 
+      /* Suaviza el cambio de las rayas cuando abres o cierras el menu. */
+      .hamburger-icon,
+      .hamburger-icon::before,
+      .hamburger-icon::after {
+        transition: transform .2s ease-in-out, background-color .2s ease-in-out;
+      }
+
       /* Mueve la raya superior hacia arriba. */
       .hamburger-icon::before {
         transform: translateY(-7px);
@@ -174,12 +182,11 @@
       .mobile-links a:focus-visible {
         color: var(--brand-deep);
         background: var(--secondary);
-        outline: none;
       }
-
 
     /* Centra el titulo y el subtitulo de la pagina. */
     .page-header {
+      flex-basis: 100%;
       position: relative;
       overflow: hidden;
       background: var(--surface);
@@ -248,7 +255,7 @@
     }
 
     /* Cambia el aspecto de cada tarjeta del personal. */
-    /* Tarjeta del personal: foto, nombre y cargo. */
+    /* Cada tarjeta muestra el nombre de una trabajadora. */
     .team-card {
       overflow: hidden;
       background: var(--surface);
@@ -256,15 +263,11 @@
       border-radius: 6px;
       box-shadow: 0 10px 28px rgba(9, 30, 38, .08);
       text-align: center;
-      transition: transform .2s ease-in-out, box-shadow .2s ease-in-out;
+      transition: transform .2s ease-in-out, box-shadow .2s ease-in-out, border-color .2s ease-in-out;
     }
 
-    .team-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 16px 34px rgba(9, 30, 38, .14);
-    }
 
-    .team-card img {
+    .team-photo {
       width: 100%;
       aspect-ratio: 4 / 3;
       object-fit: cover;
@@ -294,7 +297,7 @@
     }
 
     /* Coloca los datos y el mapa uno al lado del otro. */
-    /* Seccion de ubicacion: datos de contacto y espacio para mapa. */
+    /* Aqui van los datos de contacto y el mapa de Google Maps. */
     .location-grid {
       display: grid;
       grid-template-columns: 1fr 1.25fr;
@@ -329,18 +332,14 @@
       line-height: 1.5;
     }
 
-    /* Este cuadro se cambia por el mapa real cuando este disponible. */
-    .map-placeholder {
-      display: grid;
-      place-items: center;
-      min-height: 300px;
-      padding: 2rem;
-      background: repeating-linear-gradient(135deg, #E2EAE9 0, #E2EAE9 2px, #F4F7F6 2px, #F4F7F6 16px);
-      border: 2px dashed var(--secondary);
+    /* El mapa ocupa todo el ancho de su tarjeta y se adapta al celular. */
+    .store-map {
+      display: block;
+      width: 100%;
+      height: clamp(280px, 40vw, 450px);
+      border: 0;
       border-radius: 6px;
-      color: var(--brand-deep);
-      text-align: center;
-      font-weight: 800;
+      background: var(--bg-main);
     }
 
     /* Da color y espacio a los botones de contacto y mapa. */
@@ -360,14 +359,12 @@
     .btn:focus-visible {
       background: var(--secondary);
       transform: scale(1.02);
-      outline: none;
     }
 
     .btn-map {
       background: var(--secondary);
     }
 
-    /* Este cuadro se reemplaza por el video real de YouTube. */
     /* Espacio reservado para colocar despues un video de YouTube. */
     .video-placeholder {
       display: grid;
@@ -421,12 +418,8 @@
       text-align: center;
     }
 
-    /* En tablet las personas se muestran en dos columnas. */
+    /* En tablet el mapa baja debajo de los datos para tener mas espacio. */
     @media (max-width: 900px) {
-      .team-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
       .location-grid {
         grid-template-columns: 1fr;
       }
@@ -460,10 +453,225 @@
         min-height: 230px;
       }
     }
-  </style>
+
+      /* MOVIMIENTO SUAVE: cambia la distancia en translateY si quieres mas o menos movimiento. */
+      @keyframes entrada-suave {
+        from {
+          opacity: 0;
+          transform: translateY(14px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Al entrar a la pagina, el titulo aparece suavemente una sola vez. */
+      .page-header h1 {
+        animation: entrada-suave .45s ease-out both;
+      }
+
+      /* Los enlaces que apuntan a una seccion se desplazan suavemente. */
+      html {
+        scroll-behavior: smooth;
+      }
+
+      /* Muestra claramente donde estas al recorrer la pagina con la tecla Tab. */
+      a:focus-visible,
+      summary:focus-visible {
+        outline: 3px solid var(--secondary);
+        outline-offset: 4px;
+      }
+
+      /* Da respuesta inmediata al pasar por las opciones del menu. */
+      .mobile-links a,
+      .mobile-menu > summary,
+      .page-nav a,
+      .social a {
+        transition: background-color .2s ease-in-out, color .2s ease-in-out, transform .2s ease-in-out;
+      }
+
+      /* La cruz indica que puedes tocar de nuevo para cerrar el menu. */
+      .mobile-menu[open] > summary .hamburger-icon {
+        background: transparent;
+      }
+
+      .mobile-menu[open] > summary .hamburger-icon::before {
+        transform: rotate(45deg);
+      }
+
+      .mobile-menu[open] > summary .hamburger-icon::after {
+        transform: translateY(-3px) rotate(-45deg);
+      }
+
+      /* Las opciones aparecen suavemente al abrir el menu. */
+      .mobile-menu[open] .mobile-links {
+        animation: entrada-suave .2s ease-out;
+      }
+
+      /* Resalta la tarjeta al pasar el cursor o al seleccionar su boton con Tab. */
+      .team-card:hover,
+      .team-card:focus-within {
+        border-color: var(--secondary);
+        transform: translateY(-4px) scale(1.02);
+        box-shadow: 0 14px 32px rgba(9, 30, 38, .12);
+      }
+
+      /* Estas iniciales reemplazan las fotos hasta que tengas las imagenes del equipo. */
+      .team-avatar {
+        display: grid;
+        place-items: center;
+        min-height: 190px;
+        color: var(--white);
+        background: linear-gradient(135deg, var(--brand-deep), #164B60);
+        font-size: 4rem;
+        font-weight: 800;
+        border-bottom: 4px solid var(--primary);
+      }
+
+      /* Las preguntas no requieren un programa: se abren tocando su titulo. */
+      .faq-list {
+        display: grid;
+        gap: .75rem;
+        max-width: 800px;
+        margin: auto;
+      }
+
+      .faq-list details {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 1rem;
+      }
+
+      /* El borde celeste distingue la pregunta que esta abierta. */
+      .faq-list details[open] {
+        border-color: var(--secondary);
+      }
+
+      .faq-list summary {
+        cursor: pointer;
+        font-weight: 800;
+        color: var(--text-title);
+        padding: .25rem;
+      }
+
+      .faq-list p {
+        margin: .75rem .25rem .25rem;
+        line-height: 1.6;
+      }
+
+      /* Mantiene legibles las letras del boton sobre el color celeste. */
+      .btn-map {
+        color: var(--text-title);
+      }
+
+      /* Estos dos botones siguen visibles al bajar por la pagina. */
+      .quick-actions {
+        position: fixed;
+        right: max(1rem, env(safe-area-inset-right));
+        bottom: max(1rem, env(safe-area-inset-bottom));
+        z-index: 30;
+        display: flex;
+        align-items: center;
+        gap: .5rem;
+      }
+
+      .quick-actions a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: .5rem;
+        min-height: 48px;
+        padding: .75rem 1rem;
+        color: var(--white);
+        background: var(--brand-deep);
+        border: 1px solid var(--secondary);
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 800;
+        box-shadow: 0 6px 20px rgba(9, 30, 38, .2);
+        transition: transform .2s ease-in-out, background-color .2s ease-in-out;
+      }
+
+      /* El boton de WhatsApp conserva el naranja principal de la tienda. */
+      .quick-actions .quick-whatsapp {
+        background: var(--primary);
+        border-color: var(--primary);
+      }
+
+      .quick-actions img {
+        width: 24px;
+        height: 24px;
+      }
+
+      .quick-actions a:hover {
+        background: var(--secondary);
+        transform: translateY(-3px);
+      }
+
+      /* Los botones responden con un pequeno movimiento al tocarlos. */
+      .btn:active,
+      .quick-actions a:active {
+        transform: scale(.98);
+      }
+
+      /* Las redes y los datos del pie se pueden seleccionar sin perder su color. */
+      footer a {
+        color: inherit;
+        text-underline-offset: 3px;
+      }
+
+      footer a:hover {
+        color: var(--secondary);
+      }
+
+      /* Evita que un titulo largo o una tarjeta empujen la pantalla del celular. */
+      .page-header,
+      .info-panel,
+      .map-panel {
+        min-width: 0;
+        overflow-wrap: anywhere;
+      }
+
+      /* Acomoda el menu en una fila completa cuando se abre en celular. */
+      @media (max-width: 700px) {
+        .mobile-menu {
+          flex: 1 1 calc(100% - 120px);
+          min-width: 0;
+        }
+
+        .mobile-menu[open] {
+          flex-basis: 100%;
+        }
+
+        .page-header h1 {
+          font-size: clamp(2rem, 9vw, 3.5rem);
+        }
+      }
+
+      /* Si el visitante prefiere menos movimiento, la pagina respeta su eleccion. */
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+
+        *,
+        *::before,
+        *::after {
+          animation: none !important;
+          transition: none !important;
+        }
+
+        .team-card:hover,
+        .team-card:focus-within {
+          transform: none;
+        }
+      }
+    </style>
 </head>
 <!-- CUERPO DE LA PAGINA: desde aqui empieza lo que el visitante ve en pantalla. -->
-<body>
+<body id="inicio">
   <!-- ENCABEZADO GENERAL: muestra el logo, menu y titulo. -->
   <header>
     <div class="topbar">
@@ -517,37 +725,27 @@
     <!-- PERSONAL DE LA TIENDA: cambia cada imagen cuando tengas las fotos reales. -->
     <section class="section-container" aria-labelledby="titulo-equipo">
       <h2 id="titulo-equipo" class="section-title">Nuestro Personal</h2>
-      <p class="section-intro">Cada persona cumple una función importante para atender, diseñar y preparar tus productos deportivos.</p>
+      <p class="section-intro">Conoce a las dos trabajadoras que forman parte de ZQ SPORT.</p>
 
-      <!-- PERSONAL: cada tarjeta representa a una persona del equipo. -->
+      <!-- EQUIPO: aqui estan las dos trabajadoras actuales de la tienda. -->
       <div class="team-grid">
-        <!-- CARD DE MARIA: reemplaza la imagen por su foto de perfil. -->
         <article class="team-card">
-          <!-- REEMPLAZAR POR FOTO REAL DE MARIA LOPEZ. -->
-          <img src="assets/img/producto-placeholder-1.jpg" alt="Foto de perfil pendiente de Maria Lopez">
+          <!-- Cuando tengas su foto, cambia este cuadro por una imagen local con class="team-photo". -->
+          <!-- Ejemplo: <img class="team-photo" src="assets/img/jhoselin.jpg" alt="Jhoselin Huarachi"> -->
+          <div class="team-avatar" aria-hidden="true">JH</div>
           <div class="team-info">
-            <h3>Maria Lopez</h3>
-            <p>Diseñadora Deportiva</p>
+            <h3>Jhoselin Huarachi</h3>
+            <p>Equipo ZQ SPORT</p>
           </div>
         </article>
 
-        <!-- CARD DE CARLOS: reemplaza la imagen por su foto de perfil. -->
         <article class="team-card">
-          <!-- REEMPLAZAR POR FOTO REAL DE CARLOS PEREZ. -->
-          <img src="assets/img/producto-placeholder-2.jpg" alt="Foto de perfil pendiente de Carlos Perez">
+          <!-- Cuando tengas su foto, cambia este cuadro por una imagen local con class="team-photo". -->
+          <!-- Ejemplo: <img class="team-photo" src="assets/img/rosario.jpg" alt="Rosario Zenteno"> -->
+          <div class="team-avatar" aria-hidden="true">RZ</div>
           <div class="team-info">
-            <h3>Carlos Perez</h3>
-            <p>Atención al Cliente</p>
-          </div>
-        </article>
-
-        <!-- CARD DE ANA: reemplaza la imagen por su foto de perfil. -->
-        <article class="team-card">
-          <!-- REEMPLAZAR POR FOTO REAL DE ANA LOPEZ. -->
-          <img src="assets/img/producto-placeholder-3.jpg" alt="Foto de perfil pendiente de Ana Lopez">
-          <div class="team-info">
-            <h3>Ana Lopez</h3>
-            <p>Diseñadora Deportiva</p>
+            <h3>Rosario Zenteno</h3>
+            <p>Equipo ZQ SPORT</p>
           </div>
         </article>
       </div>
@@ -557,29 +755,39 @@
     <section class="location-section" aria-labelledby="titulo-ubicacion">
       <div class="section-container">
         <h2 id="titulo-ubicacion" class="section-title">Ubicación</h2>
-        <p class="section-intro">Consulta nuestros horarios y utiliza el mapa cuando agregues la dirección real.</p>
+        <p class="section-intro">Encuéntranos en el mapa o abre la ruta desde tu ubicación.</p>
 
-        <!-- UBICACION: muestra direccion, horarios, contacto y mapa preparado. -->
-      <div class="location-grid">
+        <!-- UBICACION: muestra los datos de la tienda y el mapa real. -->
+        <div class="location-grid">
           <article class="info-panel">
             <h3>ZQ SPORT</h3>
             <div class="store-data">
-              <!-- REEMPLAZAR POR DIRECCION REAL. -->
-              <p><strong>Dirección:</strong><br>[Reemplazar por dirección real]</p>
+              <!-- El enlace abre la ubicacion. Puedes agregar la calle cuando tengas la direccion escrita. -->
+              <p><strong>Dirección:</strong><br><a href="https://www.google.com/maps/search/?api=1&amp;query=-17.970611%2C-67.069306" target="_blank" rel="noopener noreferrer">Ver ubicación en Google Maps</a></p>
               <p><strong>Horario:</strong><br>Lunes a Sábado - 08:00 a 20:00</p>
-              <p><strong>Teléfono:</strong><br>[Reemplazar por teléfono real]</p>
-              <p><strong>WhatsApp:</strong><br>[Reemplazar por WhatsApp real]</p>
+              <p><strong>Celular:</strong><br>72478852</p>
+              <p><strong>WhatsApp:</strong><br><a href="https://wa.me/59172478852?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20los%20productos%20de%20ZQ%20SPORT.">72478852</a></p>
             </div>
-            <!-- REEMPLAZAR 591XXXXXXXX POR EL NUMERO REAL. -->
-            <a class="btn" href="https://wa.me/591XXXXXXXX?text=Hola,%20quiero%20información%20sobre%20sus%20productos%20deportivos.">Escribir por WhatsApp</a>
+            <!-- El numero lleva 591 por Bolivia. Cambia solo los digitos si cambia el WhatsApp. -->
+            <a class="btn" href="https://wa.me/59172478852?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20sus%20productos%20deportivos.">Escribir por WhatsApp</a>
           </article>
 
           <article class="map-panel">
             <h3>Mapa de la tienda</h3>
-            <!-- REEMPLAZAR ESTE CUADRO POR EL MAPA REAL DE GOOGLE MAPS. -->
-            <div class="map-placeholder">Aquí irá el mapa de ubicación de la tienda.</div>
-            <!-- REEMPLAZAR # POR EL ENLACE REAL DE GOOGLE MAPS. -->
-            <a class="btn btn-map" href="#">Ver ubicación en Google Maps</a>
+            <!-- Este enlace dentro de src es el mapa que compartiste. Cambialo si la tienda se muda. -->
+            <!-- loading="lazy" carga el mapa cuando te acercas a esta seccion. -->
+            <iframe
+              class="store-map"
+              src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3795.1749292313216!2d-67.07186892482153!3d-17.970596683019455!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTfCsDU4JzE0LjIiUyA2N8KwMDQnMDkuNSJX!5e0!3m2!1ses!2sbo!4v1791676384972!5m2!1ses!2sbo"
+              title="Ubicación de ZQ SPORT en Google Maps"
+              width="600"
+              height="450"
+              allowfullscreen
+              loading="lazy"
+              referrerpolicy="strict-origin-when-cross-origin">
+            </iframe>
+            <!-- Abre Google Maps con la tienda como destino para elegir una ruta. -->
+            <a class="btn btn-map" href="https://www.google.com/maps/dir/?api=1&amp;destination=-17.970611%2C-67.069306" target="_blank" rel="noopener noreferrer">Cómo llegar en Google Maps</a>
           </article>
         </div>
       </div>
@@ -588,11 +796,34 @@
     <!-- VIDEO DE RUTA: se encuentra debajo de la ubicacion. -->
     <section class="section-container" aria-labelledby="titulo-video">
       <h2 id="titulo-video" class="section-title">¿Cómo Llegar?</h2>
-      <p class="section-intro">Aquí podrás mostrar un video corto con el recorrido hasta la tienda.</p>
+      <p class="section-intro">Abre la ruta en Google Maps. Próximamente también podrás ver el recorrido en video.</p>
       <div class="video-panel">
         <!-- REEMPLAZAR ESTE CUADRO POR EL IFRAME O ENLACE REAL DE YOUTUBE. -->
         <!-- VIDEO: reemplaza este cuadro por el enlace real cuando lo tengas. -->
-      <div class="video-placeholder">Aquí irá el video de YouTube que explica cómo llegar.</div>
+        <div class="video-placeholder">
+          <p>El video del recorrido estará disponible próximamente.</p>
+          <a class="btn btn-map" href="https://www.google.com/maps/dir/?api=1&amp;destination=-17.970611%2C-67.069306" target="_blank" rel="noopener noreferrer">Abrir ruta a la tienda</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- PREGUNTAS: toca una pregunta para mostrar u ocultar su respuesta. -->
+    <section class="section-container" aria-labelledby="titulo-preguntas">
+      <h2 id="titulo-preguntas" class="section-title">Antes de tu pedido</h2>
+      <p class="section-intro">Resuelve tus dudas y prepara tu consulta.</p>
+      <div class="faq-list">
+        <details>
+          <summary>¿Cómo puedo reservar un producto?</summary>
+          <p>Abre el detalle de un producto y toca Comprar / Reservar por WhatsApp. Completa talla, color y cantidad en el mensaje antes de enviarlo. El equipo confirmará tu consulta.</p>
+        </details>
+        <details>
+          <summary>¿Qué información envío para un diseño personalizado?</summary>
+          <p>Indica el producto, la cantidad y los colores que buscas. Si tienes un logo o una idea para tu equipo, compártelo por WhatsApp para consultar las opciones.</p>
+        </details>
+        <details>
+          <summary>¿Cómo encuentro la tienda?</summary>
+          <p>Toca Cómo llegar en Google Maps y elige tu punto de partida. Si necesitas orientación, escríbenos al <a href="https://wa.me/59172478852?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20los%20productos%20de%20ZQ%20SPORT.">72478852</a>.</p>
+        </details>
       </div>
     </section>
   </main>
@@ -606,7 +837,7 @@
       </section>
       <section>
         <h2>Atención</h2>
-        <p>Dirección: [Reemplazar por dirección real]<br>Teléfono: [Reemplazar por teléfono real]<br>WhatsApp: [Reemplazar por WhatsApp real]</p>
+        <p>Dirección: <a href="https://www.google.com/maps/search/?api=1&amp;query=-17.970611%2C-67.069306" target="_blank" rel="noopener noreferrer">Ver ubicación en Google Maps</a><br>Teléfono: 72478852<br>WhatsApp: <a href="https://wa.me/59172478852?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20los%20productos%20de%20ZQ%20SPORT.">72478852</a></p>
       </section>
       <section>
         <h2>Horario y redes</h2>
@@ -614,12 +845,21 @@
         <div class="social">
           <a href="#" aria-label="Facebook"><img src="assets/icons/facebook.svg" alt=""></a>
           <a href="#" aria-label="Instagram"><img src="assets/icons/instagram.svg" alt=""></a>
-          <a href="#" aria-label="WhatsApp"><img src="assets/icons/whatsapp.svg" alt=""></a>
+          <a href="https://wa.me/59172478852?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20los%20productos%20de%20ZQ%20SPORT." aria-label="Escribir a ZQ SPORT por WhatsApp"><img src="assets/icons/whatsapp.svg" alt=""></a>
           <a href="#" aria-label="TikTok"><img src="assets/icons/tiktok.svg" alt=""></a>
         </div>
       </section>
     </div>
     <p class="copy">© 2026 ZQ SPORT. Todos los derechos reservados.</p>
   </footer>
-</body>
+
+    <!-- ACCESOS RAPIDOS: cambia el numero del enlace si cambia el WhatsApp de la tienda. -->
+    <nav class="quick-actions" aria-label="Accesos rápidos">
+      <a href="#inicio" aria-label="Volver al inicio de la página" title="Volver arriba">&uarr;</a>
+      <a class="quick-whatsapp" href="https://wa.me/59172478852?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20los%20productos%20de%20ZQ%20SPORT." aria-label="Consultar con ZQ SPORT por WhatsApp">
+        <img src="assets/icons/whatsapp.svg" alt="">
+        WhatsApp
+      </a>
+    </nav>
+  </body>
 </html>
