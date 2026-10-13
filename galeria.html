@@ -233,10 +233,13 @@
         transition: transform .2s ease-in-out, box-shadow .2s ease-in-out, border-color .2s ease-in-out
       }
 
+      /* Muestra el producto entero; el espacio blanco mantiene parejas las tarjetas. */
       .gallery-card img {
         width: 100%;
-        aspect-ratio: 4/3;
-        object-fit: cover
+        aspect-ratio: 4 / 5;
+        object-fit: contain;
+        padding: .75rem;
+        background: var(--surface);
       }
       .gallery-card div {
         padding: 1rem
@@ -540,61 +543,368 @@
     <!-- GALERÍA GENERAL: REEMPLAZAR POR IMÁGENES REALES -->
     <!-- GALERIA: muestra imagenes generales de productos. -->
     <main class="gallery">
-      <!-- IMAGEN DE GALERIA: cambia la foto y el texto segun tu producto. -->
+      <!-- GALERIA: cada imagen lleva al detalle de su producto en la categoria correspondiente. -->
       <article class="gallery-card">
-        <img src="assets/img/producto-placeholder-1.jpg" alt="Uniforme deportivo masculino">
+        <img
+          src="assets/img/uniforme-titan-varon.jpeg"
+          alt="Uniforme Titán"
+          loading="lazy"
+          decoding="async">
         <div>
           <h2>Uniforme Titán</h2>
-          <a href="deportivos-varon.html">Ver Deportivos Varón</a>
+          <p>Uniforme deportivo</p>
+          <!-- El enlace abre directamente la vista completa del producto. -->
+          <a href="deportivos-varon.html#detalle-1">Ver detalles</a>
         </div>
       </article>
+
       <article class="gallery-card">
-        <img src="assets/img/producto-placeholder-2.jpg" alt="Uniforme deportivo femenino">
+        <img
+          src="assets/img/conjunto-sprint-varon.jpeg"
+          alt="Conjunto Sprint"
+          loading="lazy"
+          decoding="async">
         <div>
-          <h2>Uniforme Aurora</h2>
-          <a href="deportivos-dama.html">Ver Deportivos Dama</a>
+          <h2>Conjunto Sprint</h2>
+          <p>Conjunto deportivo</p>
+          <!-- El enlace abre directamente la vista completa del producto. -->
+          <a href="deportivos-varon.html#detalle-2">Ver detalles</a>
         </div>
       </article>
+
       <article class="gallery-card">
-        <img src="assets/img/producto-placeholder-3.jpg" alt="Polera deportiva masculina">
+        <img
+          src="assets/img/uniforme-arquero-pro.jpeg"
+          alt="Uniforme Arquero Pro"
+          loading="lazy"
+          decoding="async">
         <div>
-          <h2>Polera Fénix</h2>
-          <a href="poleras-varon.html">Ver Poleras Varón</a>
+          <h2>Uniforme Arquero Pro</h2>
+          <p>Uniforme deportivo</p>
+          <!-- El enlace abre directamente la vista completa del producto. -->
+          <a href="deportivos-varon.html#detalle-3">Ver detalles</a>
         </div>
       </article>
+
       <article class="gallery-card">
-        <img src="assets/img/producto-placeholder-4.jpg" alt="Polera deportiva femenina">
-        <div>
-          <h2>Polera Nova</h2>
-          <a href="poleras-dama.html">Ver Poleras Dama</a>
-        </div>
-      </article>
-      <article class="gallery-card">
-        <img src="assets/img/producto-placeholder-2.jpg" alt="Mochila deportiva masculina">
-        <div>
-          <h2>Mochila Titán</h2>
-          <a href="mochilas-varon.html">Ver Mochilas Varón</a>
-        </div>
-      </article>
-      <article class="gallery-card">
-        <img src="assets/img/producto-placeholder-1.jpg" alt="Mochila deportiva femenina">
-        <div>
-          <h2>Mochila Aura</h2>
-          <a href="mochilas-dama.html">Ver Mochilas Dama</a>
-        </div>
-      </article>
-      <article class="gallery-card">
-        <img src="assets/img/producto-placeholder-4.jpg" alt="Conjunto deportivo personalizado">
+        <img
+          src="assets/img/conjunto-elite.jpeg"
+          alt="Conjunto Élite"
+          loading="lazy"
+          decoding="async">
         <div>
           <h2>Conjunto Élite</h2>
-          <a href="deportivos-varon.html">Ver categoría</a>
+          <p>Conjunto deportivo</p>
+          <!-- El enlace abre directamente la vista completa del producto. -->
+          <a href="deportivos-varon.html#detalle-4">Ver detalles</a>
         </div>
       </article>
+
       <article class="gallery-card">
-        <img src="assets/img/producto-placeholder-3.jpg" alt="Polera moderna personalizada">
+        <img
+          src="assets/img/combo-uniforme-titan.jpeg"
+          alt="Combo Uniforme Titán"
+          loading="lazy"
+          decoding="async">
+        <div>
+          <h2>Combo Uniforme Titán</h2>
+          <p>Combo deportivo</p>
+          <!-- El enlace abre directamente la vista completa del producto. -->
+          <a href="deportivos-varon.html#detalle-5">Ver detalles</a>
+        </div>
+      </article>
+
+      <article class="gallery-card">
+        <img
+          src="assets/img/conjunto-aurora.jpeg"
+          alt="Conjunto Aurora"
+          loading="lazy"
+          decoding="async">
+        <div>
+          <h2>Conjunto Aurora</h2>
+          <p>Conjunto deportivo</p>
+          <!-- El enlace abre directamente la vista completa del producto. -->
+          <a href="deportivos-varon.html#detalle-6">Ver detalles</a>
+        </div>
+      </article>
+
+      <article class="gallery-card">
+        <img
+          src="assets/img/uniforme-aurora.jpeg"
+          alt="Uniforme Aurora"
+          loading="lazy"
+          decoding="async">
+        <div>
+          <h2>Uniforme Aurora</h2>
+          <p>Uniforme de trabajo</p>
+          <!-- El enlace abre directamente la vista completa del producto. -->
+          <a href="deportivos-dama.html#detalle-1">Ver detalles</a>
+        </div>
+      </article>
+
+      <article class="gallery-card">
+        <img
+          src="assets/img/conjunto-vertice.jpeg"
+          alt="Conjunto Vértice"
+          loading="lazy"
+          decoding="async">
+        <div>
+          <h2>Conjunto Vértice</h2>
+          <p>Conjunto casual</p>
+          <!-- El enlace abre directamente la vista completa del producto. -->
+          <a href="deportivos-dama.html#detalle-2">Ver detalles</a>
+        </div>
+      </article>
+
+      <article class="gallery-card">
+        <img
+          src="assets/img/uniforme-impulso.jpeg"
+          alt="Uniforme Impulso"
+          loading="lazy"
+          decoding="async">
+        <div>
+          <h2>Uniforme Impulso</h2>
+          <p>Uniforme de trabajo</p>
+          <!-- El enlace abre directamente la vista completa del producto. -->
+          <a href="deportivos-dama.html#detalle-3">Ver detalles</a>
+        </div>
+      </article>
+
+      <article class="gallery-card">
+        <img
+          src="assets/img/conjunto-victoria-dama.jpeg"
+          alt="Conjunto Victoria"
+          loading="lazy"
+          decoding="async">
+        <div>
+          <h2>Conjunto Victoria</h2>
+          <p>Conjunto deportivo</p>
+          <!-- El enlace abre directamente la vista completa del producto. -->
+          <a href="deportivos-dama.html#detalle-4">Ver detalles</a>
+        </div>
+      </article>
+
+      <article class="gallery-card">
+        <img
+          src="assets/img/polera-fenix-varon.jpeg"
+          alt="Polera Fénix"
+          loading="lazy"
+          decoding="async">
+        <div>
+          <h2>Polera Fénix</h2>
+          <p>Polera deportiva</p>
+          <!-- El enlace abre directamente la vista completa del producto. -->
+          <a href="poleras-varon.html#detalle-1">Ver detalles</a>
+        </div>
+      </article>
+
+      <article class="gallery-card">
+        <img
+          src="assets/img/polera-urban-fit-varon.jpeg"
+          alt="Polera Urban Fit"
+          loading="lazy"
+          decoding="async">
+        <div>
+          <h2>Polera Urban Fit</h2>
+          <p>Polera básica</p>
+          <!-- El enlace abre directamente la vista completa del producto. -->
+          <a href="poleras-varon.html#detalle-2">Ver detalles</a>
+        </div>
+      </article>
+
+      <article class="gallery-card">
+        <img
+          src="assets/img/Pack-polera-fenix.jpeg"
+          alt="Pack Polera Fénix"
+          loading="lazy"
+          decoding="async">
+        <div>
+          <h2>Pack Polera Fénix</h2>
+          <p>Pack de poleras</p>
+          <!-- El enlace abre directamente la vista completa del producto. -->
+          <a href="poleras-varon.html#detalle-3">Ver detalles</a>
+        </div>
+      </article>
+
+      <article class="gallery-card">
+        <img
+          src="assets/img/polera-training-pro.jpeg"
+          alt="Polera Training Pro"
+          loading="lazy"
+          decoding="async">
+        <div>
+          <h2>Polera Training Pro</h2>
+          <p>Polera deportiva</p>
+          <!-- El enlace abre directamente la vista completa del producto. -->
+          <a href="poleras-varon.html#detalle-4">Ver detalles</a>
+        </div>
+      </article>
+
+      <article class="gallery-card">
+        <img
+          src="assets/img/polera-nova-dama.jpeg"
+          alt="Polera Nova"
+          loading="lazy"
+          decoding="async">
+        <div>
+          <h2>Polera Nova</h2>
+          <p>Polera con cuello</p>
+          <!-- El enlace abre directamente la vista completa del producto. -->
+          <a href="poleras-dama.html#detalle-1">Ver detalles</a>
+        </div>
+      </article>
+
+      <article class="gallery-card">
+        <img
+          src="assets/img/motion.jpeg"
+          alt="Polera Motion"
+          loading="lazy"
+          decoding="async">
         <div>
           <h2>Polera Motion</h2>
-          <a href="poleras-dama.html">Ver categoría</a>
+          <p>Top deportivo</p>
+          <!-- El enlace abre directamente la vista completa del producto. -->
+          <a href="poleras-dama.html#detalle-2">Ver detalles</a>
+        </div>
+      </article>
+
+      <article class="gallery-card">
+        <img
+          src="assets/img/polera-energy.jpeg"
+          alt="Polera Energy"
+          loading="lazy"
+          decoding="async">
+        <div>
+          <h2>Polera Energy</h2>
+          <p>Polera deportiva</p>
+          <!-- El enlace abre directamente la vista completa del producto. -->
+          <a href="poleras-dama.html#detalle-3">Ver detalles</a>
+        </div>
+      </article>
+
+      <article class="gallery-card">
+        <img
+          src="assets/img/polera-active.jpeg"
+          alt="Polera Active"
+          loading="lazy"
+          decoding="async">
+        <div>
+          <h2>Polera Active</h2>
+          <p>Polera sin mangas</p>
+          <!-- El enlace abre directamente la vista completa del producto. -->
+          <a href="poleras-dama.html#detalle-4">Ver detalles</a>
+        </div>
+      </article>
+
+      <article class="gallery-card">
+        <img
+          src="assets/img/mochila-titan.jpeg"
+          alt="Mochila Titán"
+          loading="lazy"
+          decoding="async">
+        <div>
+          <h2>Mochila Titán</h2>
+          <p>Mochila</p>
+          <!-- El enlace abre directamente la vista completa del producto. -->
+          <a href="mochilas-varon.html#detalle-1">Ver detalles</a>
+        </div>
+      </article>
+
+      <article class="gallery-card">
+        <img
+          src="assets/img/mochila-rival.jpeg"
+          alt="Mochila Rival"
+          loading="lazy"
+          decoding="async">
+        <div>
+          <h2>Mochila Rival</h2>
+          <p>Mochila</p>
+          <!-- El enlace abre directamente la vista completa del producto. -->
+          <a href="mochilas-varon.html#detalle-2">Ver detalles</a>
+        </div>
+      </article>
+
+      <article class="gallery-card">
+        <img
+          src="assets/img/mochila-training.jpeg"
+          alt="Mochila Training"
+          loading="lazy"
+          decoding="async">
+        <div>
+          <h2>Mochila Training</h2>
+          <p>Mochila</p>
+          <!-- El enlace abre directamente la vista completa del producto. -->
+          <a href="mochilas-varon.html#detalle-3">Ver detalles</a>
+        </div>
+      </article>
+
+      <article class="gallery-card">
+        <img
+          src="assets/img/mocjila-cancha-pro.jpeg"
+          alt="Mochila Cancha Pro"
+          loading="lazy"
+          decoding="async">
+        <div>
+          <h2>Mochila Cancha Pro</h2>
+          <p>Mochila</p>
+          <!-- El enlace abre directamente la vista completa del producto. -->
+          <a href="mochilas-varon.html#detalle-4">Ver detalles</a>
+        </div>
+      </article>
+
+      <article class="gallery-card">
+        <img
+          src="assets/img/mochila-aura.jpeg"
+          alt="Mochila Aura"
+          loading="lazy"
+          decoding="async">
+        <div>
+          <h2>Mochila Aura</h2>
+          <p>Mochila</p>
+          <!-- El enlace abre directamente la vista completa del producto. -->
+          <a href="mochilas-dama.html#detalle-1">Ver detalles</a>
+        </div>
+      </article>
+
+      <article class="gallery-card">
+        <img
+          src="assets/img/movjila-urban-sport.jpeg"
+          alt="Mochila Urban Sport"
+          loading="lazy"
+          decoding="async">
+        <div>
+          <h2>Mochila Urban Sport</h2>
+          <p>Mochila</p>
+          <!-- El enlace abre directamente la vista completa del producto. -->
+          <a href="mochilas-dama.html#detalle-2">Ver detalles</a>
+        </div>
+      </article>
+
+      <article class="gallery-card">
+        <img
+          src="assets/img/mochila-motion.jpeg"
+          alt="Mochila Motion"
+          loading="lazy"
+          decoding="async">
+        <div>
+          <h2>Mochila Motion</h2>
+          <p>Mochila</p>
+          <!-- El enlace abre directamente la vista completa del producto. -->
+          <a href="mochilas-dama.html#detalle-3">Ver detalles</a>
+        </div>
+      </article>
+
+      <article class="gallery-card">
+        <img
+          src="assets/img/mochila-team-pro.jpeg"
+          alt="Mochila Team Pro"
+          loading="lazy"
+          decoding="async">
+        <div>
+          <h2>Mochila Team Pro</h2>
+          <p>Mochila</p>
+          <!-- El enlace abre directamente la vista completa del producto. -->
+          <a href="mochilas-dama.html#detalle-4">Ver detalles</a>
         </div>
       </article>
     </main>

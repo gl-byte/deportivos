@@ -255,11 +255,13 @@
         transition: transform .2s ease-in-out, box-shadow .2s ease-in-out, border-color .2s ease-in-out;
       }
 
-
+      /* Muestra el producto entero; el espacio blanco mantiene parejas las tarjetas. */
       .product-card > img {
         width: 100%;
-        aspect-ratio: 4 / 3;
-        object-fit: cover;
+        aspect-ratio: 4 / 5;
+        object-fit: contain;
+        padding: .75rem;
+        background: var(--surface);
       }
 
       .card-body {
@@ -267,6 +269,16 @@
         flex: 1;
         flex-direction: column;
         padding: 1rem;
+      }
+
+      /* Esta linea distingue una prenda deportiva, casual o de trabajo. */
+      .product-kind {
+        margin: 0 0 .55rem;
+        color: var(--text-body);
+        font-size: .8rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: .4px;
       }
 
       .card-body h2 {
@@ -760,167 +772,208 @@
       <p>Mochilas funcionales con organizaci&oacute;n y dise&ntilde;o deportivo actual.</p>
     </div>
 
-  <!-- CATALOGO DE PRODUCTOS: aqui se muestran las cuatro opciones. -->
+  <!-- CATALOGO DE PRODUCTOS: cada tarjeta corresponde a una imagen de la tienda. -->
   <!-- ZONA DEL CATALOGO: aqui se muestran las tarjetas de productos. -->
   <main class="catalog">
-    <!-- LISTA DE PRODUCTOS: cada articulo es una tarjeta independiente. -->
-    <section class="products-grid" aria-label="Productos de Mochilas Dama">
-        <!-- CARD DE PRODUCTO 1: cambia la imagen, nombre, texto o precio. -->
-        <!-- PRODUCTO 1: cambia aqui datos, precio o imagen si lo necesitas. -->
-        <article id="producto-1" class="product-card">
-          <!-- REEMPLAZAR POR LA IMAGEN REAL DE ESTE PRODUCTO. -->
-          <img src="assets/img/producto-placeholder-1.jpg" alt="Mochila Aura 22L">
-          <div class="card-body">
-            <h2>Mochila Aura 22L</h2>
-            <p>Dise&ntilde;o deportivo personalizable, resistente y c&oacute;modo para uso intensivo.</p>
+    <!-- Cada tarjeta abre su propio detalle sin usar JavaScript. -->
+    <section class="products-grid" aria-label="Productos de mochilas dama">
+      <!-- TARJETA 1: muestra la imagen, el nombre y el precio de Mochila Aura. -->
+      <article id="producto-1" class="product-card">
+        <!-- La misma imagen se muestra tambien al abrir el detalle. -->
+        <img
+          src="assets/img/mochila-aura.jpeg"
+          alt="Mochila Aura: Mochila beige con solapa, hebilla frontal y bolsillo con cierre."
+          loading="lazy"
+          decoding="async">
+        <div class="card-body">
+          <p class="product-kind">Mochila</p>
+          <h2>Mochila Aura</h2>
+          <p>Mochila beige con solapa, hebilla frontal y bolsillo con cierre.</p>
+          <p class="price">Bs. 120</p>
+          <!-- El numero del enlace debe coincidir con el detalle de esta tarjeta. -->
+          <a class="btn-detail" href="#detalle-1">Ver detalles</a>
+        </div>
+      </article>
+
+      <!-- TARJETA 2: muestra la imagen, el nombre y el precio de Mochila Urban Sport. -->
+      <article id="producto-2" class="product-card">
+        <!-- La misma imagen se muestra tambien al abrir el detalle. -->
+        <img
+          src="assets/img/movjila-urban-sport.jpeg"
+          alt="Mochila Urban Sport: Mochila rosada con bolsillo frontal, bolsillos laterales y un accesorio decorativo."
+          loading="lazy"
+          decoding="async">
+        <div class="card-body">
+          <p class="product-kind">Mochila</p>
+          <h2>Mochila Urban Sport</h2>
+          <p>Mochila rosada con bolsillo frontal, bolsillos laterales y un accesorio decorativo.</p>
+          <p class="price">Bs. 145</p>
+          <!-- El numero del enlace debe coincidir con el detalle de esta tarjeta. -->
+          <a class="btn-detail" href="#detalle-2">Ver detalles</a>
+        </div>
+      </article>
+
+      <!-- TARJETA 3: muestra la imagen, el nombre y el precio de Mochila Motion. -->
+      <article id="producto-3" class="product-card">
+        <!-- La misma imagen se muestra tambien al abrir el detalle. -->
+        <img
+          src="assets/img/mochila-motion.jpeg"
+          alt="Mochila Motion: Mochila plateada de líneas simples con bolsillo frontal y cierres."
+          loading="lazy"
+          decoding="async">
+        <div class="card-body">
+          <p class="product-kind">Mochila</p>
+          <h2>Mochila Motion</h2>
+          <p>Mochila plateada de líneas simples con bolsillo frontal y cierres.</p>
+          <p class="price">Bs. 170</p>
+          <!-- El numero del enlace debe coincidir con el detalle de esta tarjeta. -->
+          <a class="btn-detail" href="#detalle-3">Ver detalles</a>
+        </div>
+      </article>
+
+      <!-- TARJETA 4: muestra la imagen, el nombre y el precio de Mochila Team Pro. -->
+      <article id="producto-4" class="product-card">
+        <!-- La misma imagen se muestra tambien al abrir el detalle. -->
+        <img
+          src="assets/img/mochila-team-pro.jpeg"
+          alt="Mochila Team Pro: Mochila deportiva negra con cierres frontales y bolsillo lateral de malla."
+          loading="lazy"
+          decoding="async">
+        <div class="card-body">
+          <p class="product-kind">Mochila</p>
+          <h2>Mochila Team Pro</h2>
+          <p>Mochila deportiva negra con cierres frontales y bolsillo lateral de malla.</p>
+          <p class="price">Bs. 195</p>
+          <!-- El numero del enlace debe coincidir con el detalle de esta tarjeta. -->
+          <a class="btn-detail" href="#detalle-4">Ver detalles</a>
+        </div>
+      </article>
+    </section>
+
+    <!-- DETALLE 1: se muestra al tocar Ver detalles en Mochila Aura. -->
+    <section id="detalle-1" class="product-modal" aria-labelledby="titulo-detalle-1">
+      <article class="modal-card">
+        <!-- Cerrar lleva de nuevo a la tarjeta de este producto. -->
+        <a class="modal-close" href="#producto-1" aria-label="Cerrar detalle de Mochila Aura">&times; Cerrar</a>
+        <div class="modal-content">
+          <!-- Esta imagen conserva la vista completa del producto. -->
+          <img
+            src="assets/img/mochila-aura.jpeg"
+            alt="Mochila Aura en vista completa"
+            loading="lazy"
+            decoding="async">
+          <div class="modal-info">
+            <p class="product-kind">Mochila</p>
+            <h2 id="titulo-detalle-1">Mochila Aura</h2>
+            <p>Mochila beige con solapa, hebilla frontal y bolsillo con cierre.</p>
+            <p><strong>Medidas y capacidad:</strong> Consulta las opciones por WhatsApp.</p>
+            <p><strong>Colores de la imagen:</strong> Beige y negro</p>
             <p class="price">Bs. 120</p>
-            <!-- Este enlace abre el producto ocupando toda la pantalla. -->
-            <a class="btn-detail" href="#detalle-1">Ver detalles</a>
+            <!-- El mensaje incluye el nombre correcto. Completa tus datos antes de enviarlo. -->
+            <a class="btn-whatsapp" href="https://wa.me/59172478852?text=Hola%2C%20quiero%20reservar%20el%20producto%3A%20Mochila%20Aura.%20Color%3A%20__.%20Cantidad%3A%20__.">Comprar / Reservar por WhatsApp</a>
           </div>
-        </article>        <!-- CARD DE PRODUCTO 2: cambia la imagen, nombre, texto o precio. -->
-        <!-- PRODUCTO 2: usa la misma estructura para mantener orden visual. -->
-        <article id="producto-2" class="product-card">
-          <!-- REEMPLAZAR POR LA IMAGEN REAL DE ESTE PRODUCTO. -->
-          <img src="assets/img/producto-placeholder-2.jpg" alt="Mochila Urban Sport">
-          <div class="card-body">
-            <h2>Mochila Urban Sport</h2>
-            <p>Dise&ntilde;o deportivo personalizable, resistente y c&oacute;modo para uso intensivo.</p>
+        </div>
+        <!-- Estas flechas recorren todos los productos de la categoria, incluidos los nuevos. -->
+        <nav class="modal-navigation" aria-label="Cambiar de producto">
+          <a href="#detalle-4" aria-label="Producto anterior">&lt;</a>
+          <a href="#detalle-2" aria-label="Producto siguiente">&gt;</a>
+        </nav>
+      </article>
+    </section>
+
+    <!-- DETALLE 2: se muestra al tocar Ver detalles en Mochila Urban Sport. -->
+    <section id="detalle-2" class="product-modal" aria-labelledby="titulo-detalle-2">
+      <article class="modal-card">
+        <!-- Cerrar lleva de nuevo a la tarjeta de este producto. -->
+        <a class="modal-close" href="#producto-2" aria-label="Cerrar detalle de Mochila Urban Sport">&times; Cerrar</a>
+        <div class="modal-content">
+          <!-- Esta imagen conserva la vista completa del producto. -->
+          <img
+            src="assets/img/movjila-urban-sport.jpeg"
+            alt="Mochila Urban Sport en vista completa"
+            loading="lazy"
+            decoding="async">
+          <div class="modal-info">
+            <p class="product-kind">Mochila</p>
+            <h2 id="titulo-detalle-2">Mochila Urban Sport</h2>
+            <p>Mochila rosada con bolsillo frontal, bolsillos laterales y un accesorio decorativo.</p>
+            <p><strong>Medidas y capacidad:</strong> Consulta las opciones por WhatsApp.</p>
+            <p><strong>Colores de la imagen:</strong> Rosado</p>
             <p class="price">Bs. 145</p>
-            <!-- Este enlace abre el producto ocupando toda la pantalla. -->
-            <a class="btn-detail" href="#detalle-2">Ver detalles</a>
+            <!-- El mensaje incluye el nombre correcto. Completa tus datos antes de enviarlo. -->
+            <a class="btn-whatsapp" href="https://wa.me/59172478852?text=Hola%2C%20quiero%20reservar%20el%20producto%3A%20Mochila%20Urban%20Sport.%20Color%3A%20__.%20Cantidad%3A%20__.">Comprar / Reservar por WhatsApp</a>
           </div>
-        </article>        <!-- CARD DE PRODUCTO 3: cambia la imagen, nombre, texto o precio. -->
-        <!-- PRODUCTO 3: modifica solo el contenido, no la estructura. -->
-        <article id="producto-3" class="product-card">
-          <!-- REEMPLAZAR POR LA IMAGEN REAL DE ESTE PRODUCTO. -->
-          <img src="assets/img/producto-placeholder-3.jpg" alt="Mochila Motion">
-          <div class="card-body">
-            <h2>Mochila Motion</h2>
-            <p>Dise&ntilde;o deportivo personalizable, resistente y c&oacute;modo para uso intensivo.</p>
+        </div>
+        <!-- Estas flechas recorren todos los productos de la categoria, incluidos los nuevos. -->
+        <nav class="modal-navigation" aria-label="Cambiar de producto">
+          <a href="#detalle-1" aria-label="Producto anterior">&lt;</a>
+          <a href="#detalle-3" aria-label="Producto siguiente">&gt;</a>
+        </nav>
+      </article>
+    </section>
+
+    <!-- DETALLE 3: se muestra al tocar Ver detalles en Mochila Motion. -->
+    <section id="detalle-3" class="product-modal" aria-labelledby="titulo-detalle-3">
+      <article class="modal-card">
+        <!-- Cerrar lleva de nuevo a la tarjeta de este producto. -->
+        <a class="modal-close" href="#producto-3" aria-label="Cerrar detalle de Mochila Motion">&times; Cerrar</a>
+        <div class="modal-content">
+          <!-- Esta imagen conserva la vista completa del producto. -->
+          <img
+            src="assets/img/mochila-motion.jpeg"
+            alt="Mochila Motion en vista completa"
+            loading="lazy"
+            decoding="async">
+          <div class="modal-info">
+            <p class="product-kind">Mochila</p>
+            <h2 id="titulo-detalle-3">Mochila Motion</h2>
+            <p>Mochila plateada de líneas simples con bolsillo frontal y cierres.</p>
+            <p><strong>Medidas y capacidad:</strong> Consulta las opciones por WhatsApp.</p>
+            <p><strong>Colores de la imagen:</strong> Plateado</p>
             <p class="price">Bs. 170</p>
-            <!-- Este enlace abre el producto ocupando toda la pantalla. -->
-            <a class="btn-detail" href="#detalle-3">Ver detalles</a>
+            <!-- El mensaje incluye el nombre correcto. Completa tus datos antes de enviarlo. -->
+            <a class="btn-whatsapp" href="https://wa.me/59172478852?text=Hola%2C%20quiero%20reservar%20el%20producto%3A%20Mochila%20Motion.%20Color%3A%20__.%20Cantidad%3A%20__.">Comprar / Reservar por WhatsApp</a>
           </div>
-        </article>        <!-- CARD DE PRODUCTO 4: cambia la imagen, nombre, texto o precio. -->
-        <!-- PRODUCTO 4: ultima tarjeta de esta categoria. -->
-        <article id="producto-4" class="product-card">
-          <!-- REEMPLAZAR POR LA IMAGEN REAL DE ESTE PRODUCTO. -->
-          <img src="assets/img/producto-placeholder-4.jpg" alt="Mochila Team Pro">
-          <div class="card-body">
-            <h2>Mochila Team Pro</h2>
-            <p>Dise&ntilde;o deportivo personalizable, resistente y c&oacute;modo para uso intensivo.</p>
+        </div>
+        <!-- Estas flechas recorren todos los productos de la categoria, incluidos los nuevos. -->
+        <nav class="modal-navigation" aria-label="Cambiar de producto">
+          <a href="#detalle-2" aria-label="Producto anterior">&lt;</a>
+          <a href="#detalle-4" aria-label="Producto siguiente">&gt;</a>
+        </nav>
+      </article>
+    </section>
+
+    <!-- DETALLE 4: se muestra al tocar Ver detalles en Mochila Team Pro. -->
+    <section id="detalle-4" class="product-modal" aria-labelledby="titulo-detalle-4">
+      <article class="modal-card">
+        <!-- Cerrar lleva de nuevo a la tarjeta de este producto. -->
+        <a class="modal-close" href="#producto-4" aria-label="Cerrar detalle de Mochila Team Pro">&times; Cerrar</a>
+        <div class="modal-content">
+          <!-- Esta imagen conserva la vista completa del producto. -->
+          <img
+            src="assets/img/mochila-team-pro.jpeg"
+            alt="Mochila Team Pro en vista completa"
+            loading="lazy"
+            decoding="async">
+          <div class="modal-info">
+            <p class="product-kind">Mochila</p>
+            <h2 id="titulo-detalle-4">Mochila Team Pro</h2>
+            <p>Mochila deportiva negra con cierres frontales y bolsillo lateral de malla.</p>
+            <p><strong>Medidas y capacidad:</strong> Consulta las opciones por WhatsApp.</p>
+            <p><strong>Colores de la imagen:</strong> Negro y blanco</p>
             <p class="price">Bs. 195</p>
-            <!-- Este enlace abre el producto ocupando toda la pantalla. -->
-            <a class="btn-detail" href="#detalle-4">Ver detalles</a>
+            <!-- El mensaje incluye el nombre correcto. Completa tus datos antes de enviarlo. -->
+            <a class="btn-whatsapp" href="https://wa.me/59172478852?text=Hola%2C%20quiero%20reservar%20el%20producto%3A%20Mochila%20Team%20Pro.%20Color%3A%20__.%20Cantidad%3A%20__.">Comprar / Reservar por WhatsApp</a>
           </div>
-        </article>
+        </div>
+        <!-- Estas flechas recorren todos los productos de la categoria, incluidos los nuevos. -->
+        <nav class="modal-navigation" aria-label="Cambiar de producto">
+          <a href="#detalle-3" aria-label="Producto anterior">&lt;</a>
+          <a href="#detalle-1" aria-label="Producto siguiente">&gt;</a>
+        </nav>
+      </article>
     </section>
-
-    <!-- VISTAS GRANDES: se abren sin JavaScript usando las rutas con numeral. -->
-      <!-- DETALLE 1: aparece al abrir la ruta detalle-1. -->
-      <section id="detalle-1" class="product-modal" aria-labelledby="titulo-detalle-1">
-        <article class="modal-card">
-          <!-- Este enlace cierra la vista y regresa a la tarjeta original. -->
-          <a class="modal-close" href="#producto-1" aria-label="Cerrar detalle">&times; Cerrar</a>
-          <div class="modal-content">
-            <!-- REEMPLAZAR POR LA IMAGEN REAL EN TAMANO GRANDE. -->
-            <img src="assets/img/producto-placeholder-1.jpg" alt="Mochila Aura 22L en vista grande">
-            <div class="modal-info">
-              <h2 id="titulo-detalle-1">Mochila Aura 22L</h2>
-              <p>Confecci&oacute;n deportiva c&oacute;moda, costuras reforzadas y personalizaci&oacute;n de nombre, n&uacute;mero y colores.</p>
-              <p><strong>Tallas:</strong> S, M, L y XL</p>
-              <p><strong>Colores:</strong> coral, azul, negro y blanco</p>
-              <p class="price">Bs. 120</p>
-              <!-- El numero lleva 591 por Bolivia. Cambia solo los digitos si cambia el WhatsApp. -->
-              <a class="btn-whatsapp" href="https://wa.me/59172478852?text=Hola%2C%20quiero%20reservar%20el%20producto%3A%20Mochila%20Aura%2022L.%20Talla%3A%20__.%20Color%3A%20__.%20Cantidad%3A%20__.">Comprar / Reservar por WhatsApp</a>
-            </div>
-          </div>
-          <!-- Las flechas recorren los productos y vuelven al primero al terminar. -->
-          <nav class="modal-navigation" aria-label="Cambiar de producto">
-            <a href="#detalle-4" aria-label="Producto anterior">&lt;</a>
-            <a href="#detalle-2" aria-label="Producto siguiente">&gt;</a>
-          </nav>
-        </article>
-    </section>
-
-      <!-- DETALLE 2: aparece al abrir la ruta detalle-2. -->
-      <section id="detalle-2" class="product-modal" aria-labelledby="titulo-detalle-2">
-        <article class="modal-card">
-          <!-- Este enlace cierra la vista y regresa a la tarjeta original. -->
-          <a class="modal-close" href="#producto-2" aria-label="Cerrar detalle">&times; Cerrar</a>
-          <div class="modal-content">
-            <!-- REEMPLAZAR POR LA IMAGEN REAL EN TAMANO GRANDE. -->
-            <img src="assets/img/producto-placeholder-2.jpg" alt="Mochila Urban Sport en vista grande">
-            <div class="modal-info">
-              <h2 id="titulo-detalle-2">Mochila Urban Sport</h2>
-              <p>Confecci&oacute;n deportiva c&oacute;moda, costuras reforzadas y personalizaci&oacute;n de nombre, n&uacute;mero y colores.</p>
-              <p><strong>Tallas:</strong> S, M, L y XL</p>
-              <p><strong>Colores:</strong> coral, azul, negro y blanco</p>
-              <p class="price">Bs. 145</p>
-              <!-- El numero lleva 591 por Bolivia. Cambia solo los digitos si cambia el WhatsApp. -->
-              <a class="btn-whatsapp" href="https://wa.me/59172478852?text=Hola%2C%20quiero%20reservar%20el%20producto%3A%20Mochila%20Urban%20Sport.%20Talla%3A%20__.%20Color%3A%20__.%20Cantidad%3A%20__.">Comprar / Reservar por WhatsApp</a>
-            </div>
-          </div>
-          <!-- Las flechas recorren los productos y vuelven al primero al terminar. -->
-          <nav class="modal-navigation" aria-label="Cambiar de producto">
-            <a href="#detalle-1" aria-label="Producto anterior">&lt;</a>
-            <a href="#detalle-3" aria-label="Producto siguiente">&gt;</a>
-          </nav>
-        </article>
-    </section>
-
-      <!-- DETALLE 3: aparece al abrir la ruta detalle-3. -->
-      <section id="detalle-3" class="product-modal" aria-labelledby="titulo-detalle-3">
-        <article class="modal-card">
-          <!-- Este enlace cierra la vista y regresa a la tarjeta original. -->
-          <a class="modal-close" href="#producto-3" aria-label="Cerrar detalle">&times; Cerrar</a>
-          <div class="modal-content">
-            <!-- REEMPLAZAR POR LA IMAGEN REAL EN TAMANO GRANDE. -->
-            <img src="assets/img/producto-placeholder-3.jpg" alt="Mochila Motion en vista grande">
-            <div class="modal-info">
-              <h2 id="titulo-detalle-3">Mochila Motion</h2>
-              <p>Confecci&oacute;n deportiva c&oacute;moda, costuras reforzadas y personalizaci&oacute;n de nombre, n&uacute;mero y colores.</p>
-              <p><strong>Tallas:</strong> S, M, L y XL</p>
-              <p><strong>Colores:</strong> coral, azul, negro y blanco</p>
-              <p class="price">Bs. 170</p>
-              <!-- El numero lleva 591 por Bolivia. Cambia solo los digitos si cambia el WhatsApp. -->
-              <a class="btn-whatsapp" href="https://wa.me/59172478852?text=Hola%2C%20quiero%20reservar%20el%20producto%3A%20Mochila%20Motion.%20Talla%3A%20__.%20Color%3A%20__.%20Cantidad%3A%20__.">Comprar / Reservar por WhatsApp</a>
-            </div>
-          </div>
-          <!-- Las flechas recorren los productos y vuelven al primero al terminar. -->
-          <nav class="modal-navigation" aria-label="Cambiar de producto">
-            <a href="#detalle-2" aria-label="Producto anterior">&lt;</a>
-            <a href="#detalle-4" aria-label="Producto siguiente">&gt;</a>
-          </nav>
-        </article>
-    </section>
-
-      <!-- DETALLE 4: aparece al abrir la ruta detalle-4. -->
-      <section id="detalle-4" class="product-modal" aria-labelledby="titulo-detalle-4">
-        <article class="modal-card">
-          <!-- Este enlace cierra la vista y regresa a la tarjeta original. -->
-          <a class="modal-close" href="#producto-4" aria-label="Cerrar detalle">&times; Cerrar</a>
-          <div class="modal-content">
-            <!-- REEMPLAZAR POR LA IMAGEN REAL EN TAMANO GRANDE. -->
-            <img src="assets/img/producto-placeholder-4.jpg" alt="Mochila Team Pro en vista grande">
-            <div class="modal-info">
-              <h2 id="titulo-detalle-4">Mochila Team Pro</h2>
-              <p>Confecci&oacute;n deportiva c&oacute;moda, costuras reforzadas y personalizaci&oacute;n de nombre, n&uacute;mero y colores.</p>
-              <p><strong>Tallas:</strong> S, M, L y XL</p>
-              <p><strong>Colores:</strong> coral, azul, negro y blanco</p>
-              <p class="price">Bs. 195</p>
-              <!-- El numero lleva 591 por Bolivia. Cambia solo los digitos si cambia el WhatsApp. -->
-              <a class="btn-whatsapp" href="https://wa.me/59172478852?text=Hola%2C%20quiero%20reservar%20el%20producto%3A%20Mochila%20Team%20Pro.%20Talla%3A%20__.%20Color%3A%20__.%20Cantidad%3A%20__.">Comprar / Reservar por WhatsApp</a>
-            </div>
-          </div>
-          <!-- Las flechas recorren los productos y vuelven al primero al terminar. -->
-          <nav class="modal-navigation" aria-label="Cambiar de producto">
-            <a href="#detalle-3" aria-label="Producto anterior">&lt;</a>
-            <a href="#detalle-1" aria-label="Producto siguiente">&gt;</a>
-          </nav>
-        </article>
-    </section>
-    </main>
+  </main>
 
     <!-- FOOTER GENERAL: repite la informacion basica al final. -->
     <!-- PIE DE PAGINA: muestra datos de la tienda, redes y derechos reservados. -->

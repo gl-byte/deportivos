@@ -212,10 +212,13 @@
         transition: all .2s ease-in-out
       }
 
-      .card>img {
+      /* Muestra el producto entero; el espacio blanco mantiene parejas las tarjetas. */
+      .card > img {
         width: 100%;
-        aspect-ratio: 4/3;
-        object-fit: cover
+        aspect-ratio: 4 / 5;
+        object-fit: contain;
+        padding: .75rem;
+        background: var(--surface);
       }
       /* Etiqueta de descuento: muestra cuanto se rebaja el producto. */
       .badge {
@@ -549,18 +552,20 @@
       <!-- TARJETA DE OFERTA: repite esta estructura para nuevas promociones. -->
       <article class="card">
         <span class="badge">-20%</span>
-        <img src="assets/img/producto-placeholder-1.jpg" alt="Oferta uniforme Titán">
+        <!-- La fotografia coincide con el nombre de esta oferta. -->
+        <img src="assets/img/combo-uniforme-titan.jpeg" alt="Oferta uniforme Titán" loading="lazy" decoding="async">
         <div class="body">
           <h2>Combo Uniforme Titán</h2>
           <p class="old">Antes: Bs. 180</p>
           <p class="new">Ahora: Bs. 144</p>
-          <!-- BOTÓN DE WHATSAPP - REEMPLAZAR POR NÚMERO REAL -->
+          <!-- Este boton abre la reserva de la oferta en el WhatsApp de la tienda. -->
           <a class="btn" href="https://wa.me/59172478852?text=Hola%2C%20quiero%20reservar%20la%20oferta%3A%20Combo%20Uniforme%20Tit%C3%A1n.%20Cantidad%3A%20__.%20Talla%3A%20__.%20Color%3A%20__.">Reservar por WhatsApp</a>
         </div>
       </article>
       <article class="card">
         <span class="badge">-15%</span>
-        <img src="assets/img/producto-placeholder-2.jpg" alt="Oferta conjunto Aurora">
+        <!-- La fotografia coincide con el nombre de esta oferta. -->
+        <img src="assets/img/conjunto-aurora.jpeg" alt="Oferta conjunto Aurora" loading="lazy" decoding="async">
         <div class="body">
           <h2>Conjunto Aurora</h2>
           <p class="old">Antes: Bs. 200</p>
@@ -570,7 +575,8 @@
       </article>
       <article class="card">
         <span class="badge">-25%</span>
-        <img src="assets/img/producto-placeholder-3.jpg" alt="Oferta polera Fénix">
+        <!-- La fotografia coincide con el nombre de esta oferta. -->
+        <img src="assets/img/Pack-polera-fenix.jpeg" alt="Oferta polera Fénix" loading="lazy" decoding="async">
         <div class="body">
           <h2>Pack Polera Fénix</h2>
           <p class="old">Antes: Bs. 160</p>
@@ -580,7 +586,8 @@
       </article>
       <article class="card">
         <span class="badge">-18%</span>
-        <img src="assets/img/producto-placeholder-4.jpg" alt="Oferta mochila Team Pro">
+        <!-- La fotografia coincide con el nombre de esta oferta. -->
+        <img src="assets/img/mochila-team-pro.jpeg" alt="Oferta mochila Team Pro" loading="lazy" decoding="async">
         <div class="body">
           <h2>Mochila Team Pro</h2>
           <p class="old">Antes: Bs. 150</p>
